@@ -3,10 +3,6 @@
  */
 package com.uned.optimizadorga.algoritmo.selectores;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
