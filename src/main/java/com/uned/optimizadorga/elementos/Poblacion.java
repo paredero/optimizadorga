@@ -81,6 +81,11 @@ public class Poblacion {
 		return mejorCromosoma;
 	}
 
+	public Cromosoma obtenerPeor() {
+		Cromosoma peorCromosoma = Collections.min(cromosomas,
+				new ComparadorMejorCoste());
+		return peorCromosoma;
+	}
 
 	/**
 	 * Añade el mejor individuo a la posicion max + 1
@@ -89,4 +94,7 @@ public class Poblacion {
 	public void addMejor(Cromosoma mejorIndividuo) {
 		cromosomas.add(mejorIndividuo);
 	}
+
+
+
 }

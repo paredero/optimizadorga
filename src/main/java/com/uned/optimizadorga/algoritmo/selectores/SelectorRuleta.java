@@ -44,6 +44,8 @@ public class SelectorRuleta implements Selector {
 	}
 
 	/**
+	 * Realiza un giro de la ruleta y añade el elemento de poblacion seleccionado
+	 * a poblacionSeleccionados
 	 * @param poblacion
 	 * @param poblacionSeleccionados
 	 * @param probabilidadesAcumuladas
