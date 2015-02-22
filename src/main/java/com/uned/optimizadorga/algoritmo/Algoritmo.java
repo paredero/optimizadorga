@@ -44,7 +44,8 @@ public class Algoritmo {
 	
 	public Cromosoma obtenerMejor() {
 		Cromosoma mejorIndividuo = poblacion.obtenerMejor();
-		return (Cromosoma) mejorIndividuo.clone();		
+		// TODO Repasar el uso del metodo clone
+		return mejorIndividuo.clone();		
 	}
 
 	public void ejecutarBucle() {

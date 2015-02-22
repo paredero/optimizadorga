@@ -1,7 +1,7 @@
 /**
  * 
  */
-package optimizadorga;
+package optimizadorga.test;
 
 import static org.junit.Assert.assertTrue;
 

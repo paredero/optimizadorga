@@ -18,7 +18,7 @@ public class Cromosoma {
 
 	public static Cromosoma generarCromosomaAleatorio(List<Gen> genesParametro) {
 		Cromosoma cromosoma = new Cromosoma();
-		for (Gen genParametro:genesParametro) {
+		for (Gen genParametro : genesParametro) {
 			Gen genResultado = new Gen(genParametro.getNombre(),
 					genParametro.getMaximo(), genParametro.getMinimo(),
 					genParametro.getPrecision());
@@ -27,6 +27,7 @@ public class Cromosoma {
 		}
 		return cromosoma;
 	}
+
 	/**
 	 * @return the genes
 	 */
@@ -35,13 +36,12 @@ public class Cromosoma {
 	}
 
 	/**
-	 * @param genes the genes to set
+	 * @param genes
+	 *            the genes to set
 	 */
 	public void setGenes(List<Gen> genes) {
 		this.genes = genes;
 	}
-	
-	
 
 	/**
 	 * @return the coste
@@ -49,30 +49,47 @@ public class Cromosoma {
 	public double getCoste() {
 		return coste;
 	}
+
 	/**
-	 * @param coste the coste to set
+	 * @param coste
+	 *            the coste to set
 	 */
 	public void setCoste(double coste) {
 		this.coste = coste;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "\n\t Cromosoma [coste=" + coste + ", \n\t genes=" + genes + "]";
 	}
+
 	public Cromosoma() {
 		super();
 		this.genes = new ArrayList<Gen>();
 	}
-	
+
+	// TODO A sustituir
 	public void calcularCoste(Expression funcionCoste) {
-		for (Gen gen:genes) {
+		System.out
+				.println("WARNING Metodo Cromosoma.calcularCoste feo, sustituir por el que recibe una Funcion");
+		for (Gen gen : genes) {
 			funcionCoste.setVariable(gen.getNombre(), gen.getValor());
 		}
 		funcionCoste.setVariable("pi", Math.PI);
 		this.coste = funcionCoste.evaluate();
 	}
 
+	public void calcularCoste(Funcion funcionCoste) {
+		this.coste = funcionCoste.evaluate(genes);
+	}
+
+	// TODO Repasar el uso del metodo clone
+	public Cromosoma clone() {
+		return (Cromosoma) this.clone();
+	}
 }

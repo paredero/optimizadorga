@@ -1,17 +1,22 @@
 /**
  * 
  */
-package optimizadorga;
+package optimizadorga.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import optimizadorga.util.CreadorObjetos;
+
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.uned.optimizadorga.elementos.Cromosoma;
+import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 
 /**
@@ -19,6 +24,7 @@ import com.uned.optimizadorga.elementos.Gen;
  *
  */
 public class CromosomaTest {
+	private static final Logger log = Logger.getLogger(CromosomaTest.class);
 
 	/**
 	 * @throws java.lang.Exception
@@ -64,4 +70,24 @@ public class CromosomaTest {
 		System.out.println(c);
 	}
 
+	@Test
+	public void testCalcularCoste() {
+		Gen parametro1 = CreadorObjetos.crearGenConValor("x",0, 100, 3, 1);
+		Gen parametro2 = CreadorObjetos.crearGenConValor("y",100, 200, 3, 2);
+		Gen parametro3 = CreadorObjetos.crearGenConValor("z",200, 300, 3, 3);
+		
+		List<Gen> genesParametro = new ArrayList<Gen>();
+		genesParametro.add(parametro1);
+		genesParametro.add(parametro2);
+		genesParametro.add(parametro3);
+		Cromosoma cromosoma = CreadorObjetos.crearCromosomaConGenesInicializados(genesParametro);
+		
+		String expresion = "x+2y+3z";
+		Funcion funcion = new Funcion(expresion);
+		
+		cromosoma.calcularCoste(funcion);
+		
+		assertTrue("Valor de coste raro", cromosoma.getCoste() == 14);
+		log.debug(cromosoma);
+	}
 }
