@@ -3,15 +3,18 @@
  */
 package optimizadorga.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import optimizadorga.util.CreadorObjetos;
+
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
@@ -21,6 +24,8 @@ import com.uned.optimizadorga.elementos.Poblacion;
  */
 public class PoblacionTest {
 
+	private static final Logger log = Logger.getLogger(PoblacionTest.class);
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -48,7 +53,28 @@ public class PoblacionTest {
 				p.getTamanio() == 5);
 		assertNotNull("La lista de cromosomas no se ha creado", p.getCromosomas());	
 		
-		System.out.println(p);
+		log.debug(p);
+	}
+	
+	
+	@Test 
+	public void testCalcularCostesPoblacion() {
+		Poblacion p = CreadorObjetos.crearPoblacionInicializada();
+		log.debug("Poblacion antes de calcular" + p);
+		p.calcularCostesPoblacion();
+		log.debug("Poblacion despues de calcular" + p);
+	}
+	
+	@Test 
+	public void testObtenerMejorPeor() {
+		Poblacion p = CreadorObjetos.crearPoblacionInicializada();
+		log.debug("Poblacion antes de calcular" + p);
+		p.calcularCostesPoblacion();
+		log.debug("Poblacion despues de calcular" + p);
+		log.debug("******************MEJOR ELEMENTO******");
+		log.debug(p.obtenerMejor());
+		log.debug("******************PEOR ELEMENTO******");
+		log.debug(p.obtenerPeor());
 	}
 
 }

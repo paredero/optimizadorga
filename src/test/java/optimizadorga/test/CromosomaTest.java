@@ -67,7 +67,7 @@ public class CromosomaTest {
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
 				.getGenes().get(2).getValor() >= 200);
 		
-		System.out.println(c);
+		log.debug(c);
 	}
 
 	@Test

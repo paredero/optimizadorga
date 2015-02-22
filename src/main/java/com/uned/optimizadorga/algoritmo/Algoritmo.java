@@ -6,22 +6,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
+import optimizadorga.test.AlgoritmoTest;
+
+import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.elementos.Cromosoma;
+import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
 public class Algoritmo {
+	private static final Logger log = Logger.getLogger(Algoritmo.class);
 //	private List<Cromosoma> cromosomas;
 	private List<Gen> genes;
 	private Poblacion poblacion;
 	private int tamanioPoblacion;
 	private double probabilidadCruce;
 	private double probabilidadMutacion;
-	private String funcion;
+	private Funcion funcion;
 	private Selector selector;
 	int maxGens;
 	private Cromosoma mejorGeneracion;
@@ -32,20 +35,15 @@ public class Algoritmo {
 	}
 	
 	public void evaluar() {
-		ExpressionBuilder eb = new ExpressionBuilder(funcion);
-		eb.variables("pi");
-		for (Gen variables:genes) {
-			eb.variables(variables.getNombre());
-		}
-		Expression e = eb.build();
-		this.poblacion.setFuncionCoste(e);
+		this.poblacion.setFuncionCoste(funcion);
 		this.poblacion.calcularCostesPoblacion();
 	}
 	
 	public Cromosoma obtenerMejor() {
 		Cromosoma mejorIndividuo = poblacion.obtenerMejor();
 		// TODO Repasar el uso del metodo clone
-		return mejorIndividuo.clone();		
+//		return mejorIndividuo.clone();		
+		return mejorIndividuo;
 	}
 
 	public void ejecutarBucle() {
@@ -71,6 +69,9 @@ public class Algoritmo {
 	}
 
 	private void operadorMutacion(Poblacion poblacion) {
+		if (probabilidadCruce == 0.0) {
+			log.warn("Probabilidad de Mutacion = 0 Posiblemente no inicializado");
+		}
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			for (Gen g:c.getGenes()) {
 				double random = Math.random();
@@ -82,6 +83,9 @@ public class Algoritmo {
 	}
 
 	private void operadorCruce(Poblacion poblacion) {
+		if (probabilidadCruce == 0.0) {
+			log.warn("Probabilidad de cruce = 0 Posiblemente no inicializado");
+		}
 		List<Cromosoma> cromosomasSeleccionados = new ArrayList<Cromosoma>();
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			double random = Math.random();
@@ -162,14 +166,14 @@ public class Algoritmo {
 		this.poblacion = poblacion;
 	}
 
-	public void setFuncion(String funcion) {
+	public void setFuncion(Funcion funcion) {
 		this.funcion = funcion;
 	}
 
 	/**
 	 * @return the funcion
 	 */
-	public String getFuncion() {
+	public Funcion getFuncion() {
 		return funcion;
 	}
 

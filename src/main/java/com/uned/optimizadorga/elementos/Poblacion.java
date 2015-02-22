@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.objecthunter.exp4j.Expression;
-
 public class Poblacion {
 	private List<Cromosoma> cromosomas;
 	private int tamanio;
-	private Expression funcionCoste;
+	private Funcion funcionCoste;
 	
 	public static Poblacion generarPoblacionInicializada(
 			int tamanioPoblacion, List<Gen> genes) {
@@ -23,7 +21,16 @@ public class Poblacion {
 		return poblacion;
 	}
 	
-	
+
+	public Poblacion(Poblacion poblacionInicial) {
+		this();
+		this.funcionCoste = poblacionInicial.getFuncionCoste();
+		this.tamanio = poblacionInicial.getTamanio();
+	} 
+	public static Poblacion copiar(Poblacion poblacionInicial) {
+		
+		return null;
+	}	
 	public Poblacion() {
 		super();
 		this.cromosomas = new ArrayList<Cromosoma>();
@@ -59,14 +66,24 @@ public class Poblacion {
 	 */
 	@Override
 	public String toString() {
-		return "Poblacion [cromosomas=" + cromosomas + ", tamanio=" + tamanio
+		return "Poblacion [cromosomas=" + cromosomas + ", \n\t\ttamanio=" + tamanio
 				+ "]";
 	}
 
 
-	public void setFuncionCoste(Expression expresion) {
+	public void setFuncionCoste(Funcion expresion) {
 		this.funcionCoste = expresion;
 	}
+	
+	
+
+	/**
+	 * @return the funcionCoste
+	 */
+	public Funcion getFuncionCoste() {
+		return funcionCoste;
+	}
+
 
 	public void calcularCostesPoblacion() {
 		for(Cromosoma individuo:this.getCromosomas()) {
@@ -94,6 +111,8 @@ public class Poblacion {
 	public void addMejor(Cromosoma mejorIndividuo) {
 		cromosomas.add(mejorIndividuo);
 	}
+
+
 
 
 

@@ -134,7 +134,7 @@ public class Gen {
 	 */
 	@Override
 	public String toString() {
-		return "\n\t Gen [" + nombre + ", val=" + valor + "]";
+		return "Gen [" + nombre + ", val=" + valor + "]";
 	}
 
 
