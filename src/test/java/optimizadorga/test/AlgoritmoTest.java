@@ -25,6 +25,8 @@ public class AlgoritmoTest {
 //		String funcionCaso1 = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 //		Funcion funcion = new Funcion(funcionCaso1);
 		algoritmo = CreadorObjetos.crearAlgoritmoInicializado();
+		algoritmo.setProbabilidadCruce(0.5);
+		algoritmo.setProbabilidadMutacion(0.5);
 		log.debug(algoritmo.getPoblacion());
 	}
 
@@ -51,6 +53,8 @@ public class AlgoritmoTest {
 		algoritmo.evaluar();
 		algoritmo.obtenerMejor();
 		algoritmo.ejecutarBucle();
+		log.debug(algoritmo.getPoblacion());
+		log.debug(algoritmo.obtenerMejor());
 	}
 
 }

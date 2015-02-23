@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import optimizadorga.test.AlgoritmoTest;
-
 import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
@@ -35,21 +33,26 @@ public class Algoritmo {
 	}
 	
 	public void evaluar() {
-		this.poblacion.setFuncionCoste(funcion);
+		log.debug("Se evalua la poblacion " + this.poblacion);
+		this.poblacion.setFuncionCoste(this.funcion);
 		this.poblacion.calcularCostesPoblacion();
+		log.debug("Nuevo coste " + this.poblacion);
 	}
 	
 	public Cromosoma obtenerMejor() {
-		Cromosoma mejorIndividuo = poblacion.obtenerMejor();
-		// TODO Repasar el uso del metodo clone
-//		return mejorIndividuo.clone();		
-		return mejorIndividuo;
+		Cromosoma mejorIndividuo = poblacion.obtenerMejor();	
+		return new Cromosoma(mejorIndividuo);
 	}
 
 	public void ejecutarBucle() {
-		for (int i = 0; i <= maxGens; i++) {
+		for (int i = 0; i < maxGens; i++) {
+			log.debug("******************************************** ");
+			log.debug("Generacion numero: " + (i+1));
 			mejorGeneracion = this.obtenerMejor();
+			log.debug("Poblacion inicial: " + this.poblacion);
+			log.debug("El mejor individuo: " + this.mejorGeneracion);
 			Poblacion nuevaPoblacion = selector.seleccionar(poblacion);
+			log.debug("Poblacion seleccionada " + nuevaPoblacion);
 			operadorCruce(nuevaPoblacion);
 //			nuevaPoblacion.addMejor(mejorGeneracion);
 			operadorMutacion(nuevaPoblacion);
@@ -60,25 +63,32 @@ public class Algoritmo {
 	
 	private void operadorElitismo(Poblacion nuevaPoblacion) {
 		Cromosoma nuevoMejor = poblacion.obtenerMejor();
+		log.debug("El mejor de la nueva generacion " + nuevoMejor);
 		Cromosoma peor = poblacion.obtenerPeor();
+		log.debug("El peor de la nueva Generacion" + peor);
 		if (nuevoMejor.getCoste() >= mejorGeneracion.getCoste()) {
+			log.debug("El nuevo mejor MEJORA");
 			mejorGeneracion = nuevoMejor;
 		} else {
+			log.debug("Sustituye el mejor anterior por el peor");
 			Collections.replaceAll(nuevaPoblacion.getCromosomas(), peor, mejorGeneracion);
 		}
 	}
 
 	private void operadorMutacion(Poblacion poblacion) {
-		if (probabilidadCruce == 0.0) {
+		if (probabilidadMutacion == 0.0) {
 			log.warn("Probabilidad de Mutacion = 0 Posiblemente no inicializado");
 		}
+		log.debug("Operador mutacion con probabilidad " + probabilidadMutacion);
 		for (Cromosoma c:poblacion.getCromosomas()) {
+			log.debug("El cromosoma ANTES DE MUTAR" + c);
 			for (Gen g:c.getGenes()) {
 				double random = Math.random();
 				if (random < probabilidadMutacion) {
 					g.generarValorAleatorio();
 				}
 			}
+			log.debug("El cromosoma DESPUES DE MUTAR" + c);
 		}
 	}
 
@@ -86,6 +96,7 @@ public class Algoritmo {
 		if (probabilidadCruce == 0.0) {
 			log.warn("Probabilidad de cruce = 0 Posiblemente no inicializado");
 		}
+		log.debug("Ejecuta operador de cruce con probabilidad " + probabilidadCruce);
 		List<Cromosoma> cromosomasSeleccionados = new ArrayList<Cromosoma>();
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			double random = Math.random();
@@ -93,12 +104,13 @@ public class Algoritmo {
 				cromosomasSeleccionados.add(c);
 			}
 		}
+		log.debug("Cromosomas seleccionados para el cruce: " + cromosomasSeleccionados);
 		int i = 0;
 		Iterator<Cromosoma> itCromosomas = cromosomasSeleccionados.iterator();
 		Cromosoma cPar = null;
 		while (itCromosomas.hasNext()) {
 			Cromosoma cImpar = itCromosomas.next();
-			if (i%0==0) {
+			if (i%2==0) {
 //				Si es par
 				cPar = cImpar;
 			} else {
@@ -106,22 +118,30 @@ public class Algoritmo {
 			}
 			i++;
 		}
+		log.debug("Poblacion tras el cruce " + poblacion);
 	}
 	
 
 	private void cruzar(Cromosoma cPar, Cromosoma cImpar) {
+		log.debug("Cruce entre el cromosoma " + cPar + " y el cromosoma " + cImpar);
 		Random random = new Random();
 		int max = cPar.getGenes().size();
-		int posCruce = random.nextInt((max) + 1);
-		int i = 0;
+		int posCruce = random.nextInt(max);
+		log.debug("A partir de la posicion " + posCruce);
+		int i = posCruce;
 		
-		while (i <= posCruce) {
+		while (i < max) {
 			Gen genPar = cPar.getGenes().get(i);
-			Gen genImpar = cPar.getGenes().get(i);
+			Gen genImpar = cImpar.getGenes().get(i);
+			log.debug("En " + cPar.hashCode() + " sustituye " + genPar + "Por " + genImpar); 
 			Collections.replaceAll(cPar.getGenes(), genPar, genImpar);
+			log.debug(cPar);
 			Collections.replaceAll(cImpar.getGenes(), genImpar, genPar);
+			log.debug("En " + cImpar.hashCode() + " sustituye " + genImpar + "Por " + genPar);
+			log.debug(cImpar);
+			i++;
 		}
-		
+		log.debug("Resultado del cruce " + cPar + " \n\t\t\t " + cImpar);
 	}
 
 	/**
@@ -206,18 +226,33 @@ public class Algoritmo {
 		this.selector = selector;
 	}
 
+
 	/**
-	 * @return the probCruce
+	 * @return the probabilidadCruce
 	 */
-	public double getProbCruce() {
+	public double getProbabilidadCruce() {
 		return probabilidadCruce;
 	}
 
 	/**
-	 * @param probCruce the probCruce to set
+	 * @param probabilidadCruce the probabilidadCruce to set
 	 */
-	public void setProbCruce(double probCruce) {
-		this.probabilidadCruce = probCruce;
+	public void setProbabilidadCruce(double probabilidadCruce) {
+		this.probabilidadCruce = probabilidadCruce;
+	}
+
+	/**
+	 * @return the probabilidadMutacion
+	 */
+	public double getProbabilidadMutacion() {
+		return probabilidadMutacion;
+	}
+
+	/**
+	 * @param probabilidadMutacion the probabilidadMutacion to set
+	 */
+	public void setProbabilidadMutacion(double probabilidadMutacion) {
+		this.probabilidadMutacion = probabilidadMutacion;
 	}
 
 	

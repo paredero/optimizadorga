@@ -28,6 +28,14 @@ public class Cromosoma {
 		return cromosoma;
 	}
 
+	public Cromosoma(Cromosoma cromosomaOrigen) {
+		super();
+		this.coste = cromosomaOrigen.getCoste();
+		genes = new ArrayList<Gen>();
+		for (Gen g:cromosomaOrigen.getGenes()) {
+			genes.add(new Gen(g));
+		}
+	}
 	/**
 	 * @return the genes
 	 */
@@ -65,7 +73,7 @@ public class Cromosoma {
 	 */
 	@Override
 	public String toString() {
-		return "\n\t Cromosoma "+this.hashCode() +" [coste=" + coste + ", \n\t\t genes=" + genes + "]";
+		return this.hashCode() +" [coste=" + coste + ", genes=" + genes + "] \n";
 	}
 
 	public Cromosoma() {
@@ -88,8 +96,4 @@ public class Cromosoma {
 		this.coste = funcionCoste.evaluate(genes);
 	}
 
-	// TODO Repasar el uso del metodo clone
-	public Cromosoma clone() {
-		return (Cromosoma) this.clone();
-	}
 }

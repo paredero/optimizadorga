@@ -27,6 +27,15 @@ public class Gen {
 		this.precision = precision;
 	}
 	
+	public Gen(Gen g) {
+		super();
+		this.nombre = g.getNombre();
+		this.valor = g.getValor();
+		this.maximo = g.getMaximo();
+		this.minimo = g.getMinimo();
+		this.precision = g.getPrecision();
+	}
+
 	/**
 	 * Inicializa el campo valor con un numero real aleatorio comprendido entre
 	 * el máximo y el mínimo con la precision que se ha pasado
@@ -134,7 +143,7 @@ public class Gen {
 	 */
 	@Override
 	public String toString() {
-		return "Gen [" + nombre + ", val=" + valor + "]";
+		return "[" + nombre + ", " + valor + "]";
 	}
 
 

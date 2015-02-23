@@ -27,10 +27,7 @@ public class Poblacion {
 		this.funcionCoste = poblacionInicial.getFuncionCoste();
 		this.tamanio = poblacionInicial.getTamanio();
 	} 
-	public static Poblacion copiar(Poblacion poblacionInicial) {
-		
-		return null;
-	}	
+	
 	public Poblacion() {
 		super();
 		this.cromosomas = new ArrayList<Cromosoma>();
@@ -111,9 +108,5 @@ public class Poblacion {
 	public void addMejor(Cromosoma mejorIndividuo) {
 		cromosomas.add(mejorIndividuo);
 	}
-
-
-
-
 
 }
