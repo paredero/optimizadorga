@@ -14,7 +14,7 @@ import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
-public class Algoritmo {
+public class Algoritmo implements Runnable {
 	private static final Logger log = Logger.getLogger(Algoritmo.class);
 //	private List<Cromosoma> cromosomas;
 	private List<Gen> genes;
@@ -25,8 +25,8 @@ public class Algoritmo {
 	private Funcion funcion;
 	private Selector selector;
 	int maxGens;
+	int generacionActual;
 	private Cromosoma mejorGeneracion;
-	
 	
 	public void inicializarPoblacion() {
 		this.poblacion = Poblacion.generarPoblacionInicializada(tamanioPoblacion, genes);
@@ -45,13 +45,13 @@ public class Algoritmo {
 	}
 
 	public void ejecutarBucle() {
-		for (int i = 0; i < maxGens; i++) {
-			log.debug("******************************************** ");
-			log.debug("Generacion numero: " + (i+1));
+		while (!Thread.currentThread().isInterrupted() && generacionActual < maxGens) {
+			generacionActual++;
+			log.debug("******************************************** Generacion numero: " + (generacionActual));
 			mejorGeneracion = this.obtenerMejor();
 			log.debug("Poblacion inicial: " + this.poblacion);
 			log.debug("El mejor individuo: " + this.mejorGeneracion);
-			Poblacion nuevaPoblacion = selector.seleccionar(poblacion);
+			Poblacion nuevaPoblacion = this.seleccionar();
 			log.debug("Poblacion seleccionada " + nuevaPoblacion);
 			operadorCruce(nuevaPoblacion);
 //			nuevaPoblacion.addMejor(mejorGeneracion);
@@ -61,6 +61,11 @@ public class Algoritmo {
 		}
 	}
 	
+	private Poblacion seleccionar() {
+		Poblacion resultado = selector.seleccionar(poblacion);
+		return resultado;
+	}
+
 	private void operadorElitismo(Poblacion nuevaPoblacion) {
 		Cromosoma nuevoMejor = poblacion.obtenerMejor();
 		log.debug("El mejor de la nueva generacion " + nuevoMejor);
@@ -84,7 +89,9 @@ public class Algoritmo {
 			log.debug("El cromosoma ANTES DE MUTAR" + c);
 			for (Gen g:c.getGenes()) {
 				double random = Math.random();
+				log.debug("Ruletaa " + random);
 				if (random < probabilidadMutacion) {
+					log.debug("TOCÓ para " + g.getNombre());
 					g.generarValorAleatorio();
 				}
 			}
@@ -96,12 +103,14 @@ public class Algoritmo {
 		if (probabilidadCruce == 0.0) {
 			log.warn("Probabilidad de cruce = 0 Posiblemente no inicializado");
 		}
-		log.debug("Ejecuta operador de cruce con probabilidad " + probabilidadCruce);
+		log.debug("Ejecuta operador de cruce PC " + probabilidadCruce);
 		List<Cromosoma> cromosomasSeleccionados = new ArrayList<Cromosoma>();
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			double random = Math.random();
+			log.debug("Gira la ruleta......"+random);
 			if (random < probabilidadCruce) {
 				cromosomasSeleccionados.add(c);
+				log.debug(".......TOCO!  " + c);
 			}
 		}
 		log.debug("Cromosomas seleccionados para el cruce: " + cromosomasSeleccionados);
@@ -141,7 +150,7 @@ public class Algoritmo {
 			log.debug(cImpar);
 			i++;
 		}
-		log.debug("Resultado del cruce " + cPar + " \n\t\t\t " + cImpar);
+		log.debug("Resultado del cruce " + cPar + cImpar);
 	}
 
 	/**
@@ -253,6 +262,36 @@ public class Algoritmo {
 	 */
 	public void setProbabilidadMutacion(double probabilidadMutacion) {
 		this.probabilidadMutacion = probabilidadMutacion;
+	}
+
+	
+	/**
+	 * @return the generacionActual
+	 */
+	public int getGeneracionActual() {
+		return generacionActual;
+	}
+
+	public void run() {
+		long startTime = System.currentTimeMillis();
+		log.debug("***********************************Comienzo de la ejecucion ");
+		if (!Thread.currentThread().isInterrupted()) {
+			this.inicializarPoblacion();
+		}
+		if (!Thread.currentThread().isInterrupted()) {
+			this.evaluar();
+		}
+		if (!Thread.currentThread().isInterrupted()) {
+			this.obtenerMejor();
+		}
+		if (!Thread.currentThread().isInterrupted()) {
+			this.ejecutarBucle();
+		}
+		long endTime = System.currentTimeMillis();
+		long totalTime = (endTime - startTime)/1000;
+		log.debug("***********************************FIN de la ejecucion "
+				+ totalTime + " segundos");
+		
 	}
 
 	
