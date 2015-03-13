@@ -23,8 +23,11 @@ public class SelectorRuleta implements Selector {
 	 * com.uned.optimizadorga.algoritmo.selectores.Selector#evaluar(com.uned
 	 * .optimizadorga.elementos.Poblacion)
 	 */
+	@Override
 	public Poblacion seleccionar(Poblacion poblacionInicial) {
-		Poblacion poblacionSeleccionados = new Poblacion(poblacionInicial);
+		// Aplica el operador de selección mediante el método de la ruleta
+		Poblacion poblacionSeleccionados = Poblacion.copiarPoblacionVacia(poblacionInicial);
+		
 
 		// 1.- Calcula la suma total de los valores de la funcion de coste para
 		// todos los cromosomas de la población

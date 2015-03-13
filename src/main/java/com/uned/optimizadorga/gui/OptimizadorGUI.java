@@ -2,7 +2,6 @@ package com.uned.optimizadorga.gui;
 
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,26 +10,22 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
-import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
+import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
-
-import javax.swing.JProgressBar;
-import javax.swing.JLayeredPane;
-import javax.swing.JTextPane;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -51,6 +46,7 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					OptimizadorGUI frame = new OptimizadorGUI();
@@ -161,26 +157,28 @@ public class OptimizadorGUI extends JFrame {
 		
 		JButton btnEjecutar = new JButton("Ejecutar");
 		btnEjecutar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
-				Algoritmo algoritmo = new Algoritmo();
-				algoritmo.setProbabilidadCruce((Double)spProbCruce.getValue());
-				algoritmo.setProbabilidadMutacion((Double)spProbMutacion.getValue());
-				algoritmo.setTamanioPoblacion((Integer) spTamPoblacion.getValue());
-				algoritmo.setMaxGens((Integer)spNumGen.getValue());
 				
+				List<Gen> parametros = new ArrayList<Gen>();
 				Gen x1 = new Gen("x1",-3.0, 12.1, 1);
 				Gen x2 = new Gen("x2",4.1, 5.8, 1);
-				List<Gen> genes = new ArrayList<Gen>();
-				genes.add(x1);
-				genes.add(x2);
-				algoritmo.setGenes(genes);
+				parametros.add(x1);
+				parametros.add(x2);
 				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-				algoritmo.setFuncion(new Funcion(expresion));
-				algoritmo.setSelector(new SelectorRuleta());
-				AlgoritmoWorker worker = new AlgoritmoWorker();
-				worker.setAlgoritmo(algoritmo);
-				worker.setProgressDialog(progressDialog);
+				Funcion funcionCoste = new Funcion(expresion);
+				Configuracion configuracion = Configuracion
+						.crearConfiguracionBasica(
+								(Integer) spNumEras.getValue(),
+								(Integer) spNumGen.getValue(), funcionCoste,
+								parametros,
+								(Integer) spTamPoblacion.getValue(),
+								(Double) spProbCruce.getValue(),
+								(Double) spProbMutacion.getValue());
+				
+				Algoritmo algoritmo = new Algoritmo(configuracion);
+				AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo, progressDialog);
 				worker.execute();
 				progressDialog.setAlgoritmoWorker(worker);
 				progressDialog.setVisible(true);

@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
+
 public class Poblacion {
 	private List<Cromosoma> cromosomas;
 	private int tamanio;
 	private Funcion funcionCoste;
 
 	public static Poblacion generarPoblacionInicializada(int tamanioPoblacion,
-			List<Gen> genes) {
+			List<Gen> parametros) {
 		Poblacion poblacion = new Poblacion();
 		poblacion.setTamanio(tamanioPoblacion);
 
 		for (int i = 0; i < tamanioPoblacion; i++) {
 			poblacion.getCromosomas().add(
-					Cromosoma.generarCromosomaAleatorio(genes));
+					Cromosoma.generarCromosomaAleatorio(parametros));
 		}
 
 		return poblacion;
@@ -26,6 +28,10 @@ public class Poblacion {
 		this();
 		this.funcionCoste = poblacionInicial.getFuncionCoste();
 		this.tamanio = poblacionInicial.getTamanio();
+		this.cromosomas = new ArrayList<Cromosoma>();
+		for (Cromosoma c:poblacionInicial.getCromosomas()) {
+			this.cromosomas.add(new Cromosoma(c));
+		}
 	}
 
 	public Poblacion() {
@@ -111,5 +117,21 @@ public class Poblacion {
 	public void addMejor(Cromosoma mejorIndividuo) {
 		cromosomas.add(mejorIndividuo);
 	}
+
+	
+	/**
+	 * Crea una poblacion sin cromosomas
+	 * copia la funcion de coste y el tamaño
+	 * @param poblacionInicial
+	 * @return
+	 */
+	public static Poblacion copiarPoblacionVacia(Poblacion poblacion) {
+		Poblacion copia = new Poblacion();
+		copia.setFuncionCoste(poblacion.getFuncionCoste());
+		copia.setTamanio(poblacion.getTamanio());
+		return copia;
+	}
+
+	
 
 }

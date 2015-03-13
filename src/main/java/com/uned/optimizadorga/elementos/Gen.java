@@ -19,7 +19,7 @@ public class Gen {
 	private int precision;
 	
 	
-	public Gen(String nombre, double maximo, double minimo, int precision) {
+	public Gen(String nombre,double minimo, double maximo, int precision) {
 		super();
 		this.nombre = nombre;
 		this.maximo = maximo;

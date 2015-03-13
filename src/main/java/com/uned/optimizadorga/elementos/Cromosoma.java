@@ -6,8 +6,6 @@ package com.uned.optimizadorga.elementos;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.objecthunter.exp4j.Expression;
-
 /**
  * @author fpb
  *
@@ -16,11 +14,11 @@ public class Cromosoma {
 	private double coste;
 	private List<Gen> genes;
 
-	public static Cromosoma generarCromosomaAleatorio(List<Gen> genesParametro) {
+	public static Cromosoma generarCromosomaAleatorio(List<Gen> parametros) {
 		Cromosoma cromosoma = new Cromosoma();
-		for (Gen genParametro : genesParametro) {
+		for (Gen genParametro : parametros) {
 			Gen genResultado = new Gen(genParametro.getNombre(),
-					genParametro.getMaximo(), genParametro.getMinimo(),
+					genParametro.getMinimo(),genParametro.getMaximo(),
 					genParametro.getPrecision());
 			genResultado.generarValorAleatorio();
 			cromosoma.getGenes().add(genResultado);
@@ -79,17 +77,6 @@ public class Cromosoma {
 	public Cromosoma() {
 		super();
 		this.genes = new ArrayList<Gen>();
-	}
-
-	// TODO A sustituir
-	public void calcularCoste(Expression funcionCoste) {
-		System.out
-				.println("WARNING Metodo Cromosoma.calcularCoste feo, sustituir por el que recibe una Funcion");
-		for (Gen gen : genes) {
-			funcionCoste.setVariable(gen.getNombre(), gen.getValor());
-		}
-		funcionCoste.setVariable("pi", Math.PI);
-		this.coste = funcionCoste.evaluate();
 	}
 
 	public void calcularCoste(Funcion funcionCoste) {
