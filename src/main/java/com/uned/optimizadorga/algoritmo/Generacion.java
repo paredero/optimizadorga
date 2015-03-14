@@ -15,12 +15,12 @@ import com.uned.optimizadorga.elementos.Poblacion;
 
 public class Generacion {
 	private static final Logger log = Logger.getLogger(Generacion.class);
-	private Poblacion poblacionInical;
+	private Poblacion poblacionInicial;
 	private Poblacion nuevaPoblacion;
 	private Configuracion configuracion;
 
 	public Generacion(Poblacion poblacion, Configuracion configuracion) {
-		this.poblacionInical = new Poblacion(poblacion);
+		this.poblacionInicial = poblacion;
 		this.configuracion = configuracion;
 	}
 
@@ -42,8 +42,23 @@ public class Generacion {
 		return this.nuevaPoblacion;
 	}
 
+	
+	/**
+	 * @return the poblacionInical
+	 */
+	public Poblacion getPoblacionInicial() {
+		return poblacionInicial;
+	}
+
+	/**
+	 * @return the configuracion
+	 */
+	public Configuracion getConfiguracion() {
+		return configuracion;
+	}
+
 	private Poblacion seleccionar() {
-		Poblacion resultado = configuracion.getSelector().seleccionar(poblacionInical);
+		Poblacion resultado = configuracion.getSelector().seleccionar(poblacionInicial);
 		return resultado;
 	}
 
@@ -142,7 +157,7 @@ public class Generacion {
 		log.debug("El mejor de la nueva generacion " + nuevoMejor);
 		Cromosoma peor = nuevaPoblacion.obtenerPeor();
 		log.debug("El peor de la nueva Generacion" + peor);
-		Cromosoma mejorPoblacionInicial = poblacionInical.obtenerMejor();
+		Cromosoma mejorPoblacionInicial = poblacionInicial.obtenerMejor();
 		if (nuevoMejor.getCoste() >= mejorPoblacionInicial.getCoste()) {
 			log.debug("El nuevo mejor MEJORA");
 			mejorPoblacionInicial = nuevoMejor;
