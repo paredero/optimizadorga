@@ -75,8 +75,8 @@ public class SelectorRuleta implements Selector {
 		// 4b. Selecciona el cromosoma en base al numero aleatorio
 		if (numAleatorio < probabilidadesAcumuladas[0]) {
 			log.debug("Seleccionado "+poblacion.getCromosomas().get(0));
-			poblacionSeleccionados.getCromosomas().add(
-					poblacion.getCromosomas().get(0));
+			poblacionSeleccionados.getCromosomas().add(new Cromosoma(
+					poblacion.getCromosomas().get(0)));
 		} else {
 			int k = 1;
 			try {
@@ -89,8 +89,8 @@ public class SelectorRuleta implements Selector {
 						k++;
 					}
 				}
-				poblacionSeleccionados.getCromosomas().add(
-						poblacion.getCromosomas().get(k));
+				poblacionSeleccionados.getCromosomas().add(new Cromosoma(
+						poblacion.getCromosomas().get(k)));
 				log.debug("Seleccionado "+poblacion.getCromosomas().get(k));
 			} catch (RuntimeException e) {
 				log.error(e.getStackTrace());

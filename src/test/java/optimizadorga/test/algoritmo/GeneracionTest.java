@@ -21,7 +21,6 @@ import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
-//TODO To be implemented
 /**
  * @author fpb
  * 

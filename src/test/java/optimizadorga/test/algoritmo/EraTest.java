@@ -3,33 +3,59 @@
  */
 package optimizadorga.test.algoritmo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.Generacion;
+import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.elementos.Configuracion;
+import com.uned.optimizadorga.elementos.Funcion;
+import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.Poblacion;
 
 /**
  * @author fpb
  *
  */
-public class EraTest {
+public class EraTest implements EraObserver {
 	private static final Logger log = Logger.getLogger(EraTest.class);
+	private Generacion g;
+	private Poblacion p;
+	private Era e;
+	private Configuracion c;
+	private Funcion funcionCoste;
+	private int numeroActualizaciones;
+	
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-	}
+		List<Gen> genesParametro = new ArrayList<Gen>();
+		Gen x1 = new Gen("x1", -3.0, 12.1, 1);
+		Gen x2 = new Gen("x2", 4.1, 5.8, 1);
+		genesParametro.add(x1);
+		genesParametro.add(x2);
+//		p = Poblacion.generarPoblacionInicializada(5, genesParametro);
 
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#Era()}.
-	 */
-	@Test
-	public void testEra() {
-		fail("Not yet implemented");
+		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+		funcionCoste = new Funcion(expresion);
+
+		c = Configuracion.crearConfiguracionBasica(1, 2,
+				funcionCoste, genesParametro, 3, 0.5, 0.5);
+//		p.setFuncionCoste(funcionCoste);
+//		p.calcularCostesPoblacion();
+//		g = new Generacion(p, c);
 	}
 
 
@@ -38,63 +64,22 @@ public class EraTest {
 	 */
 	@Test
 	public void testEjecutar() {
-		fail("Not yet implemented");
+		Era era = new Era();
+		era.setConfiguracion(c);
+		era.registerObserver(this);
+		era.ejecutar();
+		assertEquals("No se han recibido las notificaciones necesarias",
+				c.getMaxGens(), numeroActualizaciones);
 	}
 
 	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#inicializarPoblacion()}.
+	 * Deben recibirse tantas actualizaciones como generaciones se pasan en configuracion
+	 * @param resultadoParcial
 	 */
-	@Test
-	public void testInicializarPoblacion() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#evaluar()}.
-	 */
-	@Test
-	public void testEvaluar() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#ejecutarBucle()}.
-	 */
-	@Test
-	public void testEjecutarBucle() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#calcularMediaCoste(com.uned.optimizadorga.elementos.Poblacion)}.
-	 */
-	@Test
-	public void testCalcularMediaCoste() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#obtenerMejor()}.
-	 */
-	@Test
-	public void testObtenerMejor() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#registerObserver(com.uned.optimizadorga.algoritmo.interfaces.EraObserver)}.
-	 */
-	@Test
-	public void testRegisterObserver() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.uned.optimizadorga.algoritmo.Era#notifyGeneracion(com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial)}.
-	 */
-	@Test
-	public void testNotifyGeneracion() {
-		fail("Not yet implemented");
+	@Override
+	public void updateGeneracion(ResultadoParcial resultadoParcial) {
+		numeroActualizaciones++;
+		log.debug("Recibe actualizacion de la generacion " + numeroActualizaciones);
 	}
 
 }

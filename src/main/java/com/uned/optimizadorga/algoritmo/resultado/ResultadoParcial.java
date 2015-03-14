@@ -114,6 +114,19 @@ public class ResultadoParcial {
 	public double getMediaCoste() {
 		return this.mediaCoste;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultadoParcial [tiempoEjecucion=" + tiempoEjecucion
+				+ ", eraActual=" + eraActual + ", generacionActual="
+				+ generacionActual + ", cambioEra=" + cambioEra
+				+ ", cambioGeneracion=" + cambioGeneracion
+				+ ", mejorCromosoma=" + mejorCromosoma + ", mediaMejorValor="
+				+ mediaMejorValor + ", mejorCromosomaTotal="
+				+ mejorCromosomaTotal + ", mediaCoste=" + mediaCoste + "]";
+	}
 	
 	
 	

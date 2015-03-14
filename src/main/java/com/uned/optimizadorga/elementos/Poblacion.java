@@ -27,6 +27,19 @@ public class Poblacion {
 
 		return poblacion;
 	}
+	
+	public static Poblacion generarPoblacionInicializada(Configuracion configuracion) {
+		Poblacion poblacion = new Poblacion();
+		poblacion.setTamanio(configuracion.getTamanioPoblacion());
+
+		for (int i = 0; i < configuracion.getTamanioPoblacion(); i++) {
+			poblacion.getCromosomas().add(
+					Cromosoma.generarCromosomaAleatorio(configuracion
+							.getParametros()));			
+		}
+
+		return poblacion;
+	}
 
 	public Poblacion(Poblacion poblacionInicial) {
 		this();
@@ -96,7 +109,7 @@ public class Poblacion {
 	}
 
 	public void calcularCostesPoblacion() {
-		log.debug("***********calcula costes de la poblacion " + this);
+		log.debug("***********calcula costes de la poblacion " + this.hashCode());
 		for (Cromosoma individuo : this.getCromosomas()) {
 			individuo.calcularCoste(this.funcionCoste);
 		}

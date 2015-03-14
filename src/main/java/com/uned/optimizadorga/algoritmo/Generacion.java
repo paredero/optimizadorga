@@ -28,8 +28,7 @@ public class Generacion {
 		nuevaPoblacion = this.seleccionar();
 		log.debug("Poblacion seleccionada " + nuevaPoblacion);
 		operadorCruce(nuevaPoblacion);
-		operadorMutacion(nuevaPoblacion);
-		nuevaPoblacion.calcularCostesPoblacion();
+		operadorMutacion(nuevaPoblacion);		
 		operadorElitismo(nuevaPoblacion);
 	}
 	
@@ -133,17 +132,20 @@ public class Generacion {
 		if (configuracion.getProbabilidadMutacion() == 0.0) {
 			log.warn("Probabilidad de Mutacion = 0 Posiblemente no inicializado");
 		}
-		log.debug("Operador mutacion con probabilidad " + configuracion.getProbabilidadMutacion());
 		for (Cromosoma c:poblacion.getCromosomas()) {
+			log.debug("Operador mutacion con probabilidad " + configuracion.getProbabilidadMutacion());
 			log.debug("El cromosoma ANTES DE MUTAR" + c);
 			for (Gen g:c.getGenes()) {
 				double random = Math.random();
-				log.debug("Ruletaa " + random);
 				if (random < configuracion.getProbabilidadMutacion()) {
-					log.debug("TOCÓ para " + g.getNombre());
+					log.debug("TOCÓ para " + g);
 					g.generarValorAleatorio();
+					log.debug("Pasa a valer" + g);
+				} else {
+					log.debug("NO TOCA para " + g);
 				}
 			}
+			c.calcularCoste(configuracion.getFuncionCoste());
 			log.debug("El cromosoma DESPUES DE MUTAR" + c);
 		}
 	}
@@ -158,6 +160,7 @@ public class Generacion {
 		Cromosoma peor = nuevaPoblacion.obtenerPeor();
 		log.debug("El peor de la nueva Generacion" + peor);
 		Cromosoma mejorPoblacionInicial = poblacionInicial.obtenerMejor();
+		log.debug("El peor de la Generacion inicial " + mejorPoblacionInicial);
 		if (nuevoMejor.getCoste() >= mejorPoblacionInicial.getCoste()) {
 			log.debug("El nuevo mejor MEJORA");
 			mejorPoblacionInicial = nuevoMejor;
