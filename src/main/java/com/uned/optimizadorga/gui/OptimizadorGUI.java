@@ -167,7 +167,7 @@ public class OptimizadorGUI extends JFrame {
 				parametros.add(x1);
 				parametros.add(x2);
 				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-				Funcion funcionCoste = new Funcion(expresion);
+				Funcion funcionCoste = new Funcion(expresion, parametros);
 				Configuracion configuracion = Configuracion
 						.crearConfiguracionBasica(
 								(Integer) spNumEras.getValue(),

@@ -28,12 +28,13 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 	@Before
 	public void setUp() throws Exception {
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-		funcionCoste = new Funcion(expresion);
+		
 		List<Gen> genesParametro = new ArrayList<Gen>();
 		Gen x1 = new Gen("x1", -3.0, 12.1, 1);
 		Gen x2 = new Gen("x2", 4.1, 5.8, 1);
 		genesParametro.add(x1);
 		genesParametro.add(x2);
+		funcionCoste = new Funcion(expresion,genesParametro);
 		c = Configuracion.crearConfiguracionBasica(3, 4,
 				funcionCoste, genesParametro, 3, 0.5, 0.5);
 

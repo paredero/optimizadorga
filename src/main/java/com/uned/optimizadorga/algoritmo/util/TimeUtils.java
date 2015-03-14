@@ -5,15 +5,12 @@ import java.util.concurrent.TimeUnit;
 public class TimeUtils {
 
 	public static String formatear(long tiempoEjecucion) {
-		final long hr = TimeUnit.MILLISECONDS.toHours(tiempoEjecucion);
-		final long min = TimeUnit.MILLISECONDS.toMinutes(tiempoEjecucion
+		final long hr = TimeUnit.SECONDS.toHours(tiempoEjecucion);
+		final long min = TimeUnit.SECONDS.toMinutes(tiempoEjecucion
 				- TimeUnit.HOURS.toMillis(hr));
-		final long sec = TimeUnit.MILLISECONDS.toSeconds(tiempoEjecucion
-				- TimeUnit.HOURS.toMillis(hr) - TimeUnit.MINUTES.toMillis(min));
-		final long ms = TimeUnit.MILLISECONDS.toMillis(tiempoEjecucion
-				- TimeUnit.HOURS.toMillis(hr) - TimeUnit.MINUTES.toMillis(min)
-				- TimeUnit.SECONDS.toMillis(sec));
-		return String.format("%02d:%02d:%02d.%03d", hr, min, sec, ms);
+		final long sec = TimeUnit.SECONDS.toSeconds(tiempoEjecucion
+				- TimeUnit.HOURS.toSeconds(hr) - TimeUnit.MINUTES.toSeconds(min));
+		return String.format("%02d:%02d:%02d", hr, min, sec);
 	}
 
 }

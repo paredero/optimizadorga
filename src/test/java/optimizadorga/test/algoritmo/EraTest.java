@@ -49,7 +49,7 @@ public class EraTest implements EraObserver {
 //		p = Poblacion.generarPoblacionInicializada(5, genesParametro);
 
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-		funcionCoste = new Funcion(expresion);
+		funcionCoste = new Funcion(expresion, genesParametro);
 
 		c = Configuracion.crearConfiguracionBasica(1, 2,
 				funcionCoste, genesParametro, 3, 0.5, 0.5);
