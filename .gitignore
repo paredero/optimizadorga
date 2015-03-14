@@ -1,3 +1,11 @@
 *.prefs
 /.classpath
 /.project
+target/surefire-reports/TEST-optimizadorga.PoblacionTest.xml
+*.classpath
+target/surefire-reports/TEST-optimizadorga.ParametroTest.xml
+target/surefire-reports/TEST-optimizadorga.CromosomaTest.xml
+target/surefire-reports/optimizadorga.PoblacionTest.txt
+target/surefire-reports/optimizadorga.ParametroTest.txt
+target/surefire-reports/optimizadorga.CromosomaTest.txt
+target/surefire-reports/optimizadorga.GenTest.txt
