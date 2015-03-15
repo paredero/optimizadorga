@@ -71,7 +71,7 @@ public class Cromosoma {
 	 */
 	@Override
 	public String toString() {
-		return "\n\t\t" + this.hashCode() +" [coste=" + coste + ", genes=" + genes + "]";
+		return "\t" + this.hashCode() +" [coste=" + coste + ", genes=" + genes + "]";
 	}
 
 	public Cromosoma() {

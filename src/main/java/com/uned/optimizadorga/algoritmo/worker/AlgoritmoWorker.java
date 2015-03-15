@@ -47,6 +47,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	protected ResultadoFinal doInBackground() throws Exception {
 //		long startTime = System.currentTimeMillis();
 		Thread threadAlgoritmo = new Thread(algoritmo);
+//		algoritmo.run();
 		finEjecucion = false;
 		threadAlgoritmo.start();
 //		double totalGeneraciones = algoritmo.getMaxGens();
@@ -86,32 +87,37 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	 * @see javax.swing.SwingWorker#process(java.util.List)
 	 */
 	@Override
-	protected void process(List<ResultadoParcial> chunks) {
-		ResultadoParcial r = chunks.get(0);
-		String tiempoTranscurrido = TimeUtils.formatear(r.getTiempoEjecucion());
-		int progreso = calcularProgreso(r);
-		this.progressDialog.getProgressBar().setValue(progreso);
-		this.progressDialog.getProgressBar().setString(progreso+"%  "+ tiempoTranscurrido);
-		StringBuilder sb = new StringBuilder(this.progressDialog.getPanelResultadoParcial().getText());
-		if (r.getMejorCromosomaTotal() != null) {
+	protected void process(List<ResultadoParcial> chunks) {		
+		StringBuffer sb = new StringBuffer(this.progressDialog.getPanelResultadoParcial().getText());
+		for (ResultadoParcial r:chunks) {
+			log.debug("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual() + " progreso: " + r.getProgreso());
+			sb.append("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual()).append("\n");
+			String tiempoTranscurrido = TimeUtils.formatear(r.getTiempoEjecucion());
+			this.progressDialog.getProgressBar().setValue(r.getProgreso());
+			this.progressDialog.getProgressBar().setString(r.getProgreso()+"%  "+ tiempoTranscurrido);
+		}		
+		
+//		log.debug("Era: " + r.getEraActual() + " Gene: " + r.getGeneracionActual());
+//		if (r.getMejorCromosomaTotal() != null) {
 			// Se trata de un cambio en la era
-			sb.append("*************************************************\n");
-			sb.append("Era actual: ").append(r.getEraActual()).append("\n");
-			sb.append("\t Mejor cromosoma de la era ").append(r.getMejorCromosoma()).append("\n");
-			sb.append("\t Mejor cromosoma total: ").append(r.getMejorCromosomaTotal()).append("\n");
-			sb.append("\t Media del mejor valor del coste: ").append(r.getMediaMejorValor()).append("\n");
-		} else {
+//			sb.append("*************************************************\n");
+//			sb.append("Era actual: ").append(r.getEraActual()).append("\n");
+//			sb.append("\t Mejor cromosoma de la era ").append(r.getMejorCromosoma()).append("\n");
+//			sb.append("\t Mejor cromosoma total: ").append(r.getMejorCromosomaTotal()).append("\n");
+//			sb.append("\t Media del mejor valor del coste: ").append(r.getMediaMejorValor()).append("\n");
+//		} else {
 			// Cambio de generacion
-			sb.append("\tGeneración actual: ").append(r.getGeneracionActual()).append("\n");
-			sb.append("\t\t Mejor cromosoma de la generacion ").append(r.getMejorCromosoma()).append("\n");
-			sb.append("\t\t Media de la función de coste: ").append(r.getMediaCoste()).append("\n");
+//			sb.append("\tGeneración actual: ").append(r.getGeneracionActual()).append("\n");
+//			sb.append("\t\t Mejor cromosoma de la generacion ").append(r.getMejorCromosoma()).append("\n");
+//			sb.append("\t\t Media de la función de coste: ").append(r.getMediaCoste()).append("\n");
 //			sb.append("\t\t Desviación estándar de la función de coste: ").append(r.getDesviacionEstandar()).append("\n");
 //			sb.append("\t\t Mejora del mejor valor del coste: ").append(r.getMejoraCoste()).append("\n");
-		}
-		this.progressDialog.getPanelResultadoParcial().setText(sb.toString());
+//		}
+//		this.progressDialog.getPanelResultadoParcial().setText(sb.toString());
 	}
 
-	private int calcularProgreso(ResultadoParcial resultadoParcial) {
+	private void calcularProgreso(ResultadoParcial resultadoParcial) {
+//		log.debug("****************PROGRESO********************************");
 		double progreso = 0;
 		
 		double generacionActual = resultadoParcial.getGeneracionActual();
@@ -120,12 +126,20 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 		double totalGeneraciones = algoritmo.getConfiguracion().getMaxGens();
 		double totalEras = algoritmo.getConfiguracion().getMaxEras();
 		
-		progreso = ((eraActual / totalEras) * 100)
+		if (resultadoParcial.isCambioEra()) {
+			progreso = (((eraActual) / totalEras) * 100)
+					+ ((generacionActual / (totalEras * totalGeneraciones)) * 100);
+		} else if (resultadoParcial.isCambioGeneracion()) {
+			progreso = (((eraActual-1) / totalEras) * 100)
 				+ ((generacionActual / (totalEras * totalGeneraciones)) * 100); 
-		log.debug("Era " + eraActual);
-		log.debug("Generacion " + generacionActual);
-		log.debug("Actualiza el progreso " + progreso);
-		return (int)progreso;
+		}
+//		log.debug("Era Actual" + eraActual);
+//		log.debug("Generacion " + generacionActual);
+//		log.debug("Actualiza el progreso " + progreso);
+		resultadoParcial.setProgreso((int)progreso);
+		log.debug("Era: " + resultadoParcial.getEraActual() + " Gen: "
+				+ resultadoParcial.getGeneracionActual() + " progreso: "
+				+ resultadoParcial.getProgreso());
 	}
 
 
@@ -143,10 +157,13 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 	@Override
 	public void updateEra(ResultadoParcial resultadoParcial) {
-		log.debug("Cambio de era: " + resultadoParcial.getEraActual());
+//		log.debug("Cambio de era: " + resultadoParcial.getEraActual());
 		resultadosEras.add(resultadoParcial);
+		resultadoParcial.setCambioEra(Boolean.TRUE);
+		resultadoParcial.setCambioGeneracion(Boolean.FALSE);
 		calcularMediaCoste(resultadosEras);
 		calcularMejorCosteTotal(resultadosEras);
+		calcularProgreso(resultadoParcial);
 		this.resultadosGeneraciones = new ArrayList<ResultadoParcial>();
 		publish(resultadoParcial);
 	}
@@ -159,19 +176,22 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	 * @param resultadosEras2
 	 */
 	private void calcularMejorCosteTotal(List<ResultadoParcial> resultadosEras) {
-		ComparadorMejorCoste c = new ComparadorMejorCoste();
-		Cromosoma mejorCromosomaHastaAhora = resultadosEras.get(
-				resultadosEras.size() - 2).getMejorCromosomaTotal();
-		Cromosoma mejorCromosomaUltimaEra = resultadosEras.get(
-				resultadosEras.size() - 1).getMejorCromosoma();
-		int comparacion = c.compare(mejorCromosomaHastaAhora,
-				mejorCromosomaUltimaEra);
-		if (comparacion <= 0) {
-			resultadosEras.get(resultadosEras.size() - 1)
-			.setMejorCromosomaTotal(mejorCromosomaUltimaEra);
+		Cromosoma mejorCromosomaUltimaEra = resultadosEras.get(resultadosEras.size()-1).getMejorCromosoma();
+		if (resultadosEras.size() == 1) {
+			resultadosEras.get(resultadosEras.size()-1).setMejorCromosomaTotal(mejorCromosomaUltimaEra);
 		} else {
-			resultadosEras.get(resultadosEras.size() - 1)
-			.setMejorCromosomaTotal(mejorCromosomaHastaAhora);
+			ComparadorMejorCoste c = new ComparadorMejorCoste();
+			Cromosoma mejorCromosomaHastaAhora = resultadosEras.get(
+					resultadosEras.size() - 2).getMejorCromosomaTotal();
+			int comparacion = c.compare(mejorCromosomaHastaAhora,
+					mejorCromosomaUltimaEra);
+			if (comparacion <= 0) {
+				resultadosEras.get(resultadosEras.size() - 1)
+				.setMejorCromosomaTotal(mejorCromosomaUltimaEra);
+			} else {
+				resultadosEras.get(resultadosEras.size() - 1)
+				.setMejorCromosomaTotal(mejorCromosomaHastaAhora);
+			}
 		}
 	}
 
@@ -197,8 +217,11 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 	@Override
 	public void updateGeneracion(ResultadoParcial resultadoParcial) {
-		log.debug("Cambio de generacion: " + resultadoParcial.getGeneracionActual());
+//		log.debug("Cambio de generacion: " + resultadoParcial.getGeneracionActual());
 		resultadosGeneraciones.add(resultadoParcial);
+		resultadoParcial.setCambioEra(Boolean.FALSE);
+		resultadoParcial.setCambioGeneracion(Boolean.TRUE);
+		calcularProgreso(resultadoParcial);
 		procesarResultadosGeneraciones(resultadosGeneraciones);
 		publish(resultadoParcial);
 	}

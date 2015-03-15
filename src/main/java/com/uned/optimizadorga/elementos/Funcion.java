@@ -14,25 +14,26 @@ import net.objecthunter.exp4j.ExpressionBuilder;
  */
 public class Funcion {
 	String expresion;
+	private Expression e;
 	
-	public Funcion(String expresion) {
+	public Funcion(String expresion, List<Gen> parametros) {
 		super();
 		this.expresion = expresion;
+		ExpressionBuilder eb = new ExpressionBuilder(expresion);
+		eb.variables("pi");
+		for (Gen parametro:parametros) {
+			eb.variables(parametro.getNombre());
+		}
+		e = eb.build();
+		e.setVariable("pi", Math.PI);
 	}
 
 
 
-	public double evaluate(List<Gen> listaParametros) {
-		ExpressionBuilder eb = new ExpressionBuilder(expresion);
-		eb.variables("pi");
-		for (Gen parametro:listaParametros) {
-			eb.variables(parametro.getNombre());
-		}
-		Expression e = eb.build();
+	public double evaluate(List<Gen> listaParametros) {		
 		for (Gen parametro:listaParametros) {
 			e.setVariable(parametro.getNombre(), parametro.getValor());
 		}
-		e.setVariable("pi", Math.PI);
 		return e.evaluate();
 	}
 }

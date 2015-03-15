@@ -6,7 +6,7 @@ public class ResultadoParcial {
 	long tiempoEjecucion;
 	int eraActual;
 	int generacionActual;
-	
+	private int progreso;
 	boolean cambioEra; //TODO Do I really need this??
 	boolean cambioGeneracion; //TODO Do I really need this??
 	private Cromosoma mejorCromosoma;
@@ -114,6 +114,32 @@ public class ResultadoParcial {
 	public double getMediaCoste() {
 		return this.mediaCoste;
 	}
+	/**
+	 * @return the progreso
+	 */
+	public int getProgreso() {
+		return progreso;
+	}
+	/**
+	 * @param progreso the progreso to set
+	 */
+	public void setProgreso(int progreso) {
+		this.progreso = progreso;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultadoParcial [tiempoEjecucion=" + tiempoEjecucion
+				+ ", eraActual=" + eraActual + ", generacionActual="
+				+ generacionActual + ", progreso=" + progreso + ", cambioEra="
+				+ cambioEra + ", cambioGeneracion=" + cambioGeneracion
+				+ ", mejorCromosoma=" + mejorCromosoma + ", mediaMejorValor="
+				+ mediaMejorValor + ", mejorCromosomaTotal="
+				+ mejorCromosomaTotal + ", mediaCoste=" + mediaCoste + "]";
+	}
+
 	
 	
 	

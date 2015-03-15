@@ -18,7 +18,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	private List<Era> listaEras;
 	private List<AlgoritmoObserver> observadores;
 	private long startTime;
-	
+	private int eraActual;
 	public Algoritmo(Configuracion configuracion) {
 		this.configuracion = configuracion;
 		observadores = new ArrayList<AlgoritmoObserver>();
@@ -30,7 +30,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 		startTime = System.currentTimeMillis();
 		log.debug("***********************************Comienzo de la ejecucion ");
 		
-		for (int eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
+		for (eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
 			log.debug("\t ****************************Comienza la era "
 					+ eraActual);
 			Era era = new Era();
@@ -38,7 +38,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			era.registerObserver(this);
 			era.ejecutar();
 			listaEras.add(era);
-			ResultadoParcial resultadoEra = crearResultadoEra(startTime, era);
+			ResultadoParcial resultadoEra = crearResultadoEra(startTime, era, eraActual);
 			this.notifyEra(resultadoEra);
 		}
 		long endTime = System.currentTimeMillis();
@@ -51,14 +51,16 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	/**
 	 * @param startTime
 	 * @param era
+	 * @param eraActual 
 	 * @return
 	 */
-	private ResultadoParcial crearResultadoEra(long startTime, Era era) {
+	private ResultadoParcial crearResultadoEra(long startTime, Era era, int eraActual) {
 		ResultadoParcial resultadoEra = new ResultadoParcial();
 		resultadoEra.setEraActual(listaEras.size());
 		long timeParcial = System.currentTimeMillis();
 		resultadoEra.setMejorCromosoma(era.obtenerMejor());
 		resultadoEra.setTiempoEjecucion((timeParcial - startTime)/1000);
+		resultadoEra.setEraActual(eraActual);
 		return resultadoEra;
 	}
 
@@ -99,6 +101,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	public void updateGeneracion(ResultadoParcial resultadoGeneracion) {
 		long timeParcial = System.currentTimeMillis();
 		resultadoGeneracion.setTiempoEjecucion((timeParcial - startTime)/1000);
+		resultadoGeneracion.setEraActual(eraActual);
 		this.notifyGeneracion(resultadoGeneracion);
 	}
 	

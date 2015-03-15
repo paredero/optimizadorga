@@ -45,20 +45,19 @@ public class Era implements EraSubject {
 		}
 	}
 	
-	public void inicializarPoblacion() {
-		this.poblacion = Poblacion.generarPoblacionInicializada(configuracion.getTamanioPoblacion(), configuracion.getParametros());
+	private void inicializarPoblacion() {
+		this.poblacion = Poblacion.generarPoblacionInicializada(configuracion);
 	}
 	
-	public void evaluar() {
+	private void evaluar() {
 		log.debug("Se evalua la poblacion " + this.poblacion);
 		this.poblacion.setFuncionCoste(configuracion.getFuncionCoste());
 		this.poblacion.calcularCostesPoblacion();
 		log.debug("Nuevo coste " + this.poblacion);
 	}
-	
 
 
-	public void ejecutarBucle() {
+	private void ejecutarBucle() {
 		int generacionActual = 0;
 		while (!Thread.currentThread().isInterrupted() && generacionActual < configuracion.getMaxGens()) {
 			Generacion generacion = new Generacion(poblacion, configuracion);
@@ -72,20 +71,21 @@ public class Era implements EraSubject {
 	
 	private ResultadoParcial crearResultadoGeneracion(Generacion generacion,
 			int generacionActual) {
-		log.debug("Procesa el resultado de la generacion " + generacion);
+		log.debug("Procesa el resultado de la generacion " + generacion.hashCode());
 		ResultadoParcial r = new ResultadoParcial();
 		r.setGeneracionActual(generacionActual);
 		r.setMejorCromosoma(poblacion.obtenerMejor());
 		r.setMediaCoste(this.calcularMediaCoste(poblacion));
+		log.debug("El resultado " + r);
 		return r;
 	}
 	
-	public double calcularMediaCoste(Poblacion poblacion) {
+	private double calcularMediaCoste(Poblacion poblacion) {
 		double coste = 0;
 		for(Cromosoma c:poblacion.getCromosomas()) {
 			coste += c.getCoste();
 		}
-		return coste/poblacion.getCromosomas().size();
+		return coste/poblacion.getTamanio();
 	}
 
 	public Cromosoma obtenerMejor() {
