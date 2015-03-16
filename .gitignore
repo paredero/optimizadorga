@@ -9,3 +9,4 @@ target/surefire-reports/optimizadorga.PoblacionTest.txt
 target/surefire-reports/optimizadorga.ParametroTest.txt
 target/surefire-reports/optimizadorga.CromosomaTest.txt
 target/surefire-reports/optimizadorga.GenTest.txt
+/target/

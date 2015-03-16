@@ -12,6 +12,8 @@ import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.algoritmo.util.TimeUtils;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.gui.ProgressDialog;
@@ -88,13 +90,17 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	 */
 	@Override
 	protected void process(List<ResultadoParcial> chunks) {		
-		StringBuffer sb = new StringBuffer(this.progressDialog.getPanelResultadoParcial().getText());
 		for (ResultadoParcial r:chunks) {
 			log.debug("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual() + " progreso: " + r.getProgreso());
-			sb.append("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual()).append("\n");
 			String tiempoTranscurrido = TimeUtils.formatear(r.getTiempoEjecucion());
 			this.progressDialog.getProgressBar().setValue(r.getProgreso());
 			this.progressDialog.getProgressBar().setString(r.getProgreso()+"%  "+ tiempoTranscurrido);
+			if (r.isCambioEra()) {
+				this.progressDialog.getPanelResultadoEra().setText(((ResultadoParcialEra)r).printResultado());
+				this.progressDialog.getPanelResultadoGeneracion().setText("");
+			} else if (r.isCambioGeneracion()) {
+				this.progressDialog.getPanelResultadoGeneracion().setText(((ResultadoParcialGeneracion)r).printResultado());
+			}
 		}		
 		
 //		log.debug("Era: " + r.getEraActual() + " Gene: " + r.getGeneracionActual());
@@ -156,7 +162,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 
 	@Override
-	public void updateEra(ResultadoParcial resultadoParcial) {
+	public void updateEra(ResultadoParcialEra resultadoParcial) {
 //		log.debug("Cambio de era: " + resultadoParcial.getEraActual());
 		resultadosEras.add(resultadoParcial);
 		resultadoParcial.setCambioEra(Boolean.TRUE);
@@ -216,7 +222,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 
 	@Override
-	public void updateGeneracion(ResultadoParcial resultadoParcial) {
+	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
 //		log.debug("Cambio de generacion: " + resultadoParcial.getGeneracionActual());
 		resultadosGeneraciones.add(resultadoParcial);
 		resultadoParcial.setCambioEra(Boolean.FALSE);

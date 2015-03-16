@@ -8,7 +8,8 @@ import org.apache.log4j.Logger;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 
 public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
@@ -38,7 +39,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			era.registerObserver(this);
 			era.ejecutar();
 			listaEras.add(era);
-			ResultadoParcial resultadoEra = crearResultadoEra(startTime, era, eraActual);
+			ResultadoParcialEra resultadoEra = crearResultadoEra(startTime, era, eraActual);
 			this.notifyEra(resultadoEra);
 		}
 		long endTime = System.currentTimeMillis();
@@ -54,8 +55,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	 * @param eraActual 
 	 * @return
 	 */
-	private ResultadoParcial crearResultadoEra(long startTime, Era era, int eraActual) {
-		ResultadoParcial resultadoEra = new ResultadoParcial();
+	private ResultadoParcialEra crearResultadoEra(long startTime, Era era, int eraActual) {
+		ResultadoParcialEra resultadoEra = new ResultadoParcialEra();
 		resultadoEra.setEraActual(listaEras.size());
 		long timeParcial = System.currentTimeMillis();
 		resultadoEra.setMejorCromosoma(era.obtenerMejor());
@@ -70,14 +71,14 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void notifyEra(ResultadoParcial resultadoEra) {
+	public void notifyEra(ResultadoParcialEra resultadoEra) {
 		for (AlgoritmoObserver o:this.observadores) {
 			o.updateEra(resultadoEra);
 		}
 	}
 
 	@Override
-	public void notifyGeneracion(ResultadoParcial resultadoGeneracion) {
+	public void notifyGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
 		for (AlgoritmoObserver o:this.observadores) {
 			o.updateGeneracion(resultadoGeneracion);
 		}
@@ -98,7 +99,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void updateGeneracion(ResultadoParcial resultadoGeneracion) {
+	public void updateGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
 		long timeParcial = System.currentTimeMillis();
 		resultadoGeneracion.setTiempoEjecucion((timeParcial - startTime)/1000);
 		resultadoGeneracion.setEraActual(eraActual);

@@ -17,6 +17,7 @@ import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
@@ -77,7 +78,7 @@ public class EraTest implements EraObserver {
 	 * @param resultadoParcial
 	 */
 	@Override
-	public void updateGeneracion(ResultadoParcial resultadoParcial) {
+	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
 		numeroActualizaciones++;
 		log.debug("Recibe actualizacion de la generacion " + numeroActualizaciones);
 	}

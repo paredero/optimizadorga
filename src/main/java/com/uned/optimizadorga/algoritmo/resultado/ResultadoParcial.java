@@ -2,7 +2,7 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import com.uned.optimizadorga.elementos.Cromosoma;
 
-public class ResultadoParcial {
+public abstract class ResultadoParcial {
 	long tiempoEjecucion;
 	int eraActual;
 	int generacionActual;
@@ -14,6 +14,7 @@ public class ResultadoParcial {
 	private Cromosoma mejorCromosomaTotal;
 	private double mediaCoste;
 	
+	public abstract String printResultado();
 	
 	/**
 	 * @return the tiempoEjecucion

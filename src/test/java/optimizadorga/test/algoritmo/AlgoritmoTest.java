@@ -12,6 +12,8 @@ import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
@@ -83,13 +85,13 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateEra(ResultadoParcial resultadoParcial) {
+	public void updateEra(ResultadoParcialEra resultadoParcial) {
 		notificacionesEra++;
 	}
 
 
 	@Override
-	public void updateGeneracion(ResultadoParcial resultadoParcial) {
+	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
 		notificacionesGeneracion++;
 	}
 

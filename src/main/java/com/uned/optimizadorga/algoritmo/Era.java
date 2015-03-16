@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.EraSubject;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
@@ -64,15 +65,15 @@ public class Era implements EraSubject {
 			generacionActual++;
 			generacion.ejecutar();
 			log.debug("******************************************** Generacion numero: " + (generacionActual));
-			ResultadoParcial resultadoGeneracion = this.crearResultadoGeneracion(generacion, generacionActual);
+			ResultadoParcialGeneracion resultadoGeneracion = this.crearResultadoGeneracion(generacion, generacionActual);
 			this.notifyGeneracion(resultadoGeneracion);
 		}
 	}
 	
-	private ResultadoParcial crearResultadoGeneracion(Generacion generacion,
+	private ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
 			int generacionActual) {
 		log.debug("Procesa el resultado de la generacion " + generacion.hashCode());
-		ResultadoParcial r = new ResultadoParcial();
+		ResultadoParcialGeneracion r = new ResultadoParcialGeneracion();
 		r.setGeneracionActual(generacionActual);
 		r.setMejorCromosoma(poblacion.obtenerMejor());
 		r.setMediaCoste(this.calcularMediaCoste(poblacion));
@@ -100,7 +101,7 @@ public class Era implements EraSubject {
 	}
 
 	@Override
-	public void notifyGeneracion(ResultadoParcial resultadoGeneracion) {
+	public void notifyGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
 		for (EraObserver o:this.observadores) {
 			o.updateGeneracion(resultadoGeneracion);
 		}
