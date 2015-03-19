@@ -3,18 +3,38 @@ package com.uned.optimizadorga.algoritmo.resultado;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 public abstract class ResultadoParcial {
+	/**************************************************************************
+	 * VALORES COMUNES
+	 *************************************************************************/
 	long tiempoEjecucion;
-	int eraActual;
-	int generacionActual;
 	private int progreso;
 	boolean cambioEra; //TODO Do I really need this??
 	boolean cambioGeneracion; //TODO Do I really need this??
+	int eraActual;
+	// El numero de generacion actual
+	int generacionActual;
 	private Cromosoma mejorCromosoma;
-	private double mediaMejorValor;
-	private Cromosoma mejorCromosomaTotal;
 	private double mediaCoste;
-	
+
 	public abstract String printResultado();
+
+	
+
+	/**
+	 * @return the mejorCromosomaGeneracion
+	 */
+	public Cromosoma getMejorCromosoma() {
+		return this.mejorCromosoma;
+	}
+
+
+	/**
+	 * @param mejorCromosoma the mejorCromosoma to set
+	 */
+	public void setMejorCromosoma(Cromosoma mejorCromosoma) {
+		this.mejorCromosoma = mejorCromosoma;
+	}
+	
 	
 	/**
 	 * @return the tiempoEjecucion
@@ -76,39 +96,16 @@ public abstract class ResultadoParcial {
 	public void setCambioGeneracion(boolean cambioGeneracion) {
 		this.cambioGeneracion = cambioGeneracion;
 	}
-	public void setMejorCromosoma(Cromosoma mejorCromosoma) {
-		this.mejorCromosoma = mejorCromosoma;
-	}
+	
+
 	/**
-	 * @return the mejorCromosoma
+	 * @param mediaCoste the mediaCoste to set
 	 */
-	public Cromosoma getMejorCromosoma() {
-		return this.mejorCromosoma;
-	}
-	public void setMediaMejorValor(double mediaMejorValor) {
-		this.mediaMejorValor = mediaMejorValor;
-	}
-	/**
-	 * @return the mejorCromosomaTotal
-	 */
-	public Cromosoma getMejorCromosomaTotal() {
-		return this.mejorCromosomaTotal;
-	}
-	/**
-	 * @param mejorCromosomaTotal the mejorCromosomaTotal to set
-	 */
-	public void setMejorCromosomaTotal(Cromosoma mejorCromosomaTotal) {
-		this.mejorCromosomaTotal = mejorCromosomaTotal;
-	}
-	/**
-	 * @return the mediaMejorValor
-	 */
-	public double getMediaMejorValor() {
-		return this.mediaMejorValor;
-	}
 	public void setMediaCoste(double mediaCoste) {
 		this.mediaCoste = mediaCoste;
 	}
+
+
 	/**
 	 * @return the mediaCoste
 	 */
@@ -127,23 +124,7 @@ public abstract class ResultadoParcial {
 	public void setProgreso(int progreso) {
 		this.progreso = progreso;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ResultadoParcial [tiempoEjecucion=" + tiempoEjecucion
-				+ ", eraActual=" + eraActual + ", generacionActual="
-				+ generacionActual + ", progreso=" + progreso + ", cambioEra="
-				+ cambioEra + ", cambioGeneracion=" + cambioGeneracion
-				+ ", mejorCromosoma=" + mejorCromosoma + ", mediaMejorValor="
-				+ mediaMejorValor + ", mejorCromosomaTotal="
-				+ mejorCromosomaTotal + ", mediaCoste=" + mediaCoste + "]";
-	}
 
-	
-	
-	
-	
+
 	
 }

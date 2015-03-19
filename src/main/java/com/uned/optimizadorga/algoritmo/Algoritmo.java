@@ -39,7 +39,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			era.registerObserver(this);
 			era.ejecutar();
 			listaEras.add(era);
-			ResultadoParcialEra resultadoEra = crearResultadoEra(startTime, era, eraActual);
+			ResultadoParcialEra resultadoEra = ResultadoParcialEra
+					.crearResultadoEra(startTime, listaEras, configuracion);
 			this.notifyEra(resultadoEra);
 		}
 		long endTime = System.currentTimeMillis();
@@ -49,21 +50,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 		this.notifyFin();
 	}
 
-	/**
-	 * @param startTime
-	 * @param era
-	 * @param eraActual 
-	 * @return
-	 */
-	private ResultadoParcialEra crearResultadoEra(long startTime, Era era, int eraActual) {
-		ResultadoParcialEra resultadoEra = new ResultadoParcialEra();
-		resultadoEra.setEraActual(listaEras.size());
-		long timeParcial = System.currentTimeMillis();
-		resultadoEra.setMejorCromosoma(era.obtenerMejor());
-		resultadoEra.setTiempoEjecucion((timeParcial - startTime)/1000);
-		resultadoEra.setEraActual(eraActual);
-		return resultadoEra;
-	}
+	
 
 	@Override
 	public void registerObserver(AlgoritmoObserver observer) {
@@ -86,6 +73,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 
 	@Override
 	public void notifyFin() {
+		// TODO
+//		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
 		for (AlgoritmoObserver o:this.observadores) {
 			o.updateFin(null);
 		}

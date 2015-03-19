@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.EraSubject;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
@@ -16,9 +15,11 @@ import com.uned.optimizadorga.elementos.Poblacion;
 public class Era implements EraSubject {
 	private static final Logger log = Logger.getLogger(Era.class);
 	private Configuracion configuracion;
-	private Poblacion poblacion;
+	private Poblacion poblacionInicial;
 	private List<EraObserver> observadores;
-	
+	// Aquí conservo las sucesivas poblaciones resultado de la evolucion 
+	// en la computacion
+	private List<Poblacion> evolucionPoblaciones;
 	
 
 	
@@ -39,59 +40,36 @@ public class Era implements EraSubject {
 			this.inicializarPoblacion();
 		}
 		if (!Thread.currentThread().isInterrupted()) {
-			this.evaluar();
-		}
-		if (!Thread.currentThread().isInterrupted()) {
 			this.ejecutarBucle();
 		}
 	}
 	
 	private void inicializarPoblacion() {
-		this.poblacion = Poblacion.generarPoblacionInicializada(configuracion);
+		this.poblacionInicial = Poblacion.generarPoblacionInicializada(configuracion);
+		this.evolucionPoblaciones = new ArrayList<Poblacion>();
+		this.evolucionPoblaciones.add(poblacionInicial);
 	}
 	
-	private void evaluar() {
-		log.debug("Se evalua la poblacion " + this.poblacion);
-		this.poblacion.setFuncionCoste(configuracion.getFuncionCoste());
-		this.poblacion.calcularCostesPoblacion();
-		log.debug("Nuevo coste " + this.poblacion);
-	}
-
-
 	private void ejecutarBucle() {
 		int generacionActual = 0;
 		while (!Thread.currentThread().isInterrupted() && generacionActual < configuracion.getMaxGens()) {
-			Generacion generacion = new Generacion(poblacion, configuracion);
+			Generacion generacion = new Generacion(poblacionInicial, configuracion);
 			generacionActual++;
 			generacion.ejecutar();
+			// Añado el resultado de la generacion que es una nueva poblacion
+			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
 			log.debug("******************************************** Generacion numero: " + (generacionActual));
-			ResultadoParcialGeneracion resultadoGeneracion = this.crearResultadoGeneracion(generacion, generacionActual);
+			ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion.crearResultadoGeneracion(generacion, generacionActual);
 			this.notifyGeneracion(resultadoGeneracion);
 		}
 	}
-	
-	private ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
-			int generacionActual) {
-		log.debug("Procesa el resultado de la generacion " + generacion.hashCode());
-		ResultadoParcialGeneracion r = new ResultadoParcialGeneracion();
-		r.setGeneracionActual(generacionActual);
-		r.setMejorCromosoma(poblacion.obtenerMejor());
-		r.setMediaCoste(this.calcularMediaCoste(poblacion));
-		log.debug("El resultado " + r);
-		return r;
-	}
-	
-	private double calcularMediaCoste(Poblacion poblacion) {
-		double coste = 0;
-		for(Cromosoma c:poblacion.getCromosomas()) {
-			coste += c.getCoste();
-		}
-		return coste/poblacion.getTamanio();
-	}
 
+	/*
+	 * El mejor cromosoma obtenido en la computación hasta el momento
+	 */
 	public Cromosoma obtenerMejor() {
-		Cromosoma mejorIndividuo = poblacion.obtenerMejor();	
-//		TODO Should i? return new Cromosoma(mejorIndividuo);
+		Cromosoma mejorIndividuo = this.evolucionPoblaciones.get(
+				this.evolucionPoblaciones.size()).obtenerMejor();
 		return mejorIndividuo;
 	}
 

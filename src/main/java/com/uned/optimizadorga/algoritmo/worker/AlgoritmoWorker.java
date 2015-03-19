@@ -184,19 +184,19 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	private void calcularMejorCosteTotal(List<ResultadoParcial> resultadosEras) {
 		Cromosoma mejorCromosomaUltimaEra = resultadosEras.get(resultadosEras.size()-1).getMejorCromosoma();
 		if (resultadosEras.size() == 1) {
-			resultadosEras.get(resultadosEras.size()-1).setMejorCromosomaTotal(mejorCromosomaUltimaEra);
+			resultadosEras.get(resultadosEras.size()-1).setMejorCromosoma(mejorCromosomaUltimaEra);
 		} else {
 			ComparadorMejorCoste c = new ComparadorMejorCoste();
 			Cromosoma mejorCromosomaHastaAhora = resultadosEras.get(
-					resultadosEras.size() - 2).getMejorCromosomaTotal();
+					resultadosEras.size() - 2).getMejorCromosoma();
 			int comparacion = c.compare(mejorCromosomaHastaAhora,
 					mejorCromosomaUltimaEra);
 			if (comparacion <= 0) {
 				resultadosEras.get(resultadosEras.size() - 1)
-				.setMejorCromosomaTotal(mejorCromosomaUltimaEra);
+				.setMejorCromosoma(mejorCromosomaUltimaEra);
 			} else {
 				resultadosEras.get(resultadosEras.size() - 1)
-				.setMejorCromosomaTotal(mejorCromosomaHastaAhora);
+				.setMejorCromosoma(mejorCromosomaHastaAhora);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 			total +=r.getMejorCromosoma().getCoste();
 			count++;
 		}
-		resultadosEras.get(resultadosEras.size()-1).setMediaMejorValor(total/count);
+		resultadosEras.get(resultadosEras.size()-1).setMediaCoste(total/count);
 	}
 
 
@@ -225,21 +225,9 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
 //		log.debug("Cambio de generacion: " + resultadoParcial.getGeneracionActual());
 		resultadosGeneraciones.add(resultadoParcial);
-		resultadoParcial.setCambioEra(Boolean.FALSE);
-		resultadoParcial.setCambioGeneracion(Boolean.TRUE);
 		calcularProgreso(resultadoParcial);
-		procesarResultadosGeneraciones(resultadosGeneraciones);
 		publish(resultadoParcial);
 	}
-
-	private void procesarResultadosGeneraciones(
-			List<ResultadoParcial> resultadosGeneraciones2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 
 	@Override
 	public void updateFin(ResultadoFinal resultadoFinal) {

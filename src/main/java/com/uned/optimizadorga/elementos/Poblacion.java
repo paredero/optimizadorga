@@ -28,16 +28,22 @@ public class Poblacion {
 		return poblacion;
 	}
 	
+	/**
+	 * Genera una poblacion con cromosomas aleatorios y calcula su coste
+	 * @param configuracion
+	 * @return
+	 */
 	public static Poblacion generarPoblacionInicializada(Configuracion configuracion) {
 		Poblacion poblacion = new Poblacion();
 		poblacion.setTamanio(configuracion.getTamanioPoblacion());
-
+		
 		for (int i = 0; i < configuracion.getTamanioPoblacion(); i++) {
 			poblacion.getCromosomas().add(
 					Cromosoma.generarCromosomaAleatorio(configuracion
 							.getParametros()));			
 		}
-
+		poblacion.setFuncionCoste(configuracion.getFuncionCoste());
+		poblacion.calcularCostesPoblacion();
 		return poblacion;
 	}
 
@@ -149,6 +155,29 @@ public class Poblacion {
 		copia.setFuncionCoste(poblacion.getFuncionCoste());
 		copia.setTamanio(poblacion.getTamanio());
 		return copia;
+	}
+
+	
+	/**
+	 * Obtiene la media de la funcion de coste para los cromosomas de la poblacion
+	 * @return
+	 */
+	public double calcularMediaCoste() {
+		double sumaCostes = 0.0;
+		for(Cromosoma c: this.cromosomas) {
+			sumaCostes+=c.getCoste();
+		}
+		return sumaCostes/this.tamanio;
+	}
+
+	public double calcularDesviacionTipica() {
+		double media = this.calcularMediaCoste();
+		double cuadradosAcumulados = 0;
+		for(Cromosoma c: this.cromosomas) {
+			double diferencia = c.getCoste() - media;
+			cuadradosAcumulados += (diferencia*diferencia);
+		}
+		return Math.sqrt(cuadradosAcumulados/this.tamanio);
 	}
 
 	
