@@ -1,6 +1,7 @@
 package optimizadorga.test.algoritmo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
+import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
@@ -85,13 +85,13 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateEra(ResultadoParcialEra resultadoParcial) {
+	public void updateEra(Era resultadoParcial) {
 		notificacionesEra++;
 	}
 
 
 	@Override
-	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
+	public void updateGeneracion(Generacion resultadoParcial) {
 		notificacionesGeneracion++;
 	}
 

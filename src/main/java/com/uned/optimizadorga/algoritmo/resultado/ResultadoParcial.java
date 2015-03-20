@@ -1,5 +1,10 @@
 package com.uned.optimizadorga.algoritmo.resultado;
 
+import java.util.List;
+
+import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.Generacion;
+import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 public abstract class ResultadoParcial {
@@ -18,7 +23,30 @@ public abstract class ResultadoParcial {
 
 	public abstract String printResultado();
 
-	
+	protected static int calcularProgreso(List<Era> listaEras,
+			List<Generacion> listaGeneraciones, Configuracion configuracion) {
+//		log.debug("****************PROGRESO********************************");
+		double progreso = 0;
+		
+		double numGeneracion = listaGeneraciones.size();
+		double numEra = listaEras.size();
+		
+		double totalGeneraciones = configuracion.getMaxGens();
+		double totalEras = configuracion.getMaxEras();
+		
+		progreso = (((numEra) / totalEras) * 100)
+					+ ((numGeneracion / (totalEras * totalGeneraciones)) * 100);
+		
+		// TODO Delete once tested
+//		if (resultadoParcial.isCambioEra()) {
+//			progreso = (((eraActual) / totalEras) * 100)
+//					+ ((generacionActual / (totalEras * totalGeneraciones)) * 100);
+//		} else if (resultadoParcial.isCambioGeneracion()) {
+//			progreso = (((eraActual-1) / totalEras) * 100)
+//				+ ((generacionActual / (totalEras * totalGeneraciones)) * 100); 
+//		}
+		return (int)progreso;
+	}
 
 	/**
 	 * @return the mejorCromosomaGeneracion

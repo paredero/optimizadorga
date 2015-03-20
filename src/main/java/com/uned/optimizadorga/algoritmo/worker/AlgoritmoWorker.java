@@ -8,14 +8,14 @@ import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
-import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
+import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.algoritmo.util.TimeUtils;
-import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.gui.ProgressDialog;
 
 /**
@@ -30,16 +30,16 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	private ProgressDialog progressDialog;
 	private boolean finEjecucion;
 	private ResultadoFinal resultadoFinal;
-	private List<ResultadoParcial> resultadosEras;
-	private List<ResultadoParcial> resultadosGeneraciones;
+	private List<Era> erasProcesadas;
+	private List<Generacion> generacionesProcesadas;
+	private long startTime = 0;
 	
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
 		this.algoritmo.registerObserver(this);
-		this.resultadosEras = new ArrayList<ResultadoParcial>();
-		this.resultadosGeneraciones = new ArrayList<ResultadoParcial>();
-		this.progressDialog = progressDialog;
-		
+		this.erasProcesadas = new ArrayList<Era>();
+		this.generacionesProcesadas = new ArrayList<Generacion>();
+		this.progressDialog = progressDialog;		
 	}
 
 
@@ -47,7 +47,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 	@Override
 	protected ResultadoFinal doInBackground() throws Exception {
-//		long startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		Thread threadAlgoritmo = new Thread(algoritmo);
 //		algoritmo.run();
 		finEjecucion = false;
@@ -122,34 +122,6 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 //		this.progressDialog.getPanelResultadoParcial().setText(sb.toString());
 	}
 
-	private void calcularProgreso(ResultadoParcial resultadoParcial) {
-//		log.debug("****************PROGRESO********************************");
-		double progreso = 0;
-		
-		double generacionActual = resultadoParcial.getGeneracionActual();
-		double eraActual = resultadoParcial.getEraActual();
-		
-		double totalGeneraciones = algoritmo.getConfiguracion().getMaxGens();
-		double totalEras = algoritmo.getConfiguracion().getMaxEras();
-		
-		if (resultadoParcial.isCambioEra()) {
-			progreso = (((eraActual) / totalEras) * 100)
-					+ ((generacionActual / (totalEras * totalGeneraciones)) * 100);
-		} else if (resultadoParcial.isCambioGeneracion()) {
-			progreso = (((eraActual-1) / totalEras) * 100)
-				+ ((generacionActual / (totalEras * totalGeneraciones)) * 100); 
-		}
-//		log.debug("Era Actual" + eraActual);
-//		log.debug("Generacion " + generacionActual);
-//		log.debug("Actualiza el progreso " + progreso);
-		resultadoParcial.setProgreso((int)progreso);
-		log.debug("Era: " + resultadoParcial.getEraActual() + " Gen: "
-				+ resultadoParcial.getGeneracionActual() + " progreso: "
-				+ resultadoParcial.getProgreso());
-	}
-
-
-
 
 	/* (non-Javadoc)
 	 * @see javax.swing.SwingWorker#done()
@@ -162,71 +134,24 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 
 	@Override
-	public void updateEra(ResultadoParcialEra resultadoParcial) {
-//		log.debug("Cambio de era: " + resultadoParcial.getEraActual());
-		resultadosEras.add(resultadoParcial);
-		resultadoParcial.setCambioEra(Boolean.TRUE);
-		resultadoParcial.setCambioGeneracion(Boolean.FALSE);
-		calcularMediaCoste(resultadosEras);
-		calcularMejorCosteTotal(resultadosEras);
-		calcularProgreso(resultadoParcial);
-		this.resultadosGeneraciones = new ArrayList<ResultadoParcial>();
-		publish(resultadoParcial);
+	public void updateEra(Era eraProcesada) {
+		log.debug("Cambio de era: " + erasProcesadas.size());
+		erasProcesadas.add(eraProcesada);
+		ResultadoParcialEra resultadoEra = ResultadoParcialEra
+					.crearResultadoEra(startTime, erasProcesadas, algoritmo.getConfiguracion());
+		this.generacionesProcesadas = new ArrayList<Generacion>();
+		publish(resultadoEra);
 	}
-
-
-	/**
-	 * Calcula el valor del mejor coste hasta el momento y lo añade al ultimo
-	 * resultado parcial
-	 * 
-	 * @param resultadosEras2
-	 */
-	private void calcularMejorCosteTotal(List<ResultadoParcial> resultadosEras) {
-		Cromosoma mejorCromosomaUltimaEra = resultadosEras.get(resultadosEras.size()-1).getMejorCromosoma();
-		if (resultadosEras.size() == 1) {
-			resultadosEras.get(resultadosEras.size()-1).setMejorCromosoma(mejorCromosomaUltimaEra);
-		} else {
-			ComparadorMejorCoste c = new ComparadorMejorCoste();
-			Cromosoma mejorCromosomaHastaAhora = resultadosEras.get(
-					resultadosEras.size() - 2).getMejorCromosoma();
-			int comparacion = c.compare(mejorCromosomaHastaAhora,
-					mejorCromosomaUltimaEra);
-			if (comparacion <= 0) {
-				resultadosEras.get(resultadosEras.size() - 1)
-				.setMejorCromosoma(mejorCromosomaUltimaEra);
-			} else {
-				resultadosEras.get(resultadosEras.size() - 1)
-				.setMejorCromosoma(mejorCromosomaHastaAhora);
-			}
-		}
-	}
-
-
-
-
-	/**
-	 * Calcula la media del mejor valor de coste y la añade al ultimo elemento
-	 * @param resultadosEras
-	 */
-	private void calcularMediaCoste(List<ResultadoParcial> resultadosEras) {
-		double total = 0;
-		int count = 0;
-		for (ResultadoParcial r:resultadosEras) {
-			total +=r.getMejorCromosoma().getCoste();
-			count++;
-		}
-		resultadosEras.get(resultadosEras.size()-1).setMediaCoste(total/count);
-	}
-
-
 
 
 	@Override
-	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
-//		log.debug("Cambio de generacion: " + resultadoParcial.getGeneracionActual());
-		resultadosGeneraciones.add(resultadoParcial);
-		calcularProgreso(resultadoParcial);
-		publish(resultadoParcial);
+	public void updateGeneracion(Generacion generacionProcesada) {
+		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
+		generacionesProcesadas.add(generacionProcesada);
+		ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion
+				.crearResultadoGeneracion(startTime, erasProcesadas,
+						generacionesProcesadas, algoritmo.getConfiguracion());
+		publish(resultadoGeneracion);
 	}
 
 	@Override

@@ -4,7 +4,6 @@
 package optimizadorga.test.algoritmo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,6 @@ import org.junit.Test;
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
@@ -78,7 +75,7 @@ public class EraTest implements EraObserver {
 	 * @param resultadoParcial
 	 */
 	@Override
-	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial) {
+	public void updateGeneracion(Generacion resultadoParcial) {
 		numeroActualizaciones++;
 		log.debug("Recibe actualizacion de la generacion " + numeroActualizaciones);
 	}

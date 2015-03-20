@@ -1,7 +1,7 @@
 package com.uned.optimizadorga.algoritmo.interfaces;
 
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
+import com.uned.optimizadorga.algoritmo.Generacion;
 
 public interface EraObserver {
-	public void updateGeneracion(ResultadoParcialGeneracion resultadoParcial);
+	public void updateGeneracion(Generacion generacionProcesada);
 }

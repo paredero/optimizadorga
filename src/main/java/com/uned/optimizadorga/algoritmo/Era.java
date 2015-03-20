@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.EraSubject;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
@@ -53,14 +52,15 @@ public class Era implements EraSubject {
 	private void ejecutarBucle() {
 		int generacionActual = 0;
 		while (!Thread.currentThread().isInterrupted() && generacionActual < configuracion.getMaxGens()) {
-			Generacion generacion = new Generacion(poblacionInicial, configuracion);
+			Generacion generacion = new Generacion(poblacionInicial,
+					configuracion);
 			generacionActual++;
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
-			log.debug("******************************************** Generacion numero: " + (generacionActual));
-			ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion.crearResultadoGeneracion(generacion, generacionActual);
-			this.notifyGeneracion(resultadoGeneracion);
+			log.debug("******************************************** Generacion numero: "
+					+ (generacionActual));
+			this.notifyGeneracion(generacion);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Era implements EraSubject {
 	 */
 	public Cromosoma obtenerMejor() {
 		Cromosoma mejorIndividuo = this.evolucionPoblaciones.get(
-				this.evolucionPoblaciones.size()).obtenerMejor();
+				this.evolucionPoblaciones.size()-1).obtenerMejor();
 		return mejorIndividuo;
 	}
 
@@ -79,9 +79,9 @@ public class Era implements EraSubject {
 	}
 
 	@Override
-	public void notifyGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
+	public void notifyGeneracion(Generacion generacionProcesada) {
 		for (EraObserver o:this.observadores) {
-			o.updateGeneracion(resultadoGeneracion);
+			o.updateGeneracion(generacionProcesada);
 		}
 	}
 }

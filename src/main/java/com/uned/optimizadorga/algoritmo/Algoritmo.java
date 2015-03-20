@@ -8,8 +8,6 @@ import org.apache.log4j.Logger;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Configuracion;
 
 public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
@@ -39,9 +37,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			era.registerObserver(this);
 			era.ejecutar();
 			listaEras.add(era);
-			ResultadoParcialEra resultadoEra = ResultadoParcialEra
-					.crearResultadoEra(startTime, listaEras, configuracion);
-			this.notifyEra(resultadoEra);
+			this.notifyEra(era);
 		}
 		long endTime = System.currentTimeMillis();
 		long totalTime = (endTime - startTime)/1000;
@@ -58,16 +54,16 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void notifyEra(ResultadoParcialEra resultadoEra) {
+	public void notifyEra(Era eraProcesada) {
 		for (AlgoritmoObserver o:this.observadores) {
-			o.updateEra(resultadoEra);
+			o.updateEra(eraProcesada);
 		}
 	}
 
 	@Override
-	public void notifyGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
+	public void notifyGeneracion(Generacion generacionProcesada) {
 		for (AlgoritmoObserver o:this.observadores) {
-			o.updateGeneracion(resultadoGeneracion);
+			o.updateGeneracion(generacionProcesada);
 		}
 	}
 
@@ -88,11 +84,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void updateGeneracion(ResultadoParcialGeneracion resultadoGeneracion) {
-		long timeParcial = System.currentTimeMillis();
-		resultadoGeneracion.setTiempoEjecucion((timeParcial - startTime)/1000);
-		resultadoGeneracion.setEraActual(eraActual);
-		this.notifyGeneracion(resultadoGeneracion);
+	public void updateGeneracion(Generacion generacionProcesada) {
+		this.notifyGeneracion(generacionProcesada);
 	}
 	
 	
