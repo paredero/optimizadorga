@@ -3,9 +3,10 @@
  */
 package com.uned.optimizadorga.algoritmo.interfaces;
 
+import java.util.List;
+
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 
 /**
  * @author fpb
@@ -14,6 +15,5 @@ import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 public interface AlgoritmoObserver {
 	public void updateEra(Era eraProcesada);
 	public void updateGeneracion(Generacion generacionProcesada);
-	//TODO ¿Resultado final?
-	public void updateFin(ResultadoFinal resultadoFinal);
+	public void updateFin(List<Era> listaEras);
 }

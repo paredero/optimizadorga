@@ -69,10 +69,9 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 
 	@Override
 	public void notifyFin() {
-		// TODO
 //		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
 		for (AlgoritmoObserver o:this.observadores) {
-			o.updateFin(null);
+			o.updateFin(listaEras);
 		}
 	}
 

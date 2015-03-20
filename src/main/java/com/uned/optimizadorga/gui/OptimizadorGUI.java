@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -22,8 +24,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
+import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 import com.uned.optimizadorga.elementos.Configuracion;
+import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 
@@ -40,6 +44,9 @@ public class OptimizadorGUI extends JFrame {
 	private JSpinner spTamPoblacion;
 	private JSpinner spProbCruce;
 	private JSpinner spProbMutacion;
+	private List<Era> resultados;
+	private JTextPane panelResultados;
+	private JScrollPane scrlResultados;
 
 	/**
 	 * Launch the application.
@@ -56,6 +63,68 @@ public class OptimizadorGUI extends JFrame {
 				}
 			}
 		});
+	}
+
+	/**
+	 * 
+	 */
+	private void ejecutar() {
+		resultados = null;
+		ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
+		
+		List<Gen> parametros = new ArrayList<Gen>();
+		Gen x1 = new Gen("x1",-3.0, 12.1, 1);
+		Gen x2 = new Gen("x2",4.1, 5.8, 1);
+		parametros.add(x1);
+		parametros.add(x2);
+		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+		Funcion funcionCoste = new Funcion(expresion, parametros);
+		Configuracion configuracion = Configuracion
+				.crearConfiguracionBasica(
+						(Integer) spNumEras.getValue(),
+						(Integer) spNumGen.getValue(), funcionCoste,
+						parametros,
+						(Integer) spTamPoblacion.getValue(),
+						(Double) spProbCruce.getValue(),
+						(Double) spProbMutacion.getValue());
+		
+		Algoritmo algoritmo = new Algoritmo(configuracion);
+		final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo, progressDialog);
+		
+		progressDialog.setAlgoritmoWorker(worker);
+		worker.execute();
+		progressDialog.setVisible(true);
+		
+		try {
+			resultados = worker.get();
+			mostrarResultados(resultados);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	private void mostrarResultados(List<Era> resultados) {
+		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN").append("\n");
+		int i = 1;
+		for (Era e:resultados) {
+			sb.append("Era: ").append(i).append("\n");
+			Cromosoma mejorCromosomaEra = e.obtenerMejor();
+			sb.append("Mejor cromosoma: ");
+			for (Gen g:mejorCromosomaEra.getGenes()) {
+				sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
+			}
+			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste()).append("\n");
+			i++;
+			sb.append("**********************************************").append("\n");
+		}
+		panelResultados.setText(sb.toString());
+		scrlResultados.setVisible(true);
+		panelResultados.setVisible(true);
+		
 	}
 
 	/**
@@ -87,16 +156,18 @@ public class OptimizadorGUI extends JFrame {
 		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");
 		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setVisible(false);
-		
+		panelResultados = new JTextPane();
+		scrlResultados = new JScrollPane(panelResultados);
+		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panelResultados.setVisible(false);
+		scrlResultados.setVisible(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(26)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textPane, Alignment.LEADING)
+						.addComponent(scrlResultados, Alignment.LEADING)
 						.addComponent(panelFuncion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -145,7 +216,7 @@ public class OptimizadorGUI extends JFrame {
 						.addComponent(lblProbabilidadDeCruce)
 						.addComponent(spProbCruce, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+					.addComponent(scrlResultados, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {spNumGen, spProbCruce});
@@ -157,31 +228,12 @@ public class OptimizadorGUI extends JFrame {
 		
 		JButton btnEjecutar = new JButton("Ejecutar");
 		btnEjecutar.addActionListener(new ActionListener() {
+			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
+				ejecutar();
 				
-				List<Gen> parametros = new ArrayList<Gen>();
-				Gen x1 = new Gen("x1",-3.0, 12.1, 1);
-				Gen x2 = new Gen("x2",4.1, 5.8, 1);
-				parametros.add(x1);
-				parametros.add(x2);
-				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-				Funcion funcionCoste = new Funcion(expresion, parametros);
-				Configuracion configuracion = Configuracion
-						.crearConfiguracionBasica(
-								(Integer) spNumEras.getValue(),
-								(Integer) spNumGen.getValue(), funcionCoste,
-								parametros,
-								(Integer) spTamPoblacion.getValue(),
-								(Double) spProbCruce.getValue(),
-								(Double) spProbMutacion.getValue());
-				
-				Algoritmo algoritmo = new Algoritmo(configuracion);
-				AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo, progressDialog);
-				worker.execute();
-				progressDialog.setAlgoritmoWorker(worker);
-				progressDialog.setVisible(true);
 			}
 		});
 		

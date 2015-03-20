@@ -97,7 +97,7 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateFin(ResultadoFinal resultadoFinal) {
+	public void updateFin(List<Era> resultadoFinal) {
 		notificacionesFin++;
 	}
 

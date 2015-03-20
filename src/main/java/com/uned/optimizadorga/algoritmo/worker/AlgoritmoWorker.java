@@ -11,7 +11,6 @@ import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
@@ -23,16 +22,16 @@ import com.uned.optimizadorga.gui.ProgressDialog;
  * @author fpb
  *
  */
-public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcial> implements
+public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> implements
 		AlgoritmoObserver {
 	private static final Logger log = Logger.getLogger(AlgoritmoWorker.class);
-	private Algoritmo algoritmo;
 	private ProgressDialog progressDialog;
 	private boolean finEjecucion;
-	private ResultadoFinal resultadoFinal;
-	private List<Era> erasProcesadas;
-	private List<Generacion> generacionesProcesadas;
 	private long startTime = 0;
+	
+	private Algoritmo algoritmo;
+	private List<Era> erasProcesadas;
+	private List<Generacion> generacionesProcesadas;	
 	
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
@@ -46,24 +45,11 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 
 
 	@Override
-	protected ResultadoFinal doInBackground() throws Exception {
+	protected List<Era> doInBackground() throws Exception {
 		startTime = System.currentTimeMillis();
 		Thread threadAlgoritmo = new Thread(algoritmo);
-//		algoritmo.run();
 		finEjecucion = false;
 		threadAlgoritmo.start();
-//		double totalGeneraciones = algoritmo.getMaxGens();
-//		double progreso = 0;
-//		while (progreso <100 && !this.isCancelled()) {
-//			try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                System.out.println("interrumpido");
-//            }
-////			double generacionActual = algoritmo.getGeneracionActual();
-////			progreso = (generacionActual / totalGeneraciones) * 100;
-////			publish((int)(progreso));
-//		}
 		
 		while (!this.finEjecucion && !this.isCancelled()) {
 			// Espera a que termine la ejecucion o sea cancelada
@@ -76,10 +62,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 		if (this.isCancelled()) {
 			threadAlgoritmo.interrupt();
 		}
-//		long endTime = System.currentTimeMillis();
-//		long totalTime = (endTime - startTime)/1000;
-//		return totalTime;
-		return resultadoFinal;
+		return erasProcesadas;
 	}
 
 	
@@ -101,25 +84,7 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 			} else if (r.isCambioGeneracion()) {
 				this.progressDialog.getPanelResultadoGeneracion().setText(((ResultadoParcialGeneracion)r).printResultado());
 			}
-		}		
-		
-//		log.debug("Era: " + r.getEraActual() + " Gene: " + r.getGeneracionActual());
-//		if (r.getMejorCromosomaTotal() != null) {
-			// Se trata de un cambio en la era
-//			sb.append("*************************************************\n");
-//			sb.append("Era actual: ").append(r.getEraActual()).append("\n");
-//			sb.append("\t Mejor cromosoma de la era ").append(r.getMejorCromosoma()).append("\n");
-//			sb.append("\t Mejor cromosoma total: ").append(r.getMejorCromosomaTotal()).append("\n");
-//			sb.append("\t Media del mejor valor del coste: ").append(r.getMediaMejorValor()).append("\n");
-//		} else {
-			// Cambio de generacion
-//			sb.append("\tGeneración actual: ").append(r.getGeneracionActual()).append("\n");
-//			sb.append("\t\t Mejor cromosoma de la generacion ").append(r.getMejorCromosoma()).append("\n");
-//			sb.append("\t\t Media de la función de coste: ").append(r.getMediaCoste()).append("\n");
-//			sb.append("\t\t Desviación estándar de la función de coste: ").append(r.getDesviacionEstandar()).append("\n");
-//			sb.append("\t\t Mejora del mejor valor del coste: ").append(r.getMejoraCoste()).append("\n");
-//		}
-//		this.progressDialog.getPanelResultadoParcial().setText(sb.toString());
+		}
 	}
 
 
@@ -129,6 +94,9 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	@Override
 	protected void done() {
 		this.progressDialog.setVisible(false);
+		this.progressDialog = null;
+		this.generacionesProcesadas = null;
+		this.algoritmo = null;
 	}
 
 
@@ -155,8 +123,8 @@ public class AlgoritmoWorker extends SwingWorker<ResultadoFinal, ResultadoParcia
 	}
 
 	@Override
-	public void updateFin(ResultadoFinal resultadoFinal) {
-		this.resultadoFinal = resultadoFinal;
+	public void updateFin(List<Era> listaEras) {
+		this.erasProcesadas = listaEras;		
 		finEjecucion = true;
 	}
 }
