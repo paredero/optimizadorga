@@ -30,6 +30,20 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.FlowLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JFormattedTextField;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -47,6 +61,24 @@ public class OptimizadorGUI extends JFrame {
 	private List<Era> resultados;
 	private JTextPane panelResultados;
 	private JScrollPane scrlResultados;
+	private JPanel panelConfiguracion;
+	private JPanel panelFuncion;
+	private JScrollPane scrlParametros;
+	private JPanel panelParametros;
+	private JPanel panelNuevoParametro;
+	private JLabel lbNombreParametro;
+	private JTextField nombreParametro;
+	private JLabel lbMinimoParametro;
+	private JFormattedTextField minimoParametro;
+	private JLabel lbMaximoParametro;
+	private JTextField maximoParametro;
+	private JLabel lbPrecisionParametro;
+	private JTextField precision;
+	private JButton btnAniadirParametro;
+	private JPanel panelNombre;
+	private JPanel panelMinimo;
+	private JPanel panelMaximo;
+	private JPanel panelPrecision;
 
 	/**
 	 * Launch the application.
@@ -122,7 +154,7 @@ public class OptimizadorGUI extends JFrame {
 			sb.append("**********************************************").append("\n");
 		}
 		panelResultados.setText(sb.toString());
-		scrlResultados.setVisible(true);
+//		scrlResultados.setVisible(true);
 		panelResultados.setVisible(true);
 		
 	}
@@ -132,96 +164,117 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	public OptimizadorGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 1000, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		JPanel panelFuncion = new JPanel();
-		
-		spNumEras = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		
-		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");		
-		JLabel lblNumEras = new JLabel("N\u00FAmero de eras:");
-		
-		spNumGen = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		
-		JLabel lbTamPoblacion = new JLabel("Tama\u00F1o de la poblaci\u00F3n:");
-		
-		spTamPoblacion = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		
-		spProbCruce = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));		
-		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));
-		
-		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");
-		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
-		
+				
 		panelResultados = new JTextPane();
 		scrlResultados = new JScrollPane(panelResultados);
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		scrlResultados.setVisible(true);
 		panelResultados.setVisible(false);
-		scrlResultados.setVisible(false);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(26)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(scrlResultados, Alignment.LEADING)
-						.addComponent(panelFuncion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNumEras)
-									.addGap(61)
-									.addComponent(spNumEras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lbTamPoblacion)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(spTamPoblacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lbProbabilidadMutacion)
-									.addGap(18)
-									.addComponent(spProbMutacion, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblProbabilidadDeCruce)
-								.addComponent(lblNumeroGeneraciones))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(spNumGen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spProbCruce, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)))
-					.addContainerGap(280, Short.MAX_VALUE))
+		
+		panelParametros = new JPanel();
+		scrlParametros = new JScrollPane(panelParametros);
+		panelParametros.setLayout(new BoxLayout(panelParametros, BoxLayout.X_AXIS));
+		
+		panelNuevoParametro = new JPanel();
+		panelNuevoParametro.setPreferredSize(new Dimension(60, 20));
+		panelParametros.add(panelNuevoParametro);
+		
+		btnAniadirParametro = new JButton("+");
+		btnAniadirParametro.setPreferredSize(new Dimension(40, 20));
+		
+		panelNombre = new JPanel();
+		panelNombre.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		panelMinimo = new JPanel();
+		
+		panelMaximo = new JPanel();
+		
+		panelPrecision = new JPanel();
+		GroupLayout gl_panelNuevoParametro = new GroupLayout(panelNuevoParametro);
+		gl_panelNuevoParametro.setHorizontalGroup(
+			gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelNuevoParametro.createSequentialGroup()
+					.addGap(28)
+					.addComponent(panelNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelMinimo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelMaximo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelPrecision, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnAniadirParametro, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(309, Short.MAX_VALUE))
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(22)
-					.addComponent(panelFuncion, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(spNumEras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(spNumGen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNumEras)
-						.addComponent(lblNumeroGeneraciones))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lbTamPoblacion)
-						.addComponent(spTamPoblacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lbProbabilidadMutacion)
-						.addComponent(spProbMutacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblProbabilidadDeCruce)
-						.addComponent(spProbCruce, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(scrlResultados, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+		gl_panelNuevoParametro.setVerticalGroup(
+			gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelNuevoParametro.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAniadirParametro, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+						.addComponent(panelNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelMinimo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelMaximo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelPrecision, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
-		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {spNumGen, spProbCruce});
-		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {lblProbabilidadDeCruce, lblNumeroGeneraciones});
-		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {spTamPoblacion, spProbMutacion, spNumEras});
+		
+		lbPrecisionParametro = new JLabel("Precisi\u00F3n:");
+		panelPrecision.add(lbPrecisionParametro);
+		
+		precision = new JTextField();
+		panelPrecision.add(precision);
+		precision.setPreferredSize(new Dimension(60, 20));
+		precision.setColumns(10);
+		lbPrecisionParametro.setLabelFor(precision);
+		
+		lbMaximoParametro = new JLabel("M\u00E1ximo:");
+		panelMaximo.add(lbMaximoParametro);
+		
+		maximoParametro = new JTextField();
+		panelMaximo.add(maximoParametro);
+		maximoParametro.setPreferredSize(new Dimension(60, 20));
+		maximoParametro.setColumns(10);
+		lbMaximoParametro.setLabelFor(maximoParametro);
+		
+		lbMinimoParametro = new JLabel("M\u00EDnimo");
+		panelMinimo.add(lbMinimoParametro);
+		
+		minimoParametro = new JFormattedTextField();
+		panelMinimo.add(minimoParametro);
+		minimoParametro.setPreferredSize(new Dimension(60, 20));
+		lbMinimoParametro.setLabelFor(minimoParametro);
+		
+		lbNombreParametro = new JLabel("Nombre:");
+		panelNombre.add(lbNombreParametro);
+		
+		nombreParametro = new JTextField();
+		panelNombre.add(nombreParametro);
+		nombreParametro.setPreferredSize(new Dimension(80, 20));
+		nombreParametro.setColumns(10);
+		lbNombreParametro.setLabelFor(nombreParametro);
+		panelNuevoParametro.setLayout(gl_panelNuevoParametro);
+		scrlParametros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		panelConfiguracion = new JPanel();
+		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel pNumEras = new JPanel();
+		panelConfiguracion.add(pNumEras);
+		JLabel lblNumEras = new JLabel("N\u00FAmero de eras:");
+		pNumEras.add(lblNumEras);
+		lblNumEras.setLabelFor(spNumEras);
+		
+		spNumEras = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		pNumEras.add(spNumEras);
+		
+		panelFuncion = new JPanel();
+		panelFuncion.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		txtFuncionCoste = new JTextField();
 		txtFuncionCoste.setColumns(10);
@@ -240,28 +293,104 @@ public class OptimizadorGUI extends JFrame {
 		JLabel lbFunCoste = new JLabel("Funci\u00F3n de coste:");
 		GroupLayout gl_panelFuncion = new GroupLayout(panelFuncion);
 		gl_panelFuncion.setHorizontalGroup(
-			gl_panelFuncion.createParallelGroup(Alignment.TRAILING)
+			gl_panelFuncion.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelFuncion.createSequentialGroup()
-					.addGap(41)
+					.addGap(176)
 					.addComponent(lbFunCoste)
-					.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtFuncionCoste, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(18)
 					.addComponent(btnEjecutar)
-					.addGap(55))
+					.addContainerGap(559, Short.MAX_VALUE))
 		);
 		gl_panelFuncion.setVerticalGroup(
 			gl_panelFuncion.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelFuncion.createSequentialGroup()
-					.addContainerGap(13, Short.MAX_VALUE)
-					.addGroup(gl_panelFuncion.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtFuncionCoste, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnEjecutar)
-						.addComponent(lbFunCoste))
+					.addContainerGap(21, Short.MAX_VALUE)
+					.addGroup(gl_panelFuncion.createParallelGroup(Alignment.LEADING)
+						.addComponent(lbFunCoste)
+						.addGroup(gl_panelFuncion.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtFuncionCoste, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnEjecutar)))
 					.addContainerGap())
 		);
 		gl_panelFuncion.linkSize(SwingConstants.VERTICAL, new Component[] {txtFuncionCoste, btnEjecutar, lbFunCoste});
 		panelFuncion.setLayout(gl_panelFuncion);
+		
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(10, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrlResultados, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrlParametros, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(10)
+					.addComponent(panelConfiguracion, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
+					.addGap(10))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelFuncion, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelConfiguracion, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelFuncion, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
+					.addComponent(scrlParametros, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+					.addGap(92)
+					.addComponent(scrlResultados, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {scrlResultados, scrlParametros});
+		
+		JPanel pNumGen = new JPanel();
+		panelConfiguracion.add(pNumGen);
+		
+		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");
+		pNumGen.add(lblNumeroGeneraciones);
+		
+		spNumGen = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		spNumGen.setPreferredSize(new Dimension(53, 20));
+		pNumGen.add(spNumGen);
+		lblNumeroGeneraciones.setLabelFor(spNumGen);
+		
+		JPanel pTamPoblacion = new JPanel();
+		panelConfiguracion.add(pTamPoblacion);
+		
+		JLabel lbTamPoblacion = new JLabel("Tama\u00F1o de la poblaci\u00F3n:");
+		pTamPoblacion.add(lbTamPoblacion);
+		
+		spTamPoblacion = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		spTamPoblacion.setPreferredSize(new Dimension(53, 20));
+		pTamPoblacion.add(spTamPoblacion);
+		lbTamPoblacion.setLabelFor(spTamPoblacion);
+		
+		JPanel pProbMuta = new JPanel();
+		panelConfiguracion.add(pProbMuta);
+		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
+		pProbMuta.add(lbProbabilidadMutacion);
+		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));
+		spProbMutacion.setPreferredSize(new Dimension(53, 20));
+		pProbMuta.add(spProbMutacion);
+		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
+		
+		JPanel pProbCruce = new JPanel();
+		panelConfiguracion.add(pProbCruce);
+		
+		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");
+		pProbCruce.add(lblProbabilidadDeCruce);
+		
+		spProbCruce = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));
+		spProbCruce.setPreferredSize(new Dimension(53, 20));
+		pProbCruce.add(spProbCruce);
+		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
