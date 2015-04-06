@@ -3,6 +3,7 @@
  */
 package com.uned.optimizadorga.elementos;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

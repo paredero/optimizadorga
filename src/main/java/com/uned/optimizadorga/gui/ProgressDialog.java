@@ -80,7 +80,6 @@ public class ProgressDialog extends JDialog {
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
-
 	}
 
 
@@ -110,8 +109,4 @@ public class ProgressDialog extends JDialog {
 	public JTextPane getPanelResultadoGeneracion() {
 		return this.panelResultadoGeneracion;
 	}
-
-	
-
-	
 }

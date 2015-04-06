@@ -53,7 +53,7 @@ public class Configuracion {
 		return this.maxEras;
 	}
 
-	public static Configuracion crearConfiguracionBasica(Integer maxEras,
+	public static Configuracion crearConfiguracion(Integer maxEras,
 			Integer maxGens, Funcion funcionCoste, List<Gen> parametros,
 			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion) {
 		instancia.maxEras = maxEras;

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
+import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
@@ -31,7 +32,14 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 		r.setEraActual(listaEras.size());
 		Cromosoma mejorCromosomaGeneracion = generacion.getNuevaPoblacion().obtenerMejor();
 		Cromosoma antiguoMejorCromosoma = generacion.getPoblacionInicial().obtenerMejor();
-		r.setMejorCromosoma(mejorCromosomaGeneracion);
+		
+		if (new ComparadorMejorCoste().compare(mejorCromosomaGeneracion,
+				antiguoMejorCromosoma) > 0) {
+			r.setMejorCromosoma(mejorCromosomaGeneracion);
+		} else {
+			r.setMejorCromosoma(antiguoMejorCromosoma);
+		}
+		
 		r.setMediaCoste(generacion.getNuevaPoblacion().calcularMediaCoste());
 		r.setDesviacionTipica(generacion.getNuevaPoblacion().calcularDesviacionTipica());
 		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getCoste() - antiguoMejorCromosoma
@@ -47,7 +55,7 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	public String printResultado() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Generación Actual: ").append(this.generacionActual).append("\n");
-		sb.append("Mejor Cromosoma obtenido hasta el momento: ").append("\n");		
+		sb.append("Mejor Cromosoma obtenido hasta el momento: ");	
 		for (Gen g:this.getMejorCromosoma().getGenes()) {
 			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
 		}

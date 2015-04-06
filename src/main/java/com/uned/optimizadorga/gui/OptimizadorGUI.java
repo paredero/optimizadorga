@@ -1,16 +1,21 @@
 package com.uned.optimizadorga.gui;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
@@ -30,20 +36,6 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JFormattedTextField;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -104,17 +96,51 @@ public class OptimizadorGUI extends JFrame {
 		resultados = null;
 		ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
 		
+		
+		//*********************************************************************
+		// Función de prueba caso 1
 		List<Gen> parametros = new ArrayList<Gen>();
 		Gen x1 = new Gen("x1",-3.0, 12.1, 1);
 		Gen x2 = new Gen("x2",4.1, 5.8, 1);
 		parametros.add(x1);
 		parametros.add(x2);
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+		
+//		//*********************************************************************
+//		// Función de prueba caso 2
+//		List<Gen> parametros = new ArrayList<Gen>();
+//		parametros.add(new Gen("x1",-3.0, 5.1, 1));
+//		parametros.add(new Gen("x2",2.1, 7.8, 1));
+//		parametros.add(new Gen("x3",-10.1, 20.3, 1));
+//		parametros.add(new Gen("x4",-3.3, 4.2, 1));
+//		parametros.add(new Gen("x5",-15.3, 70.1, 1));
+//		parametros.add(new Gen("x6",-0.25, 0.35, 2));
+//		String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
+		
+		//*********************************************************************
+		// Función de prueba caso 3
+//		List<Gen> parametros = new ArrayList<Gen>();
+//		parametros.add(new Gen("x1",-5, 5, 1));
+//		parametros.add(new Gen("x2",-5, 5, 1));
+//		
+//		String expresion = "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
+		
+		//*********************************************************************
+		// Función de prueba caso 4
+//		List<Gen> parametros = new ArrayList<Gen>();
+//		parametros.add(new Gen("x1",-100, 100, 1));
+//		parametros.add(new Gen("x2",-100, 100, 1));
+//
+//		String expresion = "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
+
+		//*********************************************************************
+
 		Funcion funcionCoste = new Funcion(expresion, parametros);
 		Configuracion configuracion = Configuracion
-				.crearConfiguracionBasica(
+				.crearConfiguracion(
 						(Integer) spNumEras.getValue(),
-						(Integer) spNumGen.getValue(), funcionCoste,
+						(Integer) spNumGen.getValue(), 
+						funcionCoste,
 						parametros,
 						(Integer) spTamPoblacion.getValue(),
 						(Double) spProbCruce.getValue(),
@@ -184,7 +210,7 @@ public class OptimizadorGUI extends JFrame {
 		panelParametros.add(panelNuevoParametro);
 		
 		btnAniadirParametro = new JButton("+");
-		btnAniadirParametro.setPreferredSize(new Dimension(40, 20));
+		btnAniadirParametro.setPreferredSize(new Dimension(60, 60));
 		
 		panelNombre = new JPanel();
 		panelNombre.setBorder(new LineBorder(new Color(0, 0, 0)));

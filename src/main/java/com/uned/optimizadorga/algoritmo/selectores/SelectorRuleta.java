@@ -46,7 +46,7 @@ public class SelectorRuleta implements Selector {
 			double probabilidadElemento = c.getCoste() / sumaCoste;
 			sumaProbabilidades += probabilidadElemento;
 			probabilidadesAcumuladas[i] = sumaProbabilidades;
-			log.debug("Prob Accum "+c.hashCode()+": " + probabilidadesAcumuladas[i]);
+//			log.debug("Prob Accum "+c.hashCode()+": " + probabilidadesAcumuladas[i]);
 			i++;
 		}
 		
@@ -71,10 +71,10 @@ public class SelectorRuleta implements Selector {
 			Poblacion poblacionSeleccionados, double[] probabilidadesAcumuladas) {
 		// 4a. Se genera un numero aleatorio
 		double numAleatorio = Math.random();
-		log.debug("Giro de la ruleta:......." + numAleatorio);
+//		log.debug("Giro de la ruleta:......." + numAleatorio);
 		// 4b. Selecciona el cromosoma en base al numero aleatorio
 		if (numAleatorio < probabilidadesAcumuladas[0]) {
-			log.debug("Seleccionado "+poblacion.getCromosomas().get(0));
+//			log.debug("Seleccionado "+poblacion.getCromosomas().get(0));
 			poblacionSeleccionados.getCromosomas().add(new Cromosoma(
 					poblacion.getCromosomas().get(0)));
 		} else {
@@ -91,7 +91,7 @@ public class SelectorRuleta implements Selector {
 				}
 				poblacionSeleccionados.getCromosomas().add(new Cromosoma(
 						poblacion.getCromosomas().get(k)));
-				log.debug("Seleccionado "+poblacion.getCromosomas().get(k));
+//				log.debug("Seleccionado "+poblacion.getCromosomas().get(k));
 			} catch (RuntimeException e) {
 				log.error(e.getStackTrace());
 				e.printStackTrace();

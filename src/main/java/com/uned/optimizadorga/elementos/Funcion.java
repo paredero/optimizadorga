@@ -21,11 +21,13 @@ public class Funcion {
 		this.expresion = expresion;
 		ExpressionBuilder eb = new ExpressionBuilder(expresion);
 		eb.variables("pi");
+		eb.variables("e");
 		for (Gen parametro:parametros) {
 			eb.variables(parametro.getNombre());
 		}
 		e = eb.build();
 		e.setVariable("pi", Math.PI);
+		e.setVariable("e", Math.E);
 	}
 
 

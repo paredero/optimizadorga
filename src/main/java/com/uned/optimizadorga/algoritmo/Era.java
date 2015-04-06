@@ -19,6 +19,7 @@ public class Era implements EraSubject {
 	// Aquí conservo las sucesivas poblaciones resultado de la evolucion 
 	// en la computacion
 	private List<Poblacion> evolucionPoblaciones;
+	private Cromosoma mejorIndividuo;
 	
 
 	
@@ -58,8 +59,10 @@ public class Era implements EraSubject {
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
-			log.debug("******************************************** Generacion numero: "
-					+ (generacionActual));
+//			log.debug("******************************************** Generacion numero: "
+//					+ (generacionActual));
+			// La poblacion inicial de la siguiente generacion sera la obtenida en la ultima iteracion
+			this.poblacionInicial = generacion.getNuevaPoblacion();
 			this.notifyGeneracion(generacion);
 		}
 	}
@@ -68,8 +71,10 @@ public class Era implements EraSubject {
 	 * El mejor cromosoma obtenido en la computación hasta el momento
 	 */
 	public Cromosoma obtenerMejor() {
-		Cromosoma mejorIndividuo = this.evolucionPoblaciones.get(
-				this.evolucionPoblaciones.size()-1).obtenerMejor();
+		if (mejorIndividuo == null) {
+			mejorIndividuo = this.evolucionPoblaciones.get(
+				this.evolucionPoblaciones.size() - 1).obtenerMejor();
+		}
 		return mejorIndividuo;
 	}
 
@@ -83,5 +88,10 @@ public class Era implements EraSubject {
 		for (EraObserver o:this.observadores) {
 			o.updateGeneracion(generacionProcesada);
 		}
+	}
+
+	public void liberarRecursos() {
+		this.poblacionInicial = null;
+		this.evolucionPoblaciones = null;
 	}
 }

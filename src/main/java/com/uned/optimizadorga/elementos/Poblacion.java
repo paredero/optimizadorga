@@ -15,6 +15,9 @@ public class Poblacion {
 	private int tamanio;
 	private Funcion funcionCoste;
 
+	private Cromosoma mejorCromosoma;
+	
+	
 	public static Poblacion generarPoblacionInicializada(int tamanioPoblacion,
 			List<Gen> parametros) {
 		Poblacion poblacion = new Poblacion();
@@ -115,16 +118,18 @@ public class Poblacion {
 	}
 
 	public void calcularCostesPoblacion() {
-		log.debug("***********calcula costes de la poblacion " + this.hashCode());
+//		log.debug("***********calcula costes de la poblacion " + this.hashCode());
 		for (Cromosoma individuo : this.getCromosomas()) {
 			individuo.calcularCoste(this.funcionCoste);
 		}
-		log.debug("***********Fin del calculo costes de la poblacion " + this);
+//		log.debug("***********Fin del calculo costes de la poblacion " + this);
 	}
 
 	public Cromosoma obtenerMejor() {
-		Cromosoma mejorCromosoma = Collections.max(cromosomas,
-				new ComparadorMejorCoste());
+		if (mejorCromosoma == null) {
+			mejorCromosoma = Collections.max(cromosomas,
+					new ComparadorMejorCoste());
+		}
 		return mejorCromosoma;
 	}
 
@@ -178,6 +183,19 @@ public class Poblacion {
 			cuadradosAcumulados += (diferencia*diferencia);
 		}
 		return Math.sqrt(cuadradosAcumulados/this.tamanio);
+	}
+
+	
+	
+	public void sustituirCromosoma(Cromosoma peor,
+			Cromosoma mejorPoblacionInicial) {
+//		peor.setCoste(mejorPoblacionInicial.getCoste());
+//		peor.setGenes(new ArrayList<Gen>());
+//		for (Gen g:mejorPoblacionInicial.getGenes()) {
+//			peor.getGenes().add(new Gen(g));
+//		}
+		Collections.replaceAll(this.getCromosomas(), peor, new Cromosoma(mejorPoblacionInicial));
+		mejorCromosoma = null;
 	}
 
 	

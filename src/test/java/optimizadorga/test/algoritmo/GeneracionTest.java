@@ -45,7 +45,7 @@ public class GeneracionTest {
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 		Funcion funcionCoste = new Funcion(expresion, genesParametro);
 
-		Configuracion c = Configuracion.crearConfiguracionBasica(1, 2,
+		Configuracion c = Configuracion.crearConfiguracion(1, 2,
 				funcionCoste, genesParametro, 3, 0.5, 0.5);
 		p.setFuncionCoste(funcionCoste);
 		p.calcularCostesPoblacion();

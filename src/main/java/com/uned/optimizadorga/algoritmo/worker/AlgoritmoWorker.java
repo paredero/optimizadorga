@@ -74,7 +74,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	@Override
 	protected void process(List<ResultadoParcial> chunks) {		
 		for (ResultadoParcial r:chunks) {
-			log.debug("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual() + " progreso: " + r.getProgreso());
+//			log.debug("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual() + " progreso: " + r.getProgreso());
 			String tiempoTranscurrido = TimeUtils.formatear(r.getTiempoEjecucion());
 			this.progressDialog.getProgressBar().setValue(r.getProgreso());
 			this.progressDialog.getProgressBar().setString(r.getProgreso()+"%  "+ tiempoTranscurrido);
@@ -103,10 +103,11 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 
 	@Override
 	public void updateEra(Era eraProcesada) {
-		log.debug("Cambio de era: " + erasProcesadas.size());
+//		log.debug("Cambio de era: " + erasProcesadas.size());
 		erasProcesadas.add(eraProcesada);
 		ResultadoParcialEra resultadoEra = ResultadoParcialEra
 					.crearResultadoEra(startTime, erasProcesadas, algoritmo.getConfiguracion());
+		eraProcesada.liberarRecursos();
 		this.generacionesProcesadas = new ArrayList<Generacion>();
 		publish(resultadoEra);
 	}
@@ -114,7 +115,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 
 	@Override
 	public void updateGeneracion(Generacion generacionProcesada) {
-		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
+//		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
 		generacionesProcesadas.add(generacionProcesada);
 		ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion
 				.crearResultadoGeneracion(startTime, erasProcesadas,

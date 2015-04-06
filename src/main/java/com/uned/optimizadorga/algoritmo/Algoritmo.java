@@ -12,12 +12,12 @@ import com.uned.optimizadorga.elementos.Configuracion;
 
 public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	private static final Logger log = Logger.getLogger(Algoritmo.class);
+	
 	private Configuracion configuracion;
-
-	private List<Era> listaEras;
+	private List<Era> listaEras; //Almacena las eras que se van calculando
 	private List<AlgoritmoObserver> observadores;
-	private long startTime;
 	private int eraActual;
+	
 	public Algoritmo(Configuracion configuracion) {
 		this.configuracion = configuracion;
 		observadores = new ArrayList<AlgoritmoObserver>();
@@ -25,13 +25,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void run() {
-		startTime = System.currentTimeMillis();
-		log.debug("***********************************Comienzo de la ejecucion ");
-		
+	public void run() {		
 		for (eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
-			log.debug("\t ****************************Comienza la era "
-					+ eraActual);
 			Era era = new Era();
 			era.setConfiguracion(configuracion);
 			era.registerObserver(this);
@@ -39,20 +34,30 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			listaEras.add(era);
 			this.notifyEra(era);
 		}
-		long endTime = System.currentTimeMillis();
-		long totalTime = (endTime - startTime)/1000;
-		log.debug("***********************************FIN de la ejecucion "
-				+ totalTime + " segundos");
 		this.notifyFin();
 	}
 
 	
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject#registerObserver
+	 * (com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver)
+	 */
 	@Override
 	public void registerObserver(AlgoritmoObserver observer) {
 		this.observadores.add(observer);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject#notifyEra
+	 * (com.uned.optimizadorga.algoritmo.Era)
+	 */
 	@Override
 	public void notifyEra(Era eraProcesada) {
 		for (AlgoritmoObserver o:this.observadores) {
@@ -60,6 +65,13 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject#notifyGeneracion
+	 * (com.uned.optimizadorga.algoritmo.Generacion)
+	 */
 	@Override
 	public void notifyGeneracion(Generacion generacionProcesada) {
 		for (AlgoritmoObserver o:this.observadores) {
@@ -67,6 +79,12 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject#notifyFin()
+	 */
 	@Override
 	public void notifyFin() {
 //		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
@@ -82,8 +100,18 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 		return this.configuracion;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.uned.optimizadorga.algoritmo.interfaces.EraObserver#updateGeneracion
+	 * (com.uned.optimizadorga.algoritmo.Generacion)
+	 */
 	@Override
 	public void updateGeneracion(Generacion generacionProcesada) {
+		// Cuando se recibe el calculo de una generación lo único que hace el
+		// algoritmo es pasar el resultado de este calculo hacia "arriba", esto
+		// es, al interfaz
 		this.notifyGeneracion(generacionProcesada);
 	}
 	

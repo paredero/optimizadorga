@@ -27,25 +27,16 @@ public abstract class ResultadoParcial {
 			List<Generacion> listaGeneraciones, Configuracion configuracion) {
 //		log.debug("****************PROGRESO********************************");
 		double progreso = 0;
-		
+
 		double numGeneracion = listaGeneraciones.size();
 		double numEra = listaEras.size();
-		
+
 		double totalGeneraciones = configuracion.getMaxGens();
 		double totalEras = configuracion.getMaxEras();
-		
+
 		progreso = (((numEra) / totalEras) * 100)
-					+ ((numGeneracion / (totalEras * totalGeneraciones)) * 100);
-		
-		// TODO Delete once tested
-//		if (resultadoParcial.isCambioEra()) {
-//			progreso = (((eraActual) / totalEras) * 100)
-//					+ ((generacionActual / (totalEras * totalGeneraciones)) * 100);
-//		} else if (resultadoParcial.isCambioGeneracion()) {
-//			progreso = (((eraActual-1) / totalEras) * 100)
-//				+ ((generacionActual / (totalEras * totalGeneraciones)) * 100); 
-//		}
-		return (int)progreso;
+				+ ((numGeneracion / (totalEras * totalGeneraciones)) * 100);
+		return (int) progreso;
 	}
 
 	/**
