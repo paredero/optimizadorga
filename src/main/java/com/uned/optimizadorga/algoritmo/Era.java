@@ -46,7 +46,7 @@ public class Era implements EraSubject {
 	
 	private void inicializarPoblacion() {
 		this.poblacionInicial = Poblacion.generarPoblacionInicializada(configuracion);
-		this.evolucionPoblaciones = new ArrayList<Poblacion>();
+		this.evolucionPoblaciones = new ArrayList<Poblacion>(configuracion.getMaxGens());
 		this.evolucionPoblaciones.add(poblacionInicial);
 	}
 	

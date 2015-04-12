@@ -7,7 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -41,10 +43,10 @@ public class PoblacionTest {
 		Gen parametro1 = new Gen("p1",0, 100, 3);
 		Gen parametro2 = new Gen("p2",100, 200, 3);
 		Gen parametro3 = new Gen("p3",200, 300, 3);
-		List<Gen> genesParametro = new ArrayList<Gen>();
-		genesParametro.add(parametro1);
-		genesParametro.add(parametro2);
-		genesParametro.add(parametro3);
+		Map<String, Gen> genesParametro = new HashMap();
+		genesParametro.put("p1",parametro1);
+		genesParametro.put("p2",parametro2);
+		genesParametro.put("p3",parametro3);
 		Poblacion p = Poblacion
 				.generarPoblacionInicializada(5, genesParametro);
 		
@@ -58,11 +60,11 @@ public class PoblacionTest {
 	
 	@Test
 	public void testConstructorPoblacion() {
-		List<Gen> parametros = new ArrayList<Gen>();
+		Map<String, Gen> parametros = new HashMap();
 		Gen x1 = new Gen("x1",-3.0, 12.1, 1);
 		Gen x2 = new Gen("x2",4.1, 5.8, 1);
-		parametros.add(x1);
-		parametros.add(x2);
+		parametros.put("x1", x1);
+		parametros.put("x2", x2);
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 		Funcion funcionCoste = new Funcion(expresion, parametros);
 		Poblacion p = Poblacion

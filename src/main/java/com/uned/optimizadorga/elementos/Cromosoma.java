@@ -3,9 +3,10 @@
  */
 package com.uned.optimizadorga.elementos;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author fpb
@@ -15,9 +16,11 @@ public class Cromosoma {
 	private double coste;
 	private List<Gen> genes;
 
-	public static Cromosoma generarCromosomaAleatorio(List<Gen> parametros) {
+	public static Cromosoma generarCromosomaAleatorio(Map<String,Gen> parametros) {
 		Cromosoma cromosoma = new Cromosoma();
-		for (Gen genParametro : parametros) {
+		Iterator<String> itClaveParametros = parametros.keySet().iterator();
+		while (itClaveParametros.hasNext()) {
+			Gen genParametro = parametros.get(itClaveParametros.next());
 			Gen genResultado = new Gen(genParametro.getNombre(),
 					genParametro.getMinimo(),genParametro.getMaximo(),
 					genParametro.getPrecision());

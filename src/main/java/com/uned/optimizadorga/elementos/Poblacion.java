@@ -3,6 +3,7 @@ package com.uned.optimizadorga.elementos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -19,7 +20,7 @@ public class Poblacion {
 	
 	
 	public static Poblacion generarPoblacionInicializada(int tamanioPoblacion,
-			List<Gen> parametros) {
+			Map<String, Gen> parametros) {
 		Poblacion poblacion = new Poblacion();
 		poblacion.setTamanio(tamanioPoblacion);
 

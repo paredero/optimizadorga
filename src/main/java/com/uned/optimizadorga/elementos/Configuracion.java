@@ -1,6 +1,6 @@
 package com.uned.optimizadorga.elementos;
 
-import java.util.List;
+import java.util.Map;
 
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
@@ -10,7 +10,7 @@ public class Configuracion {
 	private int maxEras;
 	private int maxGens;
 	private Funcion funcionCoste;
-	private List<Gen> parametros;
+	private Map<String, Gen> parametros;
 	private int tamanioPoblacion;
 	private double probabilidadCruce;
 	private double probabilidadMutacion;
@@ -21,7 +21,7 @@ public class Configuracion {
 	}
 	
 	
-	public List<Gen> getParametros() {
+	public Map<String, Gen> getParametros() {
 		return this.parametros;
 	}
 
@@ -54,7 +54,7 @@ public class Configuracion {
 	}
 
 	public static Configuracion crearConfiguracion(Integer maxEras,
-			Integer maxGens, Funcion funcionCoste, List<Gen> parametros,
+			Integer maxGens, Funcion funcionCoste, Map<String, Gen> parametros,
 			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion) {
 		instancia.maxEras = maxEras;
 		instancia.maxGens = maxGens;

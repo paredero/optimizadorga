@@ -1,31 +1,33 @@
 package com.uned.optimizadorga.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -54,23 +56,31 @@ public class OptimizadorGUI extends JFrame {
 	private JTextPane panelResultados;
 	private JScrollPane scrlResultados;
 	private JPanel panelConfiguracion;
-	private JPanel panelFuncion;
-	private JScrollPane scrlParametros;
-	private JPanel panelParametros;
+	private JPanel panelDatos;
+//	private JScrollPane scrlParametros;
+//	private JPanel panelParametros;
 	private JPanel panelNuevoParametro;
 	private JLabel lbNombreParametro;
 	private JTextField nombreParametro;
 	private JLabel lbMinimoParametro;
 	private JFormattedTextField minimoParametro;
 	private JLabel lbMaximoParametro;
-	private JTextField maximoParametro;
+	private JFormattedTextField maximoParametro;
 	private JLabel lbPrecisionParametro;
-	private JTextField precision;
+	private JSpinner precisionParametro;
 	private JButton btnAniadirParametro;
 	private JPanel panelNombre;
 	private JPanel panelMinimo;
 	private JPanel panelMaximo;
 	private JPanel panelPrecision;
+	private Map<String, Gen> parametros = new HashMap<String, Gen>();
+	private JPanel panelParametros;
+	private Map<String, JPanel> mapPanelesParametros = new HashMap<String, JPanel>();
+	private JPanel panelFuncion;
+	private JScrollPane scrollPane;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
 
 	/**
 	 * Launch the application.
@@ -97,13 +107,12 @@ public class OptimizadorGUI extends JFrame {
 		ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
 		
 		
-		//*********************************************************************
-		// Función de prueba caso 1
-		List<Gen> parametros = new ArrayList<Gen>();
-		Gen x1 = new Gen("x1",-3.0, 12.1, 1);
+		
+		Gen x1 = new Gen("x1",-3.0, 12.1, 1);		
 		Gen x2 = new Gen("x2",4.1, 5.8, 1);
-		parametros.add(x1);
-		parametros.add(x2);
+		parametros.put("x1",x1);
+		parametros.put("x2",x2);
+		
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 		
 //		//*********************************************************************
@@ -195,96 +204,7 @@ public class OptimizadorGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 				
-		panelResultados = new JTextPane();
-		scrlResultados = new JScrollPane(panelResultados);
-		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrlResultados.setVisible(true);
-		panelResultados.setVisible(false);
-		
-		panelParametros = new JPanel();
-		scrlParametros = new JScrollPane(panelParametros);
-		panelParametros.setLayout(new BoxLayout(panelParametros, BoxLayout.X_AXIS));
-		
-		panelNuevoParametro = new JPanel();
-		panelNuevoParametro.setPreferredSize(new Dimension(60, 20));
-		panelParametros.add(panelNuevoParametro);
-		
-		btnAniadirParametro = new JButton("+");
-		btnAniadirParametro.setPreferredSize(new Dimension(60, 60));
-		
-		panelNombre = new JPanel();
-		panelNombre.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		panelMinimo = new JPanel();
-		
-		panelMaximo = new JPanel();
-		
-		panelPrecision = new JPanel();
-		GroupLayout gl_panelNuevoParametro = new GroupLayout(panelNuevoParametro);
-		gl_panelNuevoParametro.setHorizontalGroup(
-			gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelNuevoParametro.createSequentialGroup()
-					.addGap(28)
-					.addComponent(panelNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelMinimo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelMaximo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelPrecision, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnAniadirParametro, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(309, Short.MAX_VALUE))
-		);
-		gl_panelNuevoParametro.setVerticalGroup(
-			gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelNuevoParametro.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelNuevoParametro.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAniadirParametro, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-						.addComponent(panelNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelMinimo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelMaximo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelPrecision, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		
-		lbPrecisionParametro = new JLabel("Precisi\u00F3n:");
-		panelPrecision.add(lbPrecisionParametro);
-		
-		precision = new JTextField();
-		panelPrecision.add(precision);
-		precision.setPreferredSize(new Dimension(60, 20));
-		precision.setColumns(10);
-		lbPrecisionParametro.setLabelFor(precision);
-		
-		lbMaximoParametro = new JLabel("M\u00E1ximo:");
-		panelMaximo.add(lbMaximoParametro);
-		
-		maximoParametro = new JTextField();
-		panelMaximo.add(maximoParametro);
-		maximoParametro.setPreferredSize(new Dimension(60, 20));
-		maximoParametro.setColumns(10);
-		lbMaximoParametro.setLabelFor(maximoParametro);
-		
-		lbMinimoParametro = new JLabel("M\u00EDnimo");
-		panelMinimo.add(lbMinimoParametro);
-		
-		minimoParametro = new JFormattedTextField();
-		panelMinimo.add(minimoParametro);
-		minimoParametro.setPreferredSize(new Dimension(60, 20));
-		lbMinimoParametro.setLabelFor(minimoParametro);
-		
-		lbNombreParametro = new JLabel("Nombre:");
-		panelNombre.add(lbNombreParametro);
-		
-		nombreParametro = new JTextField();
-		panelNombre.add(nombreParametro);
-		nombreParametro.setPreferredSize(new Dimension(80, 20));
-		nombreParametro.setColumns(10);
-		lbNombreParametro.setLabelFor(nombreParametro);
-		panelNuevoParametro.setLayout(gl_panelNuevoParametro);
-		scrlParametros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));
 		
 		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -298,84 +218,8 @@ public class OptimizadorGUI extends JFrame {
 		
 		spNumEras = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		pNumEras.add(spNumEras);
-		
-		panelFuncion = new JPanel();
-		panelFuncion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		txtFuncionCoste = new JTextField();
-		txtFuncionCoste.setColumns(10);
-		
-		JButton btnEjecutar = new JButton("Ejecutar");
-		btnEjecutar.addActionListener(new ActionListener() {
-			
+		contentPane.setLayout(new BorderLayout(0, 0));
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ejecutar();
-				
-			}
-		});
-		
-		JLabel lbFunCoste = new JLabel("Funci\u00F3n de coste:");
-		GroupLayout gl_panelFuncion = new GroupLayout(panelFuncion);
-		gl_panelFuncion.setHorizontalGroup(
-			gl_panelFuncion.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelFuncion.createSequentialGroup()
-					.addGap(176)
-					.addComponent(lbFunCoste)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtFuncionCoste, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnEjecutar)
-					.addContainerGap(559, Short.MAX_VALUE))
-		);
-		gl_panelFuncion.setVerticalGroup(
-			gl_panelFuncion.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelFuncion.createSequentialGroup()
-					.addContainerGap(21, Short.MAX_VALUE)
-					.addGroup(gl_panelFuncion.createParallelGroup(Alignment.LEADING)
-						.addComponent(lbFunCoste)
-						.addGroup(gl_panelFuncion.createParallelGroup(Alignment.BASELINE)
-							.addComponent(txtFuncionCoste, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnEjecutar)))
-					.addContainerGap())
-		);
-		gl_panelFuncion.linkSize(SwingConstants.VERTICAL, new Component[] {txtFuncionCoste, btnEjecutar, lbFunCoste});
-		panelFuncion.setLayout(gl_panelFuncion);
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(10, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrlResultados, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrlParametros, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addComponent(panelConfiguracion, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
-					.addGap(10))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelFuncion, GroupLayout.PREFERRED_SIZE, 954, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelConfiguracion, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panelFuncion, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(13)
-					.addComponent(scrlParametros, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-					.addGap(92)
-					.addComponent(scrlResultados, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_contentPane.linkSize(SwingConstants.HORIZONTAL, new Component[] {scrlResultados, scrlParametros});
-		
 		JPanel pNumGen = new JPanel();
 		panelConfiguracion.add(pNumGen);
 		
@@ -417,6 +261,178 @@ public class OptimizadorGUI extends JFrame {
 		spProbCruce.setPreferredSize(new Dimension(53, 20));
 		pProbCruce.add(spProbCruce);
 		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.add(panelConfiguracion, BorderLayout.NORTH);
+		
+		panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		panelDatos = new JPanel();
+		panelDatos.setPreferredSize(new Dimension(10, 150));
+		panel_1.add(panelDatos, BorderLayout.NORTH);
+		panelDatos.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelDatos.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panel_3 = new JPanel();
+		panelDatos.add(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		panelFuncion = new JPanel();
+		panel_3.add(panelFuncion, BorderLayout.NORTH);
+		panelFuncion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelFuncion.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lbFunCoste = new JLabel("Funci\u00F3n de coste:");
+		panelFuncion.add(lbFunCoste, BorderLayout.WEST);
+		
+		txtFuncionCoste = new JTextField();
+		panelFuncion.add(txtFuncionCoste, BorderLayout.CENTER);
+		txtFuncionCoste.setColumns(10);
+		
+		JButton btnEjecutar = new JButton("Ejecutar");
+		panelFuncion.add(btnEjecutar, BorderLayout.EAST);
+		btnEjecutar.addActionListener(new ActionListener() {
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ejecutar();
+				
+			}
+		});
+		
+		panelParametros = new JPanel();
+		panelParametros.setLayout(new BoxLayout(panelParametros, BoxLayout.Y_AXIS));
+		scrollPane = new JScrollPane(panelParametros);
+		panelDatos.add(scrollPane);
+		
+		panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		panelNuevoParametro = new JPanel();
+		panel_2.add(panelNuevoParametro, BorderLayout.NORTH);
+		panelNuevoParametro.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnAniadirParametro = new JButton(addIcon);
+		btnAniadirParametro.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				aniadirParametro();
+			}
+		});
+		
+		panelNombre = new JPanel();
+		panelNombre.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		panelMinimo = new JPanel();
+		
+		panelMaximo = new JPanel();
+		
+		panelPrecision = new JPanel();
+		
+		lbPrecisionParametro = new JLabel("Precisi\u00F3n:");
+		panelPrecision.add(lbPrecisionParametro);
+		
+		precisionParametro = new JSpinner(new SpinnerNumberModel(1, 1, 6, 1));
+		
+		panelPrecision.add(precisionParametro);
+		precisionParametro.setPreferredSize(new Dimension(60, 20));
+		
+		lbPrecisionParametro.setLabelFor(precisionParametro);
+		
+		lbMaximoParametro = new JLabel("M\u00E1ximo:");
+		panelMaximo.add(lbMaximoParametro);
+		
+		maximoParametro = new JFormattedTextField(new Double(0.0));
+		panelMaximo.add(maximoParametro);
+		maximoParametro.setPreferredSize(new Dimension(60, 20));
+		maximoParametro.setColumns(10);
+		lbMaximoParametro.setLabelFor(maximoParametro);
+		
+		lbMinimoParametro = new JLabel("M\u00EDnimo");
+		panelMinimo.add(lbMinimoParametro);
+		
+		minimoParametro = new JFormattedTextField(new Double(0.0));
+		panelMinimo.add(minimoParametro);
+		minimoParametro.setPreferredSize(new Dimension(60, 20));
+		lbMinimoParametro.setLabelFor(minimoParametro);
+		panelNuevoParametro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lbNombreParametro = new JLabel("Nombre:");
+		panelNombre.add(lbNombreParametro);
+		
+		nombreParametro = new JTextField();
+		panelNombre.add(nombreParametro);
+		nombreParametro.setPreferredSize(new Dimension(80, 20));
+		nombreParametro.setColumns(10);
+		lbNombreParametro.setLabelFor(nombreParametro);
+		panelNuevoParametro.add(panelNombre);
+		panelNuevoParametro.add(panelMinimo);
+		panelNuevoParametro.add(panelMaximo);
+		panelNuevoParametro.add(panelPrecision);
+		panelNuevoParametro.add(btnAniadirParametro);
+		
+		panelResultados = new JTextPane();
+		scrlResultados = new JScrollPane(panelResultados);
+		panel_2.add(scrlResultados, BorderLayout.CENTER);
+		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//		scrlResultados.setVisible(true);
+				panelResultados.setVisible(false);
 	}
+
+	protected void aniadirParametro() {
+		final String nombre = nombreParametro.getText().toUpperCase();
+		double minimo = (Double) minimoParametro.getValue();
+		double maximo = (Double) maximoParametro.getValue();
+		int precision = (Integer) precisionParametro.getValue();
+		Gen parametro = new Gen(nombre,minimo, maximo, precision);
+		
+		if (nombre == null || "".equals(nombre)) {
+			JOptionPane.showMessageDialog(this, "El nombre no puede ser nulo");
+		} else if (mapPanelesParametros.containsKey(nombre)) {
+			JOptionPane.showMessageDialog(this, "Ya existe un parámetro con el mismo nombre");
+		} else if (maximo < minimo) {
+			JOptionPane.showMessageDialog(this, "El valor máximo no puede ser inferior al valor mínimo");
+		} else {
+			//Añado el parametro a la lista de parametros
+			parametros.put(nombre, parametro);
+			
+			// Creo el panel
+			JPanel panel = new JPanel();
+			panel.setLayout(new BorderLayout());
+			StringBuilder texto = new StringBuilder("Nombre: ").append(nombre)
+					.append(" Minimo: ").append(minimo).append(" Maximo: ")
+					.append(maximo).append(" Precisión: ").append(precision);
+			
+			Label label = new Label(texto.toString());
+			panel.add(label, BorderLayout.CENTER);
+			Icon removeIcon = new ImageIcon(this.getClass().getResource("/icons/delete-icon.png"));
+			JButton btnEliminarButton = new JButton(removeIcon);
+			btnEliminarButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					parametros.remove(nombre);					
+					// En segundo lugar elimino el componente
+					JPanel panelEliminar = mapPanelesParametros.get(nombre);
+					panelEliminar.removeAll();
+					panelParametros.remove(panelEliminar);
+					mapPanelesParametros.remove(nombre);
+					panelParametros.revalidate();
+					panelParametros.repaint();
+					panelDatos.revalidate();
+					panelDatos.repaint();
+				}
+			});
+			panel.add(btnEliminarButton, BorderLayout.EAST);
+			mapPanelesParametros.put(nombre, panel);
+			
+			panelDatos.revalidate();
+			panelDatos.repaint();
+			
+			panelParametros.add(panel);
+			panelParametros.revalidate();
+			
+		}
+	}
+
 }

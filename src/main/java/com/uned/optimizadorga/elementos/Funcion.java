@@ -4,6 +4,7 @@
 package com.uned.optimizadorga.elementos;
 
 import java.util.List;
+import java.util.Map;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -16,15 +17,15 @@ public class Funcion {
 	String expresion;
 	private Expression e;
 	
-	public Funcion(String expresion, List<Gen> parametros) {
+	public Funcion(String expresion, Map<String, Gen> parametros) {
 		super();
 		this.expresion = expresion;
 		ExpressionBuilder eb = new ExpressionBuilder(expresion);
 		eb.variables("pi");
 		eb.variables("e");
-		for (Gen parametro:parametros) {
-			eb.variables(parametro.getNombre());
-		}
+		
+		eb.variables(parametros.keySet());
+		
 		e = eb.build();
 		e.setVariable("pi", Math.PI);
 		e.setVariable("e", Math.E);

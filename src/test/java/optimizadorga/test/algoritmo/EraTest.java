@@ -5,8 +5,8 @@ package optimizadorga.test.algoritmo;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -39,11 +39,11 @@ public class EraTest implements EraObserver {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		List<Gen> genesParametro = new ArrayList<Gen>();
+		Map<String, Gen> genesParametro = new HashMap<String, Gen>();
 		Gen x1 = new Gen("x1", -3.0, 12.1, 1);
 		Gen x2 = new Gen("x2", 4.1, 5.8, 1);
-		genesParametro.add(x1);
-		genesParametro.add(x2);
+		genesParametro.put("x1", x1);
+		genesParametro.put("x2", x2);
 //		p = Poblacion.generarPoblacionInicializada(5, genesParametro);
 
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
