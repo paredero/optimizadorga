@@ -47,19 +47,25 @@ public class CromosomaTest {
 		assertTrue("Los genes no se han incluido dentro de la lista "
 				+ c.getGenes().size(), c.getGenes().size() == 3);
 		assertTrue("Valor Erroneo en gen p1" + c.getGenes().get(0), c
-				.getGenes().get(0).getValor() <= 100);
+				.getGenes().get(0).getValor() <= c
+						.getGenes().get(0).getMaximo());
 		assertTrue("Valor Erroneo en gen p1" + c.getGenes().get(0), c
-				.getGenes().get(0).getValor() >= 0);
+				.getGenes().get(0).getValor() >= c
+						.getGenes().get(0).getMinimo());
 
 		assertTrue("Valor Erroneo en gen p2" + c.getGenes().get(1), c
-				.getGenes().get(1).getValor() <= 200);
+				.getGenes().get(1).getValor() <= c
+						.getGenes().get(1).getMaximo());
 		assertTrue("Valor Erroneo en gen p2" + c.getGenes().get(1), c
-				.getGenes().get(1).getValor() >= 100);
+				.getGenes().get(1).getValor() >= c
+						.getGenes().get(1).getMinimo());
 
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
-				.getGenes().get(2).getValor() <= 300);
+				.getGenes().get(2).getValor() <= c
+						.getGenes().get(2).getMaximo());
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
-				.getGenes().get(2).getValor() >= 200);
+				.getGenes().get(2).getValor() >= c
+						.getGenes().get(2).getMinimo());
 		
 		log.debug(c);
 	}

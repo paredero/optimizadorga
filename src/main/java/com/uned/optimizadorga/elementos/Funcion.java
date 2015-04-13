@@ -3,6 +3,7 @@
  */
 package com.uned.optimizadorga.elementos;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,8 @@ import net.objecthunter.exp4j.ValidationResult;
  *
  */
 public class Funcion {
-	private static final String VARIABLE_NO_ASIGNADA = "The setVariable 'x' has not been set";
+	private static final String VARIABLE_NO_ASIGNADA1 = "The setVariable ";
+	private static final String VARIABLE_NO_ASIGNADA2 = "has not been set";
 	String expresion;
 	private Expression e;
 	
@@ -31,13 +33,17 @@ public class Funcion {
 		e = eb.build();
 		e.setVariable("pi", Math.PI);
 		e.setVariable("e", Math.E);
+		
 		ValidationResult resultadoValidacion = e.validate();
 		if (!resultadoValidacion.isValid()) {
-			if (resultadoValidacion.getErrors().size() == 1 
-					&& resultadoValidacion.getErrors().get(0).equals(VARIABLE_NO_ASIGNADA)) {
-				// OK, ya sé que no he asignado valor a la variable aún
-			} else {
-				throw new Exception();
+			Iterator<String> itErrores = resultadoValidacion.getErrors().iterator();
+			while (itErrores.hasNext()) {
+				String error = itErrores.next();
+				if (!error.contains(VARIABLE_NO_ASIGNADA1) 
+						&& !error.contains(VARIABLE_NO_ASIGNADA2)) {
+					// El error variable no asignada es aceptable, pues solo asignare al evaluar
+					throw new Exception();
+				}
 			}
 		}
 	}

@@ -40,8 +40,8 @@ public class GenTest {
 		Gen parametro2 = new Gen(tipoGen2);
 		parametro2.generarValorAleatorio();
 		System.out.println(parametro2);
-		assertTrue("El valor del gen es mayor que el minimo"+parametro2, parametro2.getValor() >= 200);
-		assertTrue("El valor del gen es menor que el maximo"+parametro2, parametro2.getValor() <= 300);
+		assertTrue("El valor del gen es mayor que el minimo"+parametro2, parametro2.getValor() >= parametro2.getTipoGen().getMinimo());
+		assertTrue("El valor del gen es menor que el maximo"+parametro2, parametro2.getValor() <= parametro2.getTipoGen().getMaximo());
 	}
 
 }
