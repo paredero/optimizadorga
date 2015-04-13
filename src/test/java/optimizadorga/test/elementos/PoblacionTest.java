@@ -6,9 +6,7 @@ package optimizadorga.test.elementos;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -19,6 +17,7 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb
@@ -40,13 +39,10 @@ public class PoblacionTest {
 	 */
 	@Test
 	public void testGenerarPoblacionInicializada() {
-		Gen parametro1 = new Gen("p1",0, 100, 3);
-		Gen parametro2 = new Gen("p2",100, 200, 3);
-		Gen parametro3 = new Gen("p3",200, 300, 3);
-		Map<String, Gen> genesParametro = new HashMap();
-		genesParametro.put("p1",parametro1);
-		genesParametro.put("p2",parametro2);
-		genesParametro.put("p3",parametro3);
+		Map<String, TipoGen> genesParametro = new HashMap();
+		genesParametro.put("p1",new TipoGen("p1",0, 100, 3));
+		genesParametro.put("p2",new TipoGen("p2",100, 200, 3));
+		genesParametro.put("p3",new TipoGen("p3",200, 300, 3));
 		Poblacion p = Poblacion
 				.generarPoblacionInicializada(5, genesParametro);
 		
@@ -60,13 +56,16 @@ public class PoblacionTest {
 	
 	@Test
 	public void testConstructorPoblacion() {
-		Map<String, Gen> parametros = new HashMap();
-		Gen x1 = new Gen("x1",-3.0, 12.1, 1);
-		Gen x2 = new Gen("x2",4.1, 5.8, 1);
-		parametros.put("x1", x1);
-		parametros.put("x2", x2);
+		Map<String, TipoGen> parametros = new HashMap<String, TipoGen>();
+		parametros.put("x1", new TipoGen("x1",-3.0, 12.1, 1));
+		parametros.put("x2", new TipoGen("x2",4.1, 5.8, 1));
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-		Funcion funcionCoste = new Funcion(expresion, parametros);
+		Funcion funcionCoste = null;
+		try {
+			funcionCoste = new Funcion(expresion, parametros);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		Poblacion p = Poblacion
 				.generarPoblacionInicializada(5, parametros);
 		p.setFuncionCoste(funcionCoste);

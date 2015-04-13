@@ -10,7 +10,7 @@ public class Configuracion {
 	private int maxEras;
 	private int maxGens;
 	private Funcion funcionCoste;
-	private Map<String, Gen> parametros;
+	private Map<String, TipoGen> parametros;
 	private int tamanioPoblacion;
 	private double probabilidadCruce;
 	private double probabilidadMutacion;
@@ -21,7 +21,7 @@ public class Configuracion {
 	}
 	
 	
-	public Map<String, Gen> getParametros() {
+	public Map<String, TipoGen> getParametros() {
 		return this.parametros;
 	}
 
@@ -54,7 +54,7 @@ public class Configuracion {
 	}
 
 	public static Configuracion crearConfiguracion(Integer maxEras,
-			Integer maxGens, Funcion funcionCoste, Map<String, Gen> parametros,
+			Integer maxGens, Funcion funcionCoste, Map<String, TipoGen> parametros,
 			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion) {
 		instancia.maxEras = maxEras;
 		instancia.maxGens = maxGens;

@@ -20,7 +20,7 @@ public class Poblacion {
 	
 	
 	public static Poblacion generarPoblacionInicializada(int tamanioPoblacion,
-			Map<String, Gen> parametros) {
+			Map<String, TipoGen> parametros) {
 		Poblacion poblacion = new Poblacion();
 		poblacion.setTamanio(tamanioPoblacion);
 

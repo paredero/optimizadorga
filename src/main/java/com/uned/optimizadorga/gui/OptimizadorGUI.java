@@ -38,6 +38,7 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -73,7 +74,7 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelMinimo;
 	private JPanel panelMaximo;
 	private JPanel panelPrecision;
-	private Map<String, Gen> parametros = new HashMap<String, Gen>();
+	private Map<String, TipoGen> parametros = new HashMap<String, TipoGen>();
 	private JPanel panelParametros;
 	private Map<String, JPanel> mapPanelesParametros = new HashMap<String, JPanel>();
 	private JPanel panelFuncion;
@@ -81,6 +82,25 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
+	private JPanel panelBotones;
+	private JButton botonPi;
+	private JButton botonE;
+	private JButton botonSin;
+	private JButton botonCos;
+	private JButton botonPotencia;
+	private JButton botonSuma;
+	private JButton botonResta;
+	private JButton botonProducto;
+	private JButton botonCociente;
+	private JButton botonRaiz;
+	private JButton botonLog2;
+	private JButton botonLog10;
+	private JButton botonLog;
+	private JButton botonAbs;
+	private JButton botonAtan;
+	private JButton botonAcos;
+	private JButton botonAsin;
+	private JButton botonTan;
 
 	/**
 	 * Launch the application.
@@ -103,95 +123,109 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private void ejecutar() {
-		resultados = null;
-		ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this, "Calculando", true);				
-		
-		
-		
-		Gen x1 = new Gen("x1",-3.0, 12.1, 1);		
-		Gen x2 = new Gen("x2",4.1, 5.8, 1);
-		parametros.put("x1",x1);
-		parametros.put("x2",x2);
-		
-		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-		
-//		//*********************************************************************
-//		// Función de prueba caso 2
-//		List<Gen> parametros = new ArrayList<Gen>();
-//		parametros.add(new Gen("x1",-3.0, 5.1, 1));
-//		parametros.add(new Gen("x2",2.1, 7.8, 1));
-//		parametros.add(new Gen("x3",-10.1, 20.3, 1));
-//		parametros.add(new Gen("x4",-3.3, 4.2, 1));
-//		parametros.add(new Gen("x5",-15.3, 70.1, 1));
-//		parametros.add(new Gen("x6",-0.25, 0.35, 2));
-//		String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
-		
-		//*********************************************************************
-		// Función de prueba caso 3
-//		List<Gen> parametros = new ArrayList<Gen>();
-//		parametros.add(new Gen("x1",-5, 5, 1));
-//		parametros.add(new Gen("x2",-5, 5, 1));
-//		
-//		String expresion = "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
-		
-		//*********************************************************************
-		// Función de prueba caso 4
-//		List<Gen> parametros = new ArrayList<Gen>();
-//		parametros.add(new Gen("x1",-100, 100, 1));
-//		parametros.add(new Gen("x2",-100, 100, 1));
-//
-//		String expresion = "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
+		if (txtFuncionCoste.getText().trim().equals("")) {
+			JOptionPane.showMessageDialog(this,
+					"Debe introducirse la función de coste");
+		} else {
+			Funcion funcionCoste = null;
+			try {
+				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
+						parametros);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de función de coste incorrecto");
+			}
+			if (funcionCoste != null) {
+				resultados = null;
+				ProgressDialog progressDialog = new ProgressDialog(
+						OptimizadorGUI.this, "Calculando", true);
 
-		//*********************************************************************
+				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
+				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
+				parametros.put("x1", x1);
+				parametros.put("x2", x2);
 
-		Funcion funcionCoste = new Funcion(expresion, parametros);
-		Configuracion configuracion = Configuracion
-				.crearConfiguracion(
+				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+
+				// //*********************************************************************
+				// // Función de prueba caso 2
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-3.0, 5.1, 1));
+				// parametros.add(new Gen("x2",2.1, 7.8, 1));
+				// parametros.add(new Gen("x3",-10.1, 20.3, 1));
+				// parametros.add(new Gen("x4",-3.3, 4.2, 1));
+				// parametros.add(new Gen("x5",-15.3, 70.1, 1));
+				// parametros.add(new Gen("x6",-0.25, 0.35, 2));
+				// String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
+
+				// *********************************************************************
+				// Función de prueba caso 3
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-5, 5, 1));
+				// parametros.add(new Gen("x2",-5, 5, 1));
+				//
+				// String expresion =
+				// "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
+
+				// *********************************************************************
+				// Función de prueba caso 4
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-100, 100, 1));
+				// parametros.add(new Gen("x2",-100, 100, 1));
+				//
+				// String expresion =
+				// "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
+
+				// *********************************************************************
+
+				Configuracion configuracion = Configuracion.crearConfiguracion(
 						(Integer) spNumEras.getValue(),
-						(Integer) spNumGen.getValue(), 
-						funcionCoste,
-						parametros,
-						(Integer) spTamPoblacion.getValue(),
+						(Integer) spNumGen.getValue(), funcionCoste,
+						parametros, (Integer) spTamPoblacion.getValue(),
 						(Double) spProbCruce.getValue(),
 						(Double) spProbMutacion.getValue());
-		
-		Algoritmo algoritmo = new Algoritmo(configuracion);
-		final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo, progressDialog);
-		
-		progressDialog.setAlgoritmoWorker(worker);
-		worker.execute();
-		progressDialog.setVisible(true);
-		
-		try {
-			resultados = worker.get();
-			mostrarResultados(resultados);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+
+				Algoritmo algoritmo = new Algoritmo(configuracion);
+				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
+						progressDialog);
+
+				progressDialog.setAlgoritmoWorker(worker);
+				worker.execute();
+				progressDialog.setVisible(true);
+
+				try {
+					resultados = worker.get();
+					mostrarResultados(resultados);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				} catch (ExecutionException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
-	
+
 	private void mostrarResultados(List<Era> resultados) {
-		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN").append("\n");
+		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN")
+				.append("\n");
 		int i = 1;
-		for (Era e:resultados) {
+		for (Era e : resultados) {
 			sb.append("Era: ").append(i).append("\n");
 			Cromosoma mejorCromosomaEra = e.obtenerMejor();
 			sb.append("Mejor cromosoma: ");
-			for (Gen g:mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
+			for (Gen g : mejorCromosomaEra.getGenes()) {
+				sb.append("[").append(g.getNombre()).append(",")
+						.append(g.getValor()).append("]");
 			}
-			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste()).append("\n");
+			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste())
+					.append("\n");
 			i++;
-			sb.append("**********************************************").append("\n");
+			sb.append("**********************************************").append(
+					"\n");
 		}
 		panelResultados.setText(sb.toString());
-//		scrlResultados.setVisible(true);
-		panelResultados.setVisible(true);
-		
+		// scrlResultados.setVisible(true);
+		panelResultados.setVisible(true);		
 	}
 
 	/**
@@ -291,13 +325,17 @@ public class OptimizadorGUI extends JFrame {
 		
 		JButton btnEjecutar = new JButton("Ejecutar");
 		panelFuncion.add(btnEjecutar, BorderLayout.EAST);
+		
+		panelBotones = new JPanel();
+		panel_3.add(panelBotones, BorderLayout.CENTER);
+		
+		inicializarBotonesFuncion();
+		
+		
 		btnEjecutar.addActionListener(new ActionListener() {
-			
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ejecutar();
-				
+				ejecutar();			
 			}
 		});
 		
@@ -380,12 +418,97 @@ public class OptimizadorGUI extends JFrame {
 				panelResultados.setVisible(false);
 	}
 
+	private void inicializarBotonesFuncion() {
+		botonPi = new JButton("PI");
+		panelBotones.add(botonPi);
+		inicializarBoton(botonPi, " PI ");
+		
+		botonE = new JButton("e");
+		panelBotones.add(botonE);
+		inicializarBoton(botonE, " E ");
+		
+		botonSuma = new JButton("+");
+		panelBotones.add(botonSuma);
+		inicializarBoton(botonSuma, " + ");
+		
+		botonResta = new JButton("-");
+		panelBotones.add(botonResta);
+		inicializarBoton(botonResta, " - ");
+		
+		botonProducto = new JButton("*");
+		panelBotones.add(botonProducto);
+		inicializarBoton(botonProducto, " * ");
+		
+		botonCociente = new JButton("/");
+		panelBotones.add(botonCociente);
+		inicializarBoton(botonCociente, " / ");
+		
+		botonRaiz = new JButton("\u221A");
+		panelBotones.add(botonRaiz);
+		inicializarBoton(botonRaiz, " sqrt ");
+		
+		botonPotencia = new JButton("x^y");
+		panelBotones.add(botonPotencia);
+		inicializarBoton(botonPotencia, " ^ ");
+		
+		botonSin = new JButton("sin()");
+		panelBotones.add(botonSin);
+		inicializarBoton(botonSin, " sin() ");
+		
+		botonCos = new JButton("cos()");
+		panelBotones.add(botonCos);
+		inicializarBoton(botonCos, " cos() ");
+		
+		botonTan = new JButton("tan()");
+		panelBotones.add(botonTan);
+		inicializarBoton(botonTan, " tan() ");
+		
+		botonAsin = new JButton("asin()");
+		panelBotones.add(botonAsin);
+		inicializarBoton(botonAsin, " asin() ");
+		
+		botonAcos= new JButton("acos");
+		panelBotones.add(botonAcos);
+		inicializarBoton(botonAcos, " acos() ");
+		
+		botonAtan = new JButton("atan()");
+		panelBotones.add(botonAtan);
+		inicializarBoton(botonAtan, " atan() ");
+		
+		botonAbs = new JButton("abs()");
+		panelBotones.add(botonAbs);
+		inicializarBoton(botonAbs, " abs() ");
+		
+		botonLog = new JButton("log()");
+		panelBotones.add(botonLog);
+		inicializarBoton(botonLog, " log() ");
+		
+		botonLog10 = new JButton("log10()");
+		panelBotones.add(botonLog10);
+		inicializarBoton(botonLog10, " log10() ");
+		
+		botonLog2 = new JButton("log2()");
+		panelBotones.add(botonLog2);
+		inicializarBoton(botonLog2, " log2() ");
+	}
+
+	private void inicializarBoton(JButton boton, final String valor) {
+		boton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtFuncionCoste.setText(txtFuncionCoste.getText() + valor);
+			}
+
+		});
+	}
+
 	protected void aniadirParametro() {
-		final String nombre = nombreParametro.getText().toUpperCase();
+		final String nombre = nombreParametro.getText();
 		double minimo = (Double) minimoParametro.getValue();
 		double maximo = (Double) maximoParametro.getValue();
 		int precision = (Integer) precisionParametro.getValue();
-		Gen parametro = new Gen(nombre,minimo, maximo, precision);
+		TipoGen tipoGen = new TipoGen(nombre,minimo, maximo, precision);
 		
 		if (nombre == null || "".equals(nombre)) {
 			JOptionPane.showMessageDialog(this, "El nombre no puede ser nulo");
@@ -395,7 +518,7 @@ public class OptimizadorGUI extends JFrame {
 			JOptionPane.showMessageDialog(this, "El valor máximo no puede ser inferior al valor mínimo");
 		} else {
 			//Añado el parametro a la lista de parametros
-			parametros.put(nombre, parametro);
+			parametros.put(nombre, tipoGen);
 			
 			// Creo el panel
 			JPanel panel = new JPanel();

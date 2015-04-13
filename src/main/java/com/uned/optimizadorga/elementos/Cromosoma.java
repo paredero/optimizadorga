@@ -16,14 +16,12 @@ public class Cromosoma {
 	private double coste;
 	private List<Gen> genes;
 
-	public static Cromosoma generarCromosomaAleatorio(Map<String,Gen> parametros) {
+	public static Cromosoma generarCromosomaAleatorio(Map<String,TipoGen> parametros) {
 		Cromosoma cromosoma = new Cromosoma();
 		Iterator<String> itClaveParametros = parametros.keySet().iterator();
 		while (itClaveParametros.hasNext()) {
-			Gen genParametro = parametros.get(itClaveParametros.next());
-			Gen genResultado = new Gen(genParametro.getNombre(),
-					genParametro.getMinimo(),genParametro.getMaximo(),
-					genParametro.getPrecision());
+			TipoGen tipoGen = parametros.get(itClaveParametros.next());
+			Gen genResultado = new Gen(tipoGen);
 			genResultado.generarValorAleatorio();
 			cromosoma.getGenes().add(genResultado);
 		}

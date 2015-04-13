@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb
@@ -35,13 +35,10 @@ public class CromosomaTest {
 	 */
 	@Test
 	public void testGenerarAleatorio() {
-		Gen parametro1 = new Gen("p1",0, 100, 3);
-		Gen parametro2 = new Gen("p2",100, 200, 3);
-		Gen parametro3 = new Gen("p3",200, 300, 3);
-		Map<String, Gen> genesParametro = new HashMap<String, Gen>();
-		genesParametro.put("p1",parametro1);
-		genesParametro.put("p2",parametro2);
-		genesParametro.put("p3",parametro3);
+		Map<String, TipoGen> genesParametro = new HashMap<String, TipoGen>();
+		genesParametro.put("p1",new TipoGen("p1",0, 100, 3));
+		genesParametro.put("p2",new TipoGen("p2",100, 200, 3));
+		genesParametro.put("p3",new TipoGen("p3",200, 300, 3));
 		Cromosoma c = Cromosoma
 				.generarCromosomaAleatorio(genesParametro);
 		

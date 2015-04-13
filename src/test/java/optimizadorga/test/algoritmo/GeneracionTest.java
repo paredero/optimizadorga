@@ -20,6 +20,7 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb
@@ -35,11 +36,9 @@ public class GeneracionTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Map<String, Gen> genesParametro = new HashMap<String, Gen>();
-		Gen x1 = new Gen("x1", -3.0, 12.1, 1);
-		Gen x2 = new Gen("x2", 4.1, 5.8, 1);
-		genesParametro.put("x1", x1);
-		genesParametro.put("x2", x2);
+		Map<String, TipoGen> genesParametro = new HashMap<String, TipoGen>();
+		genesParametro.put("x1", new TipoGen("x1", -3.0, 12.1, 1));
+		genesParametro.put("x2", new TipoGen("x2",4.1, 5.8, 1));
 		p = Poblacion.generarPoblacionInicializada(5, genesParametro);
 
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";

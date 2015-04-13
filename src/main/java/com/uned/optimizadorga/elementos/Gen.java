@@ -12,36 +12,28 @@ import java.text.DecimalFormatSymbols;
  *
  */
 public class Gen {
-	private String nombre;
-	private double valor;
-	private double maximo;
-	private double minimo;
-	private int precision;
+	private double valor;	
+	private TipoGen tipoGen;
 	
-	
-	public Gen(String nombre,double minimo, double maximo, int precision) {
+	public Gen(TipoGen tipoGen) {
 		super();
-		this.nombre = nombre;
-		this.maximo = maximo;
-		this.minimo = minimo;
-		this.precision = precision;
+		this.tipoGen = tipoGen;
+		
 	}
 	
 	public Gen(Gen g) {
 		super();
-		this.nombre = g.getNombre();
+		this.tipoGen = g.getTipoGen();
 		this.valor = g.getValor();
-		this.maximo = g.getMaximo();
-		this.minimo = g.getMinimo();
-		this.precision = g.getPrecision();
 	}
+
 
 	/**
 	 * Inicializa el campo valor con un numero real aleatorio comprendido entre
 	 * el máximo y el mínimo con la precision que se ha pasado
 	 */
 	public void generarValorAleatorio() {
-		double numeroAleatorio = minimo + (Math.random() * (maximo - minimo));		
+		double numeroAleatorio = tipoGen.getMinimo() + (Math.random() * (tipoGen.getMaximo() - tipoGen.getMinimo()));		
 		this.valor = formatear(numeroAleatorio);
 	}
 	
@@ -56,24 +48,11 @@ public class Gen {
 		dfs.setDecimalSeparator('.');
 		df.setGroupingUsed(Boolean.FALSE);
 		df.setDecimalFormatSymbols(dfs);
-		df.setMaximumFractionDigits(precision);
+		df.setMaximumFractionDigits(tipoGen.getPrecision());
 		String valorStr = df.format(valor);
 		return Double.parseDouble(valorStr);
 	}
 	
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 	/**
 	 * @return the valor
@@ -91,51 +70,19 @@ public class Gen {
 	}
 
 
-	/**
-	 * @return the maximo
-	 */
-	public double getMaximo() {
-		return maximo;
-	}
-
 
 	/**
-	 * @param maximo the maximo to set
+	 * @return the tipoGen
 	 */
-	public void setMaximo(double maximo) {
-		this.maximo = maximo;
-	}
-
-
-	/**
-	 * @return the minimo
-	 */
-	public double getMinimo() {
-		return minimo;
-	}
-
-
-	/**
-	 * @param minimo the minimo to set
-	 */
-	public void setMinimo(double minimo) {
-		this.minimo = minimo;
-	}
-	
-	
-
-	/**
-	 * @return the precision
-	 */
-	public int getPrecision() {
-		return precision;
+	public TipoGen getTipoGen() {
+		return tipoGen;
 	}
 
 	/**
-	 * @param precision the precision to set
+	 * @param tipoGen the tipoGen to set
 	 */
-	public void setPrecision(int precision) {
-		this.precision = precision;
+	public void setTipoGen(TipoGen tipoGen) {
+		this.tipoGen = tipoGen;
 	}
 
 	/* (non-Javadoc)
@@ -143,7 +90,23 @@ public class Gen {
 	 */
 	@Override
 	public String toString() {
-		return "[" + nombre + ", " + valor + "]";
+		return "[" + tipoGen.getNombre() + ", " + valor + "]";
+	}
+
+	public String getNombre() {
+		return this.getTipoGen().getNombre();
+	}
+
+	public double getMaximo() {
+		return this.tipoGen.getMaximo();
+	}
+	
+	public double getMinimo() {
+		return this.tipoGen.getMinimo();
+	}
+	
+	public double getPrecision() {
+		return this.tipoGen.getPrecision();
 	}
 
 

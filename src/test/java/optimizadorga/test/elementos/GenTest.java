@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb
@@ -28,13 +29,15 @@ public class GenTest {
 	 */
 	@Test
 	public void testGenerarValorAleatorio() {
-		Gen parametro = new Gen("p1",0, 100, 5);
+		TipoGen tipoGen1 = new TipoGen("p1",0, 100, 5);
+		Gen parametro = new Gen(tipoGen1);
 		parametro.generarValorAleatorio();
 		System.out.println(parametro);
 		assertTrue("El valor del gen es mayor que el minimo"+parametro, parametro.getValor() >= 0);
 		assertTrue("El valor del gen es menor que el maximo"+parametro, parametro.getValor() <= 100);		
 		
-		Gen parametro2 = new Gen("p2", 2000, 3000, 10);
+		TipoGen tipoGen2 = new TipoGen("p2", 2000, 3000, 10);
+		Gen parametro2 = new Gen(tipoGen2);
 		parametro2.generarValorAleatorio();
 		System.out.println(parametro2);
 		assertTrue("El valor del gen es mayor que el minimo"+parametro2, parametro2.getValor() >= 200);

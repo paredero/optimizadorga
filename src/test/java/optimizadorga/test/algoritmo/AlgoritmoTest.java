@@ -16,7 +16,7 @@ import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.TipoGen;
 
 public class AlgoritmoTest implements AlgoritmoObserver {
 
@@ -31,11 +31,9 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 	public void setUp() throws Exception {
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 		
-		Map<String, Gen> genesParametro = new HashMap<String, Gen>();
-		Gen x1 = new Gen("x1", -3.0, 12.1, 1);
-		Gen x2 = new Gen("x2", 4.1, 5.8, 1);
-		genesParametro.put(x1.getNombre(), x1);
-		genesParametro.put(x2.getNombre(), x2);
+		Map<String, TipoGen> genesParametro = new HashMap<String, TipoGen>();
+		genesParametro.put("x1", new TipoGen("x1", -3.0, 12.1, 1));
+		genesParametro.put("x2", new TipoGen("x2", 4.1, 5.8, 1));
 		funcionCoste = new Funcion(expresion,genesParametro);
 		c = Configuracion.crearConfiguracion(3, 4,
 				funcionCoste, genesParametro, 3, 0.5, 0.5);

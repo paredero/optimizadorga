@@ -8,16 +8,18 @@ import java.util.Map;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.ValidationResult;
 
 /**
  * @author fpb
  *
  */
 public class Funcion {
+	private static final String VARIABLE_NO_ASIGNADA = "The setVariable 'x' has not been set";
 	String expresion;
 	private Expression e;
 	
-	public Funcion(String expresion, Map<String, Gen> parametros) {
+	public Funcion(String expresion, Map<String, TipoGen> parametros) throws Exception {
 		super();
 		this.expresion = expresion;
 		ExpressionBuilder eb = new ExpressionBuilder(expresion);
@@ -29,6 +31,15 @@ public class Funcion {
 		e = eb.build();
 		e.setVariable("pi", Math.PI);
 		e.setVariable("e", Math.E);
+		ValidationResult resultadoValidacion = e.validate();
+		if (!resultadoValidacion.isValid()) {
+			if (resultadoValidacion.getErrors().size() == 1 
+					&& resultadoValidacion.getErrors().get(0).equals(VARIABLE_NO_ASIGNADA)) {
+				// OK, ya sé que no he asignado valor a la variable aún
+			} else {
+				throw new Exception();
+			}
+		}
 	}
 
 
