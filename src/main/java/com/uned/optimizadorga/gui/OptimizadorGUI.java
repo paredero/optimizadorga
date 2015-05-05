@@ -140,10 +140,10 @@ public class OptimizadorGUI extends JFrame {
 				ProgressDialog progressDialog = new ProgressDialog(
 						OptimizadorGUI.this, "Calculando", true);
 
-				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
-				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
-				parametros.put("x1", x1);
-				parametros.put("x2", x2);
+//				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
+//				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
+//				parametros.put("x1", x1);
+//				parametros.put("x2", x2);
 
 				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 

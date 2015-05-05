@@ -36,8 +36,8 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
 		this.algoritmo.registerObserver(this);
-		this.erasProcesadas = new ArrayList<Era>();
-		this.generacionesProcesadas = new ArrayList<Generacion>();
+		this.erasProcesadas = new ArrayList<Era>(algoritmo.getConfiguracion().getMaxEras());
+		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		this.progressDialog = progressDialog;		
 	}
 
@@ -108,7 +108,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 		ResultadoParcialEra resultadoEra = ResultadoParcialEra
 					.crearResultadoEra(startTime, erasProcesadas, algoritmo.getConfiguracion());
 		eraProcesada.liberarRecursos();
-		this.generacionesProcesadas = new ArrayList<Generacion>();
+		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		publish(resultadoEra);
 	}
 
