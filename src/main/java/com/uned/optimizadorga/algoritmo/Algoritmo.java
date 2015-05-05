@@ -21,7 +21,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	public Algoritmo(Configuracion configuracion) {
 		this.configuracion = configuracion;
 		observadores = new ArrayList<AlgoritmoObserver>();
-		listaEras = new ArrayList<Era>();	
+		listaEras = new ArrayList<Era>(configuracion.getMaxEras());	
 	}
 
 	@Override
