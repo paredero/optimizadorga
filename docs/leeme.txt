@@ -1,0 +1,15 @@
+En este fichero ZIP se incluyen los siguientes archivos:
+1) Chen.pdf
+2) Davis.pdf
+3) Goldberg.pdf
+4) Michallewicz.pdf
+5) directrices.pdf
+
+Los ficheros 1)-4) son los resumenes de algunos
+de los capitulos de cuatro libros dedicados a los AG. 
+
+El fichero 5) pretende servir de guia base sobre las caracteristicas del AG
+que se debe implementar en la herramienta.
+
+¡¡ATENCION!! Se recomienda la lectura previa de los ficheros 1)-4) antes
+de proceder a la lectura del fichero 5).
