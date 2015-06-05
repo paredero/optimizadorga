@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -233,7 +234,9 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	public OptimizadorGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 720);
+//		setBounds(100, 100, 1000, 720);
+//		setBounds(0,0,screenSize.width, screenSize.height);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -250,7 +253,7 @@ public class OptimizadorGUI extends JFrame {
 		pNumEras.add(lblNumEras);
 		lblNumEras.setLabelFor(spNumEras);
 		
-		spNumEras = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		spNumEras = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
 		pNumEras.add(spNumEras);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -260,7 +263,7 @@ public class OptimizadorGUI extends JFrame {
 		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");
 		pNumGen.add(lblNumeroGeneraciones);
 		
-		spNumGen = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		spNumGen = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		spNumGen.setPreferredSize(new Dimension(53, 20));
 		pNumGen.add(spNumGen);
 		lblNumeroGeneraciones.setLabelFor(spNumGen);
@@ -271,7 +274,7 @@ public class OptimizadorGUI extends JFrame {
 		JLabel lbTamPoblacion = new JLabel("Tama\u00F1o de la poblaci\u00F3n:");
 		pTamPoblacion.add(lbTamPoblacion);
 		
-		spTamPoblacion = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		spTamPoblacion = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		spTamPoblacion.setPreferredSize(new Dimension(53, 20));
 		pTamPoblacion.add(spTamPoblacion);
 		lbTamPoblacion.setLabelFor(spTamPoblacion);
@@ -280,7 +283,7 @@ public class OptimizadorGUI extends JFrame {
 		panelConfiguracion.add(pProbMuta);
 		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
 		pProbMuta.add(lbProbabilidadMutacion);
-		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));
+		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0, 0.001));
 		spProbMutacion.setPreferredSize(new Dimension(53, 20));
 		pProbMuta.add(spProbMutacion);
 		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
@@ -291,7 +294,7 @@ public class OptimizadorGUI extends JFrame {
 		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");
 		pProbCruce.add(lblProbabilidadDeCruce);
 		
-		spProbCruce = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 1.0, 0.001));
+		spProbCruce = new JSpinner(new SpinnerNumberModel(0.2, 0.0, 1.0, 0.001));
 		spProbCruce.setPreferredSize(new Dimension(53, 20));
 		pProbCruce.add(spProbCruce);
 		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
