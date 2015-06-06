@@ -10,15 +10,22 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,8 +39,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import org.apache.log4j.Logger;
+
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
@@ -47,6 +57,7 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -2384122644561114083L;
+	private static final Logger log = Logger.getLogger(OptimizadorGUI.class);
 	private JPanel contentPane;
 	private JTextField txtFuncionCoste;
 	private JSpinner spNumEras;
@@ -242,10 +253,36 @@ public class OptimizadorGUI extends JFrame {
 		setContentPane(contentPane);
 				
 		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));
+		Icon saveIcon = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
+		Icon loadIcon = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
 		
 		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panelGuardar = new JPanel();
+		panelConfiguracion.add(panelGuardar);		
+		JButton btnGuardar = new JButton(saveIcon);
+		panelGuardar.add(btnGuardar);
+		btnGuardar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				guardarConfiguracion();			
+			}
+
+			
+		});
+		
+		JPanel panelAbrir = new JPanel();
+		panelConfiguracion.add(panelAbrir);
+		JButton btnAbrir = new JButton(loadIcon);
+		panelAbrir.add(btnAbrir);
+		btnAbrir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cargarConfiguracion();			
+			}
+		});
 		
 		JPanel pNumEras = new JPanel();
 		panelConfiguracion.add(pNumEras);
@@ -558,6 +595,95 @@ public class OptimizadorGUI extends JFrame {
 			panelParametros.add(panel);
 			panelParametros.revalidate();
 			
+		}
+	}
+
+	protected void guardarConfiguracion() {
+		JFileChooser fileChooser = new JFileChooser();
+		int seleccion = fileChooser.showSaveDialog(this);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			Properties prop = new Properties();
+			File fichero = fileChooser.getSelectedFile();
+			FileOutputStream fo = null;
+			try {
+				fo = new FileOutputStream(fichero);
+				prop.setProperty("nuEras", spNumEras.getValue().toString());
+				prop.setProperty("numGens", spNumGen.getValue().toString());
+				prop.setProperty("funcionCoste", txtFuncionCoste.getText());
+				prop.setProperty("tamPoblacion", spTamPoblacion.getValue()
+						.toString());
+				prop.setProperty("probCruce", spProbCruce.getValue().toString());
+				prop.setProperty("probMutacion", spProbMutacion.getValue()
+						.toString());
+				for (String key : parametros.keySet()) {
+					prop.setProperty("parametro."+key.concat(".nombre"), parametros.get(key)
+							.getNombre());
+					prop.setProperty("parametro."+key.concat(".minimo"),
+							String.valueOf(parametros.get(key).getMinimo()));
+					prop.setProperty("parametro."+key.concat(".maximo"),
+							String.valueOf(parametros.get(key).getMaximo()));
+					prop.setProperty("parametro."+key.concat(".precision"),
+							String.valueOf(parametros.get(key).getPrecision()));
+				}
+				prop.store(fo, null);
+			} catch (IOException e) {
+				log.error("Error al guardar en fichero ", e);
+			} finally {
+				if (fo != null) {
+					try {
+						fo.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		}
+	}
+	
+	protected void cargarConfiguracion() {
+		JFileChooser fileChooser = new JFileChooser();
+		int seleccion = fileChooser.showOpenDialog(this);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			Properties prop = new Properties();
+			File fichero = fileChooser.getSelectedFile();
+			FileInputStream fi = null;
+			try {
+				fi = new FileInputStream(fichero);
+				prop.load(fi);
+				if (prop.containsKey("nuEras")) {
+					spNumEras.setValue(Double.valueOf((String) prop.get("nuEras")));
+				}
+				if (prop.containsKey("numGens")) {
+					spNumGen.setValue(Double.valueOf((String)prop.get("numGens")));
+				}
+				if (prop.containsKey("funcionCoste")) {
+					 txtFuncionCoste.setText((String) prop.get("funcionCoste"));
+				}
+				if (prop.containsKey("tamPoblacion")) {
+					spTamPoblacion.setValue(Double.valueOf((String)prop.get("tamPoblacion")));
+				}
+				if (prop.containsKey("probCruce")) {
+					spProbCruce.setValue(Double.valueOf((String)prop.get("probCruce")));
+				}
+				if (prop.containsKey("probMutacion")) {
+					spProbMutacion.setValue(Double.valueOf((String)prop.get("probMutacion")));
+				}
+				
+					//TODO Falta la Carga de parametros
+				
+			} catch (IOException e) {
+				log.error("Error al guardar en fichero ", e);
+			} finally {
+				if (fi != null) {
+					try {
+						fi.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
 		}
 	}
 
