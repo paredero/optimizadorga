@@ -15,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -395,7 +397,10 @@ public class OptimizadorGUI extends JFrame {
 		btnAniadirParametro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				aniadirParametro();
+				aniadirParametro(nombreParametro.getText(),
+						(Double) minimoParametro.getValue(),
+						(Double) maximoParametro.getValue(),
+						(Integer) precisionParametro.getValue());
 			}
 		});
 		
@@ -543,11 +548,7 @@ public class OptimizadorGUI extends JFrame {
 		});
 	}
 
-	protected void aniadirParametro() {
-		final String nombre = nombreParametro.getText();
-		double minimo = (Double) minimoParametro.getValue();
-		double maximo = (Double) maximoParametro.getValue();
-		int precision = (Integer) precisionParametro.getValue();
+	protected void aniadirParametro(final String nombre, double minimo, double maximo, int precision) {
 		TipoGen tipoGen = new TipoGen(nombre,minimo, maximo, precision);
 		
 		if (nombre == null || "".equals(nombre)) {
@@ -574,17 +575,10 @@ public class OptimizadorGUI extends JFrame {
 			btnEliminarButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					parametros.remove(nombre);					
-					// En segundo lugar elimino el componente
-					JPanel panelEliminar = mapPanelesParametros.get(nombre);
-					panelEliminar.removeAll();
-					panelParametros.remove(panelEliminar);
-					mapPanelesParametros.remove(nombre);
-					panelParametros.revalidate();
-					panelParametros.repaint();
-					panelDatos.revalidate();
-					panelDatos.repaint();
+					eliminarParametro(nombre);					
 				}
+
+
 			});
 			panel.add(btnEliminarButton, BorderLayout.EAST);
 			mapPanelesParametros.put(nombre, panel);
@@ -598,6 +592,19 @@ public class OptimizadorGUI extends JFrame {
 		}
 	}
 
+	private void eliminarParametro(String nombre) {
+		parametros.remove(nombre);					
+		// En segundo lugar elimino el componente
+		JPanel panelEliminar = mapPanelesParametros.get(nombre);
+		panelEliminar.removeAll();
+		panelParametros.remove(panelEliminar);
+		mapPanelesParametros.remove(nombre);
+		panelParametros.revalidate();
+		panelParametros.repaint();
+		panelDatos.revalidate();
+		panelDatos.repaint();
+	}
+	
 	protected void guardarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser();
 		int seleccion = fileChooser.showSaveDialog(this);
@@ -615,15 +622,24 @@ public class OptimizadorGUI extends JFrame {
 				prop.setProperty("probCruce", spProbCruce.getValue().toString());
 				prop.setProperty("probMutacion", spProbMutacion.getValue()
 						.toString());
+				StringBuilder sb = null;
 				for (String key : parametros.keySet()) {
-					prop.setProperty("parametro."+key.concat(".nombre"), parametros.get(key)
+					if (sb == null) {
+						sb = new StringBuilder(parametros.get(key)
+								.getNombre());
+					} else {
+						sb.append(",").append(parametros.get(key)
 							.getNombre());
-					prop.setProperty("parametro."+key.concat(".minimo"),
+					}
+					prop.setProperty(key.concat(".minimo"),
 							String.valueOf(parametros.get(key).getMinimo()));
-					prop.setProperty("parametro."+key.concat(".maximo"),
+					prop.setProperty(key.concat(".maximo"),
 							String.valueOf(parametros.get(key).getMaximo()));
-					prop.setProperty("parametro."+key.concat(".precision"),
+					prop.setProperty(key.concat(".precision"),
 							String.valueOf(parametros.get(key).getPrecision()));
+				}
+				if (sb != null) {
+					prop.setProperty("parametros.nombres", sb.toString());
 				}
 				prop.store(fo, null);
 			} catch (IOException e) {
@@ -669,7 +685,19 @@ public class OptimizadorGUI extends JFrame {
 				if (prop.containsKey("probMutacion")) {
 					spProbMutacion.setValue(Double.valueOf((String)prop.get("probMutacion")));
 				}
-				
+				if (prop.containsKey("parametros.nombres")) {
+					String strNombres = prop.getProperty("parametros.nombres");
+					String[] arrNombres = strNombres.split(",");
+					List<String> listaNombres = Arrays.asList(arrNombres);
+					eliminarParametrosExistentes();
+					parametros = new HashMap<String, TipoGen>();
+					for (String nombre:listaNombres) {
+						double minimo = Double.valueOf((String)prop.get(nombre+".minimo"));
+						double maximo = Double.valueOf((String)prop.get(nombre+".maximo"));
+						int precision = Integer.valueOf((String)prop.get(nombre+".precision"));
+						aniadirParametro(nombre, minimo, maximo, precision);
+					}
+				}
 					//TODO Falta la Carga de parametros
 				
 			} catch (IOException e) {
@@ -684,6 +712,18 @@ public class OptimizadorGUI extends JFrame {
 				}
 
 			}
+		}
+	}
+
+	private void eliminarParametrosExistentes() {
+		try {
+			List<String> nombreParam = new ArrayList<String>(parametros.keySet());
+			for (String nombre:nombreParam) {
+				eliminarParametro(nombre);
+			}
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
