@@ -18,12 +18,12 @@ import net.objecthunter.exp4j.ValidationResult;
 public class Funcion {
 	private static final String VARIABLE_NO_ASIGNADA1 = "The setVariable ";
 	private static final String VARIABLE_NO_ASIGNADA2 = "has not been set";
-	String expresion;
+//	private String expresion;
 	private Expression e;
 	
 	public Funcion(String expresion, Map<String, TipoGen> parametros) throws Exception {
 		super();
-		this.expresion = expresion;
+//		this.expresion = expresion;
 		ExpressionBuilder eb = new ExpressionBuilder(expresion);
 		eb.variables("pi");
 		eb.variables("e");

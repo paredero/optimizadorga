@@ -4,14 +4,19 @@ import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 
 /**
- * Interfaz para implementar el patron observer para registrar el progreso del calculo
+ * Interfaz para implementar el patron observer para registrar el progreso del
+ * calculo del algoritmo
+ * 
  * @author jgarcia
  *
  */
 public interface AlgoritmoSubject {
 	/**
-	 * Los elementos que quieren recibir actualizaciones sobre el progreso del calculo
-	 * se registran ante el algoritmo
+	 * Los elementos que quieren recibir actualizaciones sobre el progreso del
+	 * calculo se registran ante el algoritmo. En este caso se trata de los
+	 * elementos del interfaz grafico, que deben implementar el interfaz
+	 * AlgoritmoObserver si desean que se les manden actualizaciones
+	 * 
 	 * @param observer
 	 */
 	public void registerObserver(AlgoritmoObserver observer);
@@ -25,7 +30,7 @@ public interface AlgoritmoSubject {
 	 * 
 	 * @param eraProcesada
 	 */
-	public void notifyEra(Era eraProcesada);
+	public void notifyFinCalculoEra(Era eraProcesada);
 	
 	/**
 	 * Cuando se termina el calculo de una generación se actualiza el estado de
@@ -36,10 +41,10 @@ public interface AlgoritmoSubject {
 	 * 
 	 * @param generacionProcesada
 	 */
-	public void notifyGeneracion(Generacion generacionProcesada);
+	public void notifyFinCalculoGeneracion(Generacion generacionProcesada);
 	
 	/**
 	 * Cuando finaliza el cálculo del algoritmo se notifica a los observadores
 	 */
-	public void notifyFin();
+	public void notifyFinEjecucion();
 }

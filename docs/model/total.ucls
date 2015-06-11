@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="com.uned.optimizadorga.gui.OptimizadorGUI" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/gui/OptimizadorGUI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="112" x="388" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.uned.optimizadorga.gui.ProgressDialog" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/gui/ProgressDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="112" x="767" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.uned.optimizadorga.resultados.Resultado" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/resultados/Resultado.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="917" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.uned.optimizadorga.resultados.ResultadoEra" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/resultados/ResultadoEra.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="100" x="994" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.uned.optimizadorga.elementos.Gen" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Gen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="599" y="551"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.uned.optimizadorga.elementos.Funcion" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Funcion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="733" y="467"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.uned.optimizadorga.elementos.Poblacion" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Poblacion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="714" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.uned.optimizadorga.elementos.TipoGen" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/TipoGen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="599" y="635"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.uned.optimizadorga.elementos.Cromosoma" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Cromosoma.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="94" x="599" y="467"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.uned.optimizadorga.elementos.Configuracion" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Configuracion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="103" x="841" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/worker/AlgoritmoWorker.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="122" x="767" y="121"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.uned.optimizadorga.algoritmo.util.TimeUtils" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/util/TimeUtils.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="428" y="205"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="com.uned.optimizadorga.algoritmo.selectores.Selector" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/Selector.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="103" x="259" y="467"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <class id="14" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorTorneo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="111" x="108" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorRuleta.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="108" x="259" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoParcialEra.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="140" x="1291" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoParcialGeneracion.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="186" x="1044" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoParcial" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoParcial.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="122" x="1148" y="205"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoFinal" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoFinal.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="107" x="41" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <interface id="20" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraSubject" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/EraSubject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="103" x="571" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="21" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/AlgoritmoSubject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="122" x="264" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="22" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraObserver" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/EraObserver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="103" x="407" y="373"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <interface id="23" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/AlgoritmoObserver.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="132" x="595" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </interface>  
+  <class id="24" language="java" name="com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/comparadores/ComparadorMejorCoste.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="160" x="188" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="com.uned.optimizadorga.algoritmo.Generacion" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Generacion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="89" x="767" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="com.uned.optimizadorga.algoritmo.Era" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Era.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="447" y="289"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="com.uned.optimizadorga.algoritmo.Algoritmo" project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Algoritmo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="44" width="87" x="555" y="205"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <association id="29">    
+    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
+      <attribute id="30" name="mejorCromosoma"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="33" name="poblacionInicial"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="36" name="configuracion"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="38">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <association id="39">    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="40" name="tipoGen"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
+      <attribute id="43" name="observadores"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="46">    
+    <bendpoint x="886" y="205"/>    
+    <bendpoint x="886" y="289"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="47">    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="48" name="poblacionInicial"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="564" y="289"/>    
+    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
+      <attribute id="51" name="configuracion"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="53">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <association id="54">    
+    <end type="SOURCE" refId="9" navigable="false" variant="ASSOCIATION">      
+      <attribute id="55" name="genes"/>      
+      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
+      <attribute id="58" name="listaEras"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="61" name="evolucionPoblaciones"/>      
+      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="64" name="configuracion"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="67" name="observadores"/>      
+      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="70" name="mejorCromosoma"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <bendpoint x="540" y="373"/>    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="73" name="mejorIndividuo"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="76" name="algoritmoWorker"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <bendpoint x="77" y="121"/>    
+    <bendpoint x="77" y="205"/>    
+    <bendpoint x="77" y="289"/>    
+    <bendpoint x="77" y="373"/>    
+    <bendpoint x="77" y="467"/>    
+    <bendpoint x="77" y="551"/>    
+    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
+      <attribute id="79" name="parametros"/>      
+      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="82" name="nuevaPoblacion"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="85" name="progressDialog"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="87">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <association id="88">    
+    <bendpoint x="776" y="205"/>    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="89" name="generacionesProcesadas"/>      
+      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="92" name="algoritmo"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="95" name="cromosomas"/>      
+      <multiplicity id="96" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="97">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <association id="98">    
+    <bendpoint x="850" y="467"/>    
+    <bendpoint x="850" y="551"/>    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="99" name="parametros"/>      
+      <multiplicity id="100" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <bendpoint x="397" y="121"/>    
+    <bendpoint x="397" y="205"/>    
+    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
+      <attribute id="102" name="resultados"/>      
+      <multiplicity id="103" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <bendpoint x="672" y="205"/>    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="105" name="erasProcesadas"/>      
+      <multiplicity id="106" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
+      <attribute id="108" name="resultadosEra"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="110">    
+    <bendpoint x="915" y="205"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <generalization id="111">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <realization id="112">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="113">    
+    <bendpoint x="693" y="205"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="114">    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="115" name="instancia"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="118" name="selector"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="120">    
+    <bendpoint x="1300" y="205"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="121">    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="122" name="funcionCoste"/>      
+      <multiplicity id="123" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="125" name="funcionCoste"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="127">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="128">    
+    <bendpoint x="1260" y="289"/>    
+    <bendpoint x="1260" y="373"/>    
+    <end type="SOURCE" refId="18" navigable="false" variant="ASSOCIATION">      
+      <attribute id="129" name="mejorCromosoma"/>      
+      <multiplicity id="130" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="131">    
+    <bendpoint x="416" y="289"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="false" protected="false" private="false" static="false"/>    
+    <operations public="false" package="false" protected="false" private="false" static="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

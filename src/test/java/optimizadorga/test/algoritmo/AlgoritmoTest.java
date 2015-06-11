@@ -83,13 +83,13 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateEra(Era resultadoParcial) {
+	public void updateFinCalculoEra(Era resultadoParcial) {
 		notificacionesEra++;
 	}
 
 
 	@Override
-	public void updateGeneracion(Generacion resultadoParcial) {
+	public void updateFinCalculoGeneracion(Generacion resultadoParcial) {
 		notificacionesGeneracion++;
 	}
 

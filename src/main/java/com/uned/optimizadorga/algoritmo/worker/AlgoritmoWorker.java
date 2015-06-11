@@ -18,7 +18,10 @@ import com.uned.optimizadorga.algoritmo.util.TimeUtils;
 import com.uned.optimizadorga.gui.ProgressDialog;
 
 /**
- * Esta clase es un observa el progreso del algoritmo
+ * Esta clase es un observer del progreso del algoritmo implementa el interfaz
+ * AlgoritmoObserver para recibir actualizaciones del progreso del algoritmo y
+ * poder mostrar resultados parciales y finales
+ * 
  * @author fpb
  *
  */
@@ -35,6 +38,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
+		// Se registra como observador para que sea el algoritmo quien le informe del progreso
 		this.algoritmo.registerObserver(this);
 		this.erasProcesadas = new ArrayList<Era>(algoritmo.getConfiguracion().getMaxEras());
 		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
@@ -101,8 +105,12 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFinCalculoEra(com.uned.optimizadorga.algoritmo.Era)
+	 */
 	@Override
-	public void updateEra(Era eraProcesada) {
+	public void updateFinCalculoEra(Era eraProcesada) {
 //		log.debug("Cambio de era: " + erasProcesadas.size());
 		erasProcesadas.add(eraProcesada);
 		ResultadoParcialEra resultadoEra = ResultadoParcialEra
@@ -113,8 +121,12 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFinCalculoGeneracion(com.uned.optimizadorga.algoritmo.Generacion)
+	 */
 	@Override
-	public void updateGeneracion(Generacion generacionProcesada) {
+	public void updateFinCalculoGeneracion(Generacion generacionProcesada) {
 //		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
 		generacionesProcesadas.add(generacionProcesada);
 		ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion
@@ -123,6 +135,10 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 		publish(resultadoGeneracion);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFin(java.util.List)
+	 */
 	@Override
 	public void updateFin(List<Era> listaEras) {
 		this.erasProcesadas = listaEras;		

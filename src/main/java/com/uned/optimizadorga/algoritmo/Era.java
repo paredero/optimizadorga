@@ -3,16 +3,20 @@ package com.uned.optimizadorga.algoritmo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.EraSubject;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
+/**
+ * Clase que contiene la ejecucion de una era
+ * Es observable por el algoritmo, al que informa de su proggreso
+ * @author fpb
+ *
+ */
 public class Era implements EraSubject {
-	private static final Logger log = Logger.getLogger(Era.class);
+//	private static final Logger log = Logger.getLogger(Era.class);
 	private Configuracion configuracion;
 	private Poblacion poblacionInicial;
 	private List<EraObserver> observadores;
@@ -67,8 +71,9 @@ public class Era implements EraSubject {
 		}
 	}
 
-	/*
-	 * El mejor cromosoma obtenido en la computación hasta el momento
+	/**
+	 * Devuelve El mejor cromosoma obtenido en la computación hasta el momento
+	 * @return
 	 */
 	public Cromosoma obtenerMejor() {
 		if (mejorIndividuo == null) {
@@ -78,11 +83,19 @@ public class Era implements EraSubject {
 		return mejorIndividuo;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.EraSubject#registerObserver(com.uned.optimizadorga.algoritmo.interfaces.EraObserver)
+	 */
 	@Override
 	public void registerObserver(EraObserver observer) {
 		observadores.add(observer);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.EraSubject#notifyGeneracion(com.uned.optimizadorga.algoritmo.Generacion)
+	 */
 	@Override
 	public void notifyGeneracion(Generacion generacionProcesada) {
 		for (EraObserver o:this.observadores) {
@@ -90,6 +103,9 @@ public class Era implements EraSubject {
 		}
 	}
 
+	/**
+	 * Metodo para liberar memoria
+	 */
 	public void liberarRecursos() {
 		this.poblacionInicial = null;
 		this.evolucionPoblaciones = null;
