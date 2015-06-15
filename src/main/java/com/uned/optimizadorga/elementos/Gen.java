@@ -97,18 +97,4 @@ public class Gen {
 		return this.getTipoGen().getNombre();
 	}
 
-	public double getMaximo() {
-		return this.tipoGen.getMaximo();
-	}
-	
-	public double getMinimo() {
-		return this.tipoGen.getMinimo();
-	}
-	
-	public double getPrecision() {
-		return this.tipoGen.getPrecision();
-	}
-
-
-	
 }

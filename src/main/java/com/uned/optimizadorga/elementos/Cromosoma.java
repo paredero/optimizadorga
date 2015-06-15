@@ -58,14 +58,6 @@ public class Cromosoma {
 		return coste;
 	}
 
-	/**
-	 * @param coste
-	 *            the coste to set
-	 */
-	public void setCoste(double coste) {
-		this.coste = coste;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -76,7 +68,7 @@ public class Cromosoma {
 		return "\t" + this.hashCode() +" [coste=" + coste + ", genes=" + genes + "]";
 	}
 
-	public Cromosoma() {
+	private Cromosoma() {
 		super();
 		this.genes = new ArrayList<Gen>();
 	}

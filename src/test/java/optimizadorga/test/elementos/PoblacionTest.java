@@ -100,10 +100,10 @@ public class PoblacionTest {
 				Gen gCopia = cCopia.getGenes().get(j++);
 				assertTrue("El gen y el gen gCopia son el mismo objeto", 
 						g != gCopia);
-				assertTrue("Maximo distinto en genes", g.getMaximo() == gCopia.getMaximo());
-				assertTrue("Minimo distinto en genes", g.getMinimo() == gCopia.getMinimo());
+				assertTrue("Maximo distinto en genes", g.getTipoGen().getMaximo() == gCopia.getTipoGen().getMaximo());
+				assertTrue("Minimo distinto en genes", g.getTipoGen().getMinimo() == gCopia.getTipoGen().getMinimo());
 				assertTrue("Nombre distinto en genes", g.getNombre() == gCopia.getNombre());
-				assertTrue("Precision distinto en genes", g.getPrecision() == gCopia.getPrecision());
+				assertTrue("Precision distinto en genes", g.getTipoGen().getPrecision() == gCopia.getTipoGen().getPrecision());
 				assertTrue("Valor distinto en genes", g.getValor() == gCopia.getValor());
 			}
 		}

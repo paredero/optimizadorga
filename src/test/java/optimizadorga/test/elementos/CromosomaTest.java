@@ -48,24 +48,24 @@ public class CromosomaTest {
 				+ c.getGenes().size(), c.getGenes().size() == 3);
 		assertTrue("Valor Erroneo en gen p1" + c.getGenes().get(0), c
 				.getGenes().get(0).getValor() <= c
-						.getGenes().get(0).getMaximo());
+						.getGenes().get(0).getTipoGen().getMaximo());
 		assertTrue("Valor Erroneo en gen p1" + c.getGenes().get(0), c
 				.getGenes().get(0).getValor() >= c
-						.getGenes().get(0).getMinimo());
+						.getGenes().get(0).getTipoGen().getMinimo());
 
 		assertTrue("Valor Erroneo en gen p2" + c.getGenes().get(1), c
 				.getGenes().get(1).getValor() <= c
-						.getGenes().get(1).getMaximo());
+						.getGenes().get(1).getTipoGen().getMaximo());
 		assertTrue("Valor Erroneo en gen p2" + c.getGenes().get(1), c
 				.getGenes().get(1).getValor() >= c
-						.getGenes().get(1).getMinimo());
+						.getGenes().get(1).getTipoGen().getMinimo());
 
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
 				.getGenes().get(2).getValor() <= c
-						.getGenes().get(2).getMaximo());
+						.getGenes().get(2).getTipoGen().getMaximo());
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
 				.getGenes().get(2).getValor() >= c
-						.getGenes().get(2).getMinimo());
+						.getGenes().get(2).getTipoGen().getMinimo());
 		
 		log.debug(c);
 	}
