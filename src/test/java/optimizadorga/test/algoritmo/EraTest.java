@@ -48,7 +48,7 @@ public class EraTest implements EraObserver {
 		funcionCoste = new Funcion(expresion, genesParametro);
 
 		c = Configuracion.crearConfiguracion(1, 2,
-				funcionCoste, genesParametro, 3, 0.5, 0.5);
+				funcionCoste, genesParametro, 3, 0.5, 0.5, false);
 //		p.setFuncionCoste(funcionCoste);
 //		p.calcularCostesPoblacion();
 //		g = new Generacion(p, c);
@@ -63,7 +63,12 @@ public class EraTest implements EraObserver {
 		Era era = new Era();
 		era.setConfiguracion(c);
 		era.registerObserver(this);
-		era.ejecutar();
+		try {
+			era.ejecutar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals("No se han recibido las notificaciones necesarias",
 				c.getMaxGens(), numeroActualizaciones);
 	}

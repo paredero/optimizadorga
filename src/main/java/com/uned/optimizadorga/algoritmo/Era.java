@@ -39,7 +39,7 @@ public class Era implements EraSubject {
 		this.configuracion = configuracion;
 	}
 
-	public void ejecutar() {
+	public void ejecutar() throws Exception {
 		if (!Thread.currentThread().isInterrupted()) {
 			this.inicializarPoblacion();
 		}
@@ -48,13 +48,13 @@ public class Era implements EraSubject {
 		}
 	}
 	
-	private void inicializarPoblacion() {
+	private void inicializarPoblacion() throws Exception {
 		this.poblacionInicial = Poblacion.generarPoblacionInicializada(configuracion);
 		this.evolucionPoblaciones = new ArrayList<Poblacion>(configuracion.getMaxGens());
 		this.evolucionPoblaciones.add(poblacionInicial);
 	}
 	
-	private void ejecutarBucle() {
+	private void ejecutarBucle() throws Exception {
 		int generacionActual = 0;
 		while (!Thread.currentThread().isInterrupted() && generacionActual < configuracion.getMaxGens()) {
 			Generacion generacion = new Generacion(poblacionInicial,
@@ -63,8 +63,8 @@ public class Era implements EraSubject {
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
-//			log.debug("******************************************** Generacion numero: "
-//					+ (generacionActual));
+			//				log.debug("******************************************** Generacion numero: "
+			//						+ (generacionActual));
 			// La poblacion inicial de la siguiente generacion sera la obtenida en la ultima iteracion
 			this.poblacionInicial = generacion.getNuevaPoblacion();
 			this.notifyGeneracion(generacion);

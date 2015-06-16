@@ -24,18 +24,27 @@ public interface AlgoritmoObserver {
 	 * @param eraProcesada
 	 */
 	public void updateFinCalculoEra(Era eraProcesada);
-	
+
 	/**
-	 * Metodo que se emplea para que el observador (El worker) reciba una actualizacion de
-	 * fin de calculo de una generacion
+	 * Metodo que se emplea para que el observador (El worker) reciba una
+	 * actualizacion de fin de calculo de una generacion
 	 * 
 	 * @param generacionProcesada
 	 */
 	public void updateFinCalculoGeneracion(Generacion generacionProcesada);
-	
+
 	/**
-	 * Metodo que se emplea para que el observador (Worker) reciba una actualizacion de finalizacion  del algoritmo
+	 * Metodo que se emplea para que el observador (Worker) reciba una
+	 * actualizacion de finalizacion del algoritmo
+	 * 
 	 * @param listaEras
 	 */
 	public void updateFin(List<Era> listaEras);
+
+	/**
+	 * Método que se emplea para que el observador sea avisado cuando se
+	 * produzca un error en la ejecución para que vuelva a una situación
+	 * controlada
+	 */
+	public void updateError();
 }

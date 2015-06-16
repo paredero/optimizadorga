@@ -1,7 +1,6 @@
 package optimizadorga.test.algoritmo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +35,7 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 		genesParametro.put("x2", new TipoGen("x2", 4.1, 5.8, 1));
 		funcionCoste = new Funcion(expresion,genesParametro);
 		c = Configuracion.crearConfiguracion(3, 4,
-				funcionCoste, genesParametro, 3, 0.5, 0.5);
+				funcionCoste, genesParametro, 3, 0.5, 0.5, false);
 
 		a = new Algoritmo(c);
 	}
@@ -97,6 +96,13 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 	@Override
 	public void updateFin(List<Era> resultadoFinal) {
 		notificacionesFin++;
+	}
+
+
+	@Override
+	public void updateError() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

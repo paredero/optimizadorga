@@ -144,4 +144,12 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 		this.erasProcesadas = listaEras;		
 		finEjecucion = true;
 	}
+
+
+
+
+	@Override
+	public void updateError() {
+		this.cancel(true);
+	}
 }

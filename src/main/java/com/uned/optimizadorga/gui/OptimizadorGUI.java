@@ -13,16 +13,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -47,7 +49,6 @@ import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
@@ -440,9 +441,29 @@ public class OptimizadorGUI extends JFrame {
 			try {
 				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
 						parametros);
+			} catch (EmptyStackException e) {
+				JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto");
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this,
-						"Formato de función de coste incorrecto");
+				if (e.getMessage() == null) {
+					JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto");
+				} else if (e.getMessage().contains("Mismatched parentheses")) {
+					JOptionPane.showMessageDialog(this,
+							"Formato de función de coste incorrecto, por favor, revise los paréntesis");
+				} else if (e.getMessage().contains("Too many operators")) {
+					JOptionPane.showMessageDialog(this,
+							"Formato de función de coste incorrecto, demasiados operadores");
+				} else if (e.getMessage().contains("Unable to parse setVariable or function starting at pos")) {
+					String mensaje = e.getMessage();
+					Pattern p = Pattern.compile("\\d+");
+					Matcher m = p.matcher(mensaje);
+					m.find();
+					String parametro = m.group();
+					JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto, parámetro desconocido: "+txtFuncionCoste.getText().charAt(new Integer(parametro)));
+				}
+				else {
+					JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto");
+				}
+						
 			}
 			if (funcionCoste != null) {
 				resultados = null;

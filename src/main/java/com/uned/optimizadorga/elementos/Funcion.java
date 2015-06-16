@@ -42,7 +42,7 @@ public class Funcion {
 				if (!error.contains(VARIABLE_NO_ASIGNADA1) 
 						&& !error.contains(VARIABLE_NO_ASIGNADA2)) {
 					// El error variable no asignada es aceptable, pues solo asignare al evaluar
-					throw new Exception();
+					throw new Exception(error);
 				}
 			}
 		}
@@ -50,7 +50,7 @@ public class Funcion {
 
 
 
-	public double evaluate(List<Gen> listaParametros) {		
+	public double evaluate(List<Gen> listaParametros) throws Exception{		
 		for (Gen parametro:listaParametros) {
 			expresion.setVariable(parametro.getNombre(), parametro.getValor());
 		}

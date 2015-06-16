@@ -21,8 +21,9 @@ public class Poblacion {
 	 * Genera una poblacion con cromosomas aleatorios y calcula su coste
 	 * @param configuracion
 	 * @return
+	 * @throws Exception 
 	 */
-	public static Poblacion generarPoblacionInicializada(Configuracion configuracion) {
+	public static Poblacion generarPoblacionInicializada(Configuracion configuracion) throws Exception {
 		Poblacion poblacion = new Poblacion();
 		poblacion.setTamanio(configuracion.getTamanioPoblacion());
 		
@@ -95,8 +96,9 @@ public class Poblacion {
 
 	/**
 	 * Calcula el coste para la cada individuo de la población
+	 * @throws Exception 
 	 */
-	public void calcularCostesPoblacion() {
+	public void calcularCostesPoblacion() throws Exception {
 //		log.debug("***********calcula costes de la poblacion " + this.hashCode());
 		for (Cromosoma individuo : this.getCromosomas()) {
 			individuo.calcularCoste(this.funcionCoste);

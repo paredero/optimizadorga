@@ -24,7 +24,7 @@ public class Generacion {
 		this.configuracion = configuracion;
 	}
 
-	public void ejecutar() {
+	public void ejecutar() throws Exception {
 		nuevaPoblacion = this.seleccionar();
 //		log.debug("Poblacion seleccionada " + nuevaPoblacion);
 		operadorCruce(nuevaPoblacion);
@@ -128,9 +128,10 @@ public class Generacion {
 	/**
 	 * TODO refactor with Strategy pattern
 	 * @param nuevaPoblacion
+	 * @throws Exception 
 	 */
 	
-	private void operadorMutacion(Poblacion poblacion) {
+	private void operadorMutacion(Poblacion poblacion) throws Exception {
 		if (configuracion.getProbabilidadMutacion() == 0.0) {
 			log.warn("Probabilidad de Mutacion = 0 Posiblemente no inicializado");
 		}

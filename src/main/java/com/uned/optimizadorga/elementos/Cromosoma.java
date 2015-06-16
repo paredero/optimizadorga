@@ -73,7 +73,7 @@ public class Cromosoma {
 		this.genes = new ArrayList<Gen>();
 	}
 
-	public void calcularCoste(Funcion funcionCoste) {
+	public void calcularCoste(Funcion funcionCoste) throws Exception {
 		this.coste = funcionCoste.evaluate(genes);
 	}
 

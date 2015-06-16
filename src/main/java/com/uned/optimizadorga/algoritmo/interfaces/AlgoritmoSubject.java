@@ -47,4 +47,10 @@ public interface AlgoritmoSubject {
 	 * Cuando finaliza el cálculo del algoritmo se notifica a los observadores
 	 */
 	public void notifyFinEjecucion();
+
+	/**
+	 * Si se produce un error enla ejecucion se notifica para que los
+	 * observadores puedan volver a una situación controlada
+	 */
+	public void notifyError();
 }

@@ -23,7 +23,8 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 
 	@Override
-	public void run() {		
+	public void run() {	
+		try {
 		for (eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
 			Era era = new Era();
 			era.setConfiguracion(configuracion);
@@ -32,8 +33,14 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			era.ejecutar();
 			listaEras.add(era);
 			this.notifyFinCalculoEra(era);
+			this.notifyFinEjecucion();
 		}
-		this.notifyFinEjecucion();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.notifyError();
+		} finally {
+			
+		}
 	}
 
 	
@@ -89,6 +96,14 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 //		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
 		for (AlgoritmoObserver o:this.observadores) {
 			o.updateFin(listaEras);
+		}
+	}
+	
+	@Override
+	public void notifyError() {
+//		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
+		for (AlgoritmoObserver o:this.observadores) {
+			o.updateError();
 		}
 	}
 
