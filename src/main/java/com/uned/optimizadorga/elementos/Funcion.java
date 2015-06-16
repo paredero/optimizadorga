@@ -19,22 +19,22 @@ public class Funcion {
 	private static final String VARIABLE_NO_ASIGNADA1 = "The setVariable ";
 	private static final String VARIABLE_NO_ASIGNADA2 = "has not been set";
 //	private String expresion;
-	private Expression e;
+	private Expression expresion;
 	
-	public Funcion(String expresion, Map<String, TipoGen> parametros) throws Exception {
+	public Funcion(String strExpr, Map<String, TipoGen> parametros) throws Exception {
 		super();
 //		this.expresion = expresion;
-		ExpressionBuilder eb = new ExpressionBuilder(expresion);
+		ExpressionBuilder eb = new ExpressionBuilder(strExpr);
 		eb.variables("pi");
 		eb.variables("e");
 		
 		eb.variables(parametros.keySet());
 		
-		e = eb.build();
-		e.setVariable("pi", Math.PI);
-		e.setVariable("e", Math.E);
+		expresion = eb.build();
+		expresion.setVariable("pi", Math.PI);
+		expresion.setVariable("e", Math.E);
 		
-		ValidationResult resultadoValidacion = e.validate();
+		ValidationResult resultadoValidacion = expresion.validate();
 		if (!resultadoValidacion.isValid()) {
 			Iterator<String> itErrores = resultadoValidacion.getErrors().iterator();
 			while (itErrores.hasNext()) {
@@ -52,8 +52,12 @@ public class Funcion {
 
 	public double evaluate(List<Gen> listaParametros) {		
 		for (Gen parametro:listaParametros) {
-			e.setVariable(parametro.getNombre(), parametro.getValor());
+			expresion.setVariable(parametro.getNombre(), parametro.getValor());
 		}
-		return e.evaluate();
+		return expresion.evaluate();
 	}
+
+
+
+	
 }

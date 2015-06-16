@@ -61,31 +61,32 @@
     </display>  
   </class>  
   <association id="7">    
-    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
-      <attribute id="8" name="funcionCoste">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <bendpoint x="416" y="891"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="8" name="mejorCromosoma">        
+        <position height="18" width="91" x="370" y="898"/>      
       </attribute>      
       <multiplicity id="9" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="16" width="23" x="470" y="882"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="10">    
-    <end type="SOURCE" refId="6" navigable="false" variant="AGGREGATION">      
-      <attribute id="11" name="parametros">        
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="11" name="funcionCoste">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="12" minimum="0" maximum="2147483647">        
+      <multiplicity id="12" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="13">    
-    <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
+    <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="14" name="instancia">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -93,61 +94,60 @@
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
-    <bendpoint x="416" y="891"/>    
-    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
-      <attribute id="17" name="mejorCromosoma">        
-        <position height="18" width="91" x="370" y="898"/>      
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="17" name="tipoGen">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="18" minimum="0" maximum="1">        
-        <position height="16" width="23" x="470" y="882"/>      
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="19">    
-    <end type="SOURCE" refId="3" navigable="false" variant="AGGREGATION">      
-      <attribute id="20" name="genes">        
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="20" name="parametros">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="21" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <end type="SOURCE" refId="1" navigable="false" variant="AGGREGATION">      
-      <attribute id="23" name="tipoGen">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="24" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
-    <bendpoint x="410" y="804"/>    
-    <end type="SOURCE" refId="4" navigable="false" variant="AGGREGATION">      
-      <attribute id="26" name="cromosomas">        
+    <bendpoint x="411" y="804"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="23" name="cromosomas">        
         <position height="18" width="70" x="375" y="775"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="2147483647">        
+      <multiplicity id="24" minimum="0" maximum="2147483647">        
         <position height="16" width="21" x="470" y="786"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="26" name="genes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="28">    
-    <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
+    <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="29" name="funcionCoste">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -155,7 +155,7 @@
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

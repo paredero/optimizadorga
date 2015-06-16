@@ -3,7 +3,6 @@ package com.uned.optimizadorga.elementos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -17,20 +16,6 @@ public class Poblacion {
 	private Funcion funcionCoste;
 
 	private Cromosoma mejorCromosoma;
-	
-	
-	public static Poblacion generarPoblacionInicializada(int tamanioPoblacion,
-			Map<String, TipoGen> parametros) {
-		Poblacion poblacion = new Poblacion();
-		poblacion.setTamanio(tamanioPoblacion);
-
-		for (int i = 0; i < tamanioPoblacion; i++) {
-			poblacion.getCromosomas().add(
-					Cromosoma.generarCromosomaAleatorio(parametros));
-		}
-
-		return poblacion;
-	}
 	
 	/**
 	 * Genera una poblacion con cromosomas aleatorios y calcula su coste
@@ -49,16 +34,6 @@ public class Poblacion {
 		poblacion.setFuncionCoste(configuracion.getFuncionCoste());
 		poblacion.calcularCostesPoblacion();
 		return poblacion;
-	}
-
-	public Poblacion(Poblacion poblacionInicial) {
-		this();
-		this.funcionCoste = poblacionInicial.getFuncionCoste();
-		this.tamanio = poblacionInicial.getTamanio();
-		this.cromosomas = new ArrayList<Cromosoma>();
-		for (Cromosoma c:poblacionInicial.getCromosomas()) {
-			this.cromosomas.add(new Cromosoma(c));
-		}
 	}
 
 	public Poblacion() {
@@ -118,6 +93,9 @@ public class Poblacion {
 		return funcionCoste;
 	}
 
+	/**
+	 * Calcula el coste para la cada individuo de la población
+	 */
 	public void calcularCostesPoblacion() {
 //		log.debug("***********calcula costes de la poblacion " + this.hashCode());
 		for (Cromosoma individuo : this.getCromosomas()) {
@@ -126,6 +104,10 @@ public class Poblacion {
 //		log.debug("***********Fin del calculo costes de la poblacion " + this);
 	}
 
+	/**
+	 * Obtiene el mejor individuo de la población
+	 * @return
+	 */
 	public Cromosoma obtenerMejor() {
 		if (mejorCromosoma == null) {
 			mejorCromosoma = Collections.max(cromosomas,
@@ -139,16 +121,6 @@ public class Poblacion {
 				new ComparadorMejorCoste());
 		return peorCromosoma;
 	}
-
-	/**
-	 * Añade el mejor individuo a la posicion max + 1
-	 * 
-	 * @param mejorIndividuo
-	 */
-	public void addMejor(Cromosoma mejorIndividuo) {
-		cromosomas.add(mejorIndividuo);
-	}
-
 	
 	/**
 	 * Crea una poblacion sin cromosomas
@@ -198,7 +170,4 @@ public class Poblacion {
 		Collections.replaceAll(this.getCromosomas(), peor, new Cromosoma(mejorPoblacionInicial));
 		mejorCromosoma = null;
 	}
-
-	
-
 }
