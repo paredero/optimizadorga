@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -115,6 +117,7 @@ public class OptimizadorGUI extends JFrame {
 	private JButton botonAcos;
 	private JButton botonAsin;
 	private JButton botonTan;
+	private JCheckBox chkElitismo;
 
 	/**
 	 * Launch the application.
@@ -133,114 +136,6 @@ public class OptimizadorGUI extends JFrame {
 		});
 	}
 
-	/**
-	 * 
-	 */
-	private void ejecutar() {
-		if (txtFuncionCoste.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this,
-					"Debe introducirse la función de coste");
-		} else {
-			Funcion funcionCoste = null;
-			try {
-				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
-						parametros);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this,
-						"Formato de función de coste incorrecto");
-			}
-			if (funcionCoste != null) {
-				resultados = null;
-				ProgressDialog progressDialog = new ProgressDialog(
-						OptimizadorGUI.this, "Calculando", true);
-
-//				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
-//				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
-//				parametros.put("x1", x1);
-//				parametros.put("x2", x2);
-
-				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-
-				// //*********************************************************************
-				// // Función de prueba caso 2
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-3.0, 5.1, 1));
-				// parametros.add(new Gen("x2",2.1, 7.8, 1));
-				// parametros.add(new Gen("x3",-10.1, 20.3, 1));
-				// parametros.add(new Gen("x4",-3.3, 4.2, 1));
-				// parametros.add(new Gen("x5",-15.3, 70.1, 1));
-				// parametros.add(new Gen("x6",-0.25, 0.35, 2));
-				// String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
-
-				// *********************************************************************
-				// Función de prueba caso 3
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-5, 5, 1));
-				// parametros.add(new Gen("x2",-5, 5, 1));
-				//
-				// String expresion =
-				// "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
-
-				// *********************************************************************
-				// Función de prueba caso 4
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-100, 100, 1));
-				// parametros.add(new Gen("x2",-100, 100, 1));
-				//
-				// String expresion =
-				// "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
-
-				// *********************************************************************
-
-				Configuracion configuracion = Configuracion.crearConfiguracion(
-						(Integer) spNumEras.getValue(),
-						(Integer) spNumGen.getValue(), funcionCoste,
-						parametros, (Integer) spTamPoblacion.getValue(),
-						(Double) spProbCruce.getValue(),
-						(Double) spProbMutacion.getValue());
-
-				Algoritmo algoritmo = new Algoritmo(configuracion);
-				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
-						progressDialog);
-
-				progressDialog.setAlgoritmoWorker(worker);
-				worker.execute();
-				progressDialog.setVisible(true);
-
-				try {
-					resultados = worker.get();
-					mostrarResultados(resultados);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				} catch (ExecutionException e1) {
-					e1.printStackTrace();
-				}
-			}
-		}
-	}
-
-	private void mostrarResultados(List<Era> resultados) {
-		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN")
-				.append("\n");
-		int i = 1;
-		for (Era e : resultados) {
-			sb.append("Era: ").append(i).append("\n");
-			Cromosoma mejorCromosomaEra = e.obtenerMejor();
-			sb.append("Mejor cromosoma: ");
-			for (Gen g : mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getNombre()).append(",")
-						.append(g.getValor()).append("]");
-			}
-			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste())
-					.append("\n");
-			i++;
-			sb.append("**********************************************").append(
-					"\n");
-		}
-		panelResultados.setText(sb.toString());
-		// scrlResultados.setVisible(true);
-		panelResultados.setVisible(true);		
-	}
 
 	/**
 	 * Create the frame.
@@ -252,92 +147,16 @@ public class OptimizadorGUI extends JFrame {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 				
-		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));
-		Icon saveIcon = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
-		Icon loadIcon = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
+		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));		
 		
-		panelConfiguracion = new JPanel();
-		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		crarPanelConfiguracion();
 		
-		JPanel panelGuardar = new JPanel();
-		panelConfiguracion.add(panelGuardar);		
-		JButton btnGuardar = new JButton(saveIcon);
-		panelGuardar.add(btnGuardar);
-		btnGuardar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				guardarConfiguracion();			
-			}
-
-			
-		});
-		
-		JPanel panelAbrir = new JPanel();
-		panelConfiguracion.add(panelAbrir);
-		JButton btnAbrir = new JButton(loadIcon);
-		panelAbrir.add(btnAbrir);
-		btnAbrir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cargarConfiguracion();			
-			}
-		});
-		
-		JPanel pNumEras = new JPanel();
-		panelConfiguracion.add(pNumEras);
-		JLabel lblNumEras = new JLabel("N\u00FAmero de eras:");
-		pNumEras.add(lblNumEras);
-		lblNumEras.setLabelFor(spNumEras);
-		
-		spNumEras = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
-		pNumEras.add(spNumEras);
-		contentPane.setLayout(new BorderLayout(0, 0));
-
-		JPanel pNumGen = new JPanel();
-		panelConfiguracion.add(pNumGen);
-		
-		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");
-		pNumGen.add(lblNumeroGeneraciones);
-		
-		spNumGen = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
-		spNumGen.setPreferredSize(new Dimension(53, 20));
-		pNumGen.add(spNumGen);
-		lblNumeroGeneraciones.setLabelFor(spNumGen);
-		
-		JPanel pTamPoblacion = new JPanel();
-		panelConfiguracion.add(pTamPoblacion);
-		
-		JLabel lbTamPoblacion = new JLabel("Tama\u00F1o de la poblaci\u00F3n:");
-		pTamPoblacion.add(lbTamPoblacion);
-		
-		spTamPoblacion = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
-		spTamPoblacion.setPreferredSize(new Dimension(53, 20));
-		pTamPoblacion.add(spTamPoblacion);
-		lbTamPoblacion.setLabelFor(spTamPoblacion);
-		
-		JPanel pProbMuta = new JPanel();
-		panelConfiguracion.add(pProbMuta);
-		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
-		pProbMuta.add(lbProbabilidadMutacion);
-		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0, 0.001));
-		spProbMutacion.setPreferredSize(new Dimension(53, 20));
-		pProbMuta.add(spProbMutacion);
-		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
-		
-		JPanel pProbCruce = new JPanel();
-		panelConfiguracion.add(pProbCruce);
-		
-		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");
-		pProbCruce.add(lblProbabilidadDeCruce);
-		
-		spProbCruce = new JSpinner(new SpinnerNumberModel(0.2, 0.0, 1.0, 0.001));
-		spProbCruce.setPreferredSize(new Dimension(53, 20));
-		pProbCruce.add(spProbCruce);
-		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
 		contentPane.add(panelConfiguracion, BorderLayout.NORTH);
+		
+		
 		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -461,6 +280,261 @@ public class OptimizadorGUI extends JFrame {
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		//		scrlResultados.setVisible(true);
 				panelResultados.setVisible(false);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crarPanelConfiguracion() {
+		panelConfiguracion = new JPanel();
+		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
+		
+		crearBotonGuardar();			
+		crearBotonAbrir();
+		crearNumeroEras();
+		crearNumeroGeneraciones();
+		crearTamPoblacion();
+		crearProbabilidadMutacion();		
+		crearProbabilidadCruce();		
+		crearElitismo();
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearElitismo() {
+		JPanel pElitismo = new JPanel();		
+		chkElitismo = new JCheckBox("Elitismo");
+		pElitismo.add(chkElitismo);
+		panelConfiguracion.add(pElitismo);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearProbabilidadCruce() {
+		JPanel pProbCruce = new JPanel();		
+		JLabel lblProbabilidadDeCruce = new JLabel("Probabilidad de cruce:");		
+		spProbCruce = new JSpinner(new SpinnerNumberModel(0.2, 0.0, 1.0, 0.001));
+		spProbCruce.setPreferredSize(new Dimension(53, 20));		
+		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
+		pProbCruce.add(spProbCruce);
+		pProbCruce.add(lblProbabilidadDeCruce);		
+		panelConfiguracion.add(pProbCruce);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearProbabilidadMutacion() {
+		JPanel pProbMuta = new JPanel();
+		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
+		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0, 0.001));
+		spProbMutacion.setPreferredSize(new Dimension(53, 20));
+		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
+		pProbMuta.add(spProbMutacion);
+		pProbMuta.add(lbProbabilidadMutacion);
+		panelConfiguracion.add(pProbMuta);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearTamPoblacion() {
+		JPanel pTamPoblacion = new JPanel();
+		JLabel lbTamPoblacion = new JLabel("Tama\u00F1o de la poblaci\u00F3n:");
+		spTamPoblacion = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
+		spTamPoblacion.setPreferredSize(new Dimension(53, 20));
+		lbTamPoblacion.setLabelFor(spTamPoblacion);
+		pTamPoblacion.add(spTamPoblacion);
+		pTamPoblacion.add(lbTamPoblacion);		
+		panelConfiguracion.add(pTamPoblacion);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearNumeroGeneraciones() {
+		JPanel pNumGen = new JPanel();
+		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");
+		spNumGen = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
+		spNumGen.setPreferredSize(new Dimension(53, 20));
+		lblNumeroGeneraciones.setLabelFor(spNumGen);
+		pNumGen.add(spNumGen);
+		pNumGen.add(lblNumeroGeneraciones);
+		panelConfiguracion.add(pNumGen);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearNumeroEras() {
+		JPanel pNumEras = new JPanel();		
+		spNumEras = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
+		JLabel lblNumEras = new JLabel("N\u00FAmero de eras:");
+		lblNumEras.setLabelFor(spNumEras);		
+		pNumEras.add(spNumEras);
+		pNumEras.add(lblNumEras);
+		panelConfiguracion.add(pNumEras);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearBotonAbrir() {
+		ImageIcon loadIconBig = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
+		Icon loadIcon = new ImageIcon(loadIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+		JPanel panelAbrir = new JPanel();
+		panelAbrir.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
+		JButton btnAbrir = new JButton(loadIcon);
+		btnAbrir.setPreferredSize(new Dimension(35,35));
+		panelAbrir.add(btnAbrir);
+		btnAbrir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cargarConfiguracion();			
+			}
+		});
+		panelConfiguracion.add(panelAbrir);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void crearBotonGuardar() {
+		ImageIcon saveIconBig = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
+		Icon saveIcon = new ImageIcon(saveIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+		JPanel panelGuardar = new JPanel();
+		panelGuardar.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
+		JButton btnGuardar = new JButton(saveIcon);
+		btnGuardar.setPreferredSize(new Dimension(35,35));
+		panelGuardar.add(btnGuardar);
+		btnGuardar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				guardarConfiguracion();			
+			}
+		});
+		panelConfiguracion.add(panelGuardar);
+	}
+	
+	/**
+	 * 
+	 */
+	private void ejecutar() {
+		if (txtFuncionCoste.getText().trim().equals("")) {
+			JOptionPane.showMessageDialog(this,
+					"Debe introducirse la función de coste");
+		} else {
+			Funcion funcionCoste = null;
+			try {
+				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
+						parametros);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de función de coste incorrecto");
+			}
+			if (funcionCoste != null) {
+				resultados = null;
+				ProgressDialog progressDialog = new ProgressDialog(
+						OptimizadorGUI.this, "Calculando", true);
+
+//				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
+//				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
+//				parametros.put("x1", x1);
+//				parametros.put("x2", x2);
+
+				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+
+				// //*********************************************************************
+				// // Función de prueba caso 2
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-3.0, 5.1, 1));
+				// parametros.add(new Gen("x2",2.1, 7.8, 1));
+				// parametros.add(new Gen("x3",-10.1, 20.3, 1));
+				// parametros.add(new Gen("x4",-3.3, 4.2, 1));
+				// parametros.add(new Gen("x5",-15.3, 70.1, 1));
+				// parametros.add(new Gen("x6",-0.25, 0.35, 2));
+				// String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
+
+				// *********************************************************************
+				// Función de prueba caso 3
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-5, 5, 1));
+				// parametros.add(new Gen("x2",-5, 5, 1));
+				//
+				// String expresion =
+				// "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
+
+				// *********************************************************************
+				// Función de prueba caso 4
+				// List<Gen> parametros = new ArrayList<Gen>();
+				// parametros.add(new Gen("x1",-100, 100, 1));
+				// parametros.add(new Gen("x2",-100, 100, 1));
+				//
+				// String expresion =
+				// "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
+
+				// *********************************************************************
+
+				Configuracion configuracion = Configuracion.crearConfiguracion(
+						(Integer) spNumEras.getValue(),
+						(Integer) spNumGen.getValue(), funcionCoste,
+						parametros, (Integer) spTamPoblacion.getValue(),
+						(Double) spProbCruce.getValue(),
+						(Double) spProbMutacion.getValue(), chkElitismo.isSelected());
+
+				Algoritmo algoritmo = new Algoritmo(configuracion);
+				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
+						progressDialog);
+
+				progressDialog.setAlgoritmoWorker(worker);
+				worker.execute();
+				progressDialog.setVisible(true);
+
+				try {
+					resultados = worker.get();
+					mostrarResultados(resultados);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				} catch (ExecutionException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private void mostrarResultados(List<Era> resultados) {
+		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN")
+				.append("\n");
+		int i = 1;
+		for (Era e : resultados) {
+			sb.append("Era: ").append(i).append("\n");
+			Cromosoma mejorCromosomaEra = e.obtenerMejor();
+			sb.append("Mejor cromosoma: ");
+			for (Gen g : mejorCromosomaEra.getGenes()) {
+				sb.append("[").append(g.getNombre()).append(",")
+						.append(g.getValor()).append("]");
+			}
+			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste())
+					.append("\n");
+			i++;
+			sb.append("**********************************************").append(
+					"\n");
+		}
+		panelResultados.setText(sb.toString());
+		// scrlResultados.setVisible(true);
+		panelResultados.setVisible(true);		
 	}
 
 	private void inicializarBotonesFuncion() {

@@ -15,6 +15,7 @@ public class Configuracion {
 	private double probabilidadCruce;
 	private double probabilidadMutacion;
 	private Selector selector;
+	private boolean elitismo;
 
 	private Configuracion() {
 		super();
@@ -53,9 +54,18 @@ public class Configuracion {
 		return this.maxEras;
 	}
 
+	
+	/**
+	 * @return the elitismo
+	 */
+	public boolean getElitismo() {
+		return this.elitismo;
+	}
+
+
 	public static Configuracion crearConfiguracion(Integer maxEras,
 			Integer maxGens, Funcion funcionCoste, Map<String, TipoGen> parametros,
-			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion) {
+			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion, boolean usarElitismo) {
 		instancia.maxEras = maxEras;
 		instancia.maxGens = maxGens;
 		instancia.funcionCoste = funcionCoste;
@@ -63,6 +73,7 @@ public class Configuracion {
 		instancia.tamanioPoblacion = tamanioPoblacion;
 		instancia.probabilidadCruce = probabilidadCruce;
 		instancia.probabilidadMutacion = probabilidadMutacion;
+		instancia.elitismo = usarElitismo;
 		instancia.selector = new SelectorRuleta();
 		return instancia;
 	}

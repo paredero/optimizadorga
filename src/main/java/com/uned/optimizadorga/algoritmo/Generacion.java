@@ -28,8 +28,10 @@ public class Generacion {
 		nuevaPoblacion = this.seleccionar();
 //		log.debug("Poblacion seleccionada " + nuevaPoblacion);
 		operadorCruce(nuevaPoblacion);
-		operadorMutacion(nuevaPoblacion);		
-		operadorElitismo(nuevaPoblacion);
+		operadorMutacion(nuevaPoblacion);
+		if (this.configuracion.getElitismo()) {
+			operadorElitismo(nuevaPoblacion);
+		}
 	}
 	
 	
