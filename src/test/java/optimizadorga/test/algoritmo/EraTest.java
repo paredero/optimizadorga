@@ -48,7 +48,7 @@ public class EraTest implements EraObserver {
 		funcionCoste = new Funcion(expresion, genesParametro);
 
 		c = Configuracion.crearConfiguracion(1, 2,
-				funcionCoste, genesParametro, 3, 0.5, 0.5, false);
+				funcionCoste, genesParametro, 3, 0.5, 0.5, false, false, true);
 //		p.setFuncionCoste(funcionCoste);
 //		p.calcularCostesPoblacion();
 //		g = new Generacion(p, c);

@@ -9,6 +9,17 @@ import com.uned.optimizadorga.elementos.Poblacion;
  */
 public interface Selector {
 
+	String RULETA = "RULETA";
+	String TORNEO = "RULETA";
+
+	/**
+	 * Dada una población original devuelve una nueva población con los
+	 * cromosomas seleccionados como resultado de aplicar el operador de
+	 * seleccion
+	 * 
+	 * @param poblacion
+	 * @return
+	 */
 	public Poblacion seleccionar(Poblacion poblacion);
 
 }

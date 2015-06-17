@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
+import com.uned.optimizadorga.algoritmo.selectores.SelectorTorneoDeterminista;
 
 public class Configuracion {
 	private static Configuracion instancia = new Configuracion();
@@ -65,7 +66,7 @@ public class Configuracion {
 
 	public static Configuracion crearConfiguracion(Integer maxEras,
 			Integer maxGens, Funcion funcionCoste, Map<String, TipoGen> parametros,
-			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion, boolean usarElitismo) {
+			Integer tamanioPoblacion, Double probabilidadCruce, Double probabilidadMutacion, boolean usarElitismo, boolean selectorRuleta, boolean selectorTorneo) {
 		instancia.maxEras = maxEras;
 		instancia.maxGens = maxGens;
 		instancia.funcionCoste = funcionCoste;
@@ -74,7 +75,13 @@ public class Configuracion {
 		instancia.probabilidadCruce = probabilidadCruce;
 		instancia.probabilidadMutacion = probabilidadMutacion;
 		instancia.elitismo = usarElitismo;
-		instancia.selector = new SelectorRuleta();
+		if (selectorRuleta) {
+			instancia.selector = new SelectorRuleta();
+		} else if (selectorTorneo) {
+			instancia.selector = new SelectorTorneoDeterminista();
+		}
+		
+		
 		return instancia;
 	}
 

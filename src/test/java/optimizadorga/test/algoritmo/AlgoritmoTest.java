@@ -35,7 +35,7 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 		genesParametro.put("x2", new TipoGen("x2", 4.1, 5.8, 1));
 		funcionCoste = new Funcion(expresion,genesParametro);
 		c = Configuracion.crearConfiguracion(3, 4,
-				funcionCoste, genesParametro, 3, 0.5, 0.5, false);
+				funcionCoste, genesParametro, 3, 0.5, 0.5, false, false, true);
 
 		a = new Algoritmo(c);
 	}

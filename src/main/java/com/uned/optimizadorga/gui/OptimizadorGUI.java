@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -49,6 +51,7 @@ import org.apache.log4j.Logger;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
@@ -96,9 +99,9 @@ public class OptimizadorGUI extends JFrame {
 	private Map<String, JPanel> mapPanelesParametros = new HashMap<String, JPanel>();
 	private JPanel panelFuncion;
 	private JScrollPane scrollPane;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3;
+	private JPanel panelContenido;
+	private JPanel panelNuevoParametroResultado;
+	private JPanel panelCalculadora;
 	private JPanel panelBotones;
 	private JButton botonPi;
 	private JButton botonE;
@@ -119,6 +122,8 @@ public class OptimizadorGUI extends JFrame {
 	private JButton botonAsin;
 	private JButton botonTan;
 	private JCheckBox chkElitismo;
+	private JRadioButton rbSelRuleta;
+	private JRadioButton rbSelTorneo;
 
 	/**
 	 * Launch the application.
@@ -149,70 +154,63 @@ public class OptimizadorGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
-		setContentPane(contentPane);
-				
-		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));		
-		
-		crarPanelConfiguracion();
-		
+		crearPanelConfiguracion();
+		crearPanelContenido();
 		contentPane.add(panelConfiguracion, BorderLayout.NORTH);
+		contentPane.add(panelContenido, BorderLayout.CENTER);
+		setContentPane(contentPane);
+	}
+
+
+	private void crearPanelContenido() {
+		panelContenido = new JPanel();		
+		panelContenido.setLayout(new BorderLayout(0, 0));
+		crearPanelDatos();		
+		crearPanelNuevoParametroResultado();
+		panelContenido.add(panelDatos, BorderLayout.NORTH);
+		panelContenido.add(panelNuevoParametroResultado, BorderLayout.CENTER);
 		
 		
-		
-		panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
+	}
+
+
+	private void crearPanelDatos() {
 		panelDatos = new JPanel();
-		panelDatos.setPreferredSize(new Dimension(10, 150));
-		panel_1.add(panelDatos, BorderLayout.NORTH);
+		panelDatos.setPreferredSize(new Dimension(10, 150));		
 		panelDatos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelDatos.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		panel_3 = new JPanel();
-		panelDatos.add(panel_3);
-		panel_3.setLayout(new BorderLayout(0, 0));
-		
-		panelFuncion = new JPanel();
-		panel_3.add(panelFuncion, BorderLayout.NORTH);
-		panelFuncion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelFuncion.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lbFunCoste = new JLabel("Funci\u00F3n de coste:");
-		panelFuncion.add(lbFunCoste, BorderLayout.WEST);
-		
-		txtFuncionCoste = new JTextField();
-		panelFuncion.add(txtFuncionCoste, BorderLayout.CENTER);
-		txtFuncionCoste.setColumns(10);
-		
-		JButton btnEjecutar = new JButton("Ejecutar");
-		panelFuncion.add(btnEjecutar, BorderLayout.EAST);
-		
-		panelBotones = new JPanel();
-		panel_3.add(panelBotones, BorderLayout.CENTER);
-		
-		inicializarBotonesFuncion();
-		
-		
-		btnEjecutar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ejecutar();			
-			}
-		});
-		
+		crearPanelCalculadora();
+		crearPanelParametros();
+		panelDatos.add(panelCalculadora);		
+		panelDatos.add(scrollPane);
+	}
+
+
+	private void crearPanelParametros() {
 		panelParametros = new JPanel();
 		panelParametros.setLayout(new BoxLayout(panelParametros, BoxLayout.Y_AXIS));
 		scrollPane = new JScrollPane(panelParametros);
-		panelDatos.add(scrollPane);
+	}
+
+
+	private void crearPanelNuevoParametroResultado() {
+		panelNuevoParametroResultado = new JPanel();
 		
-		panel_2 = new JPanel();
-		panel_1.add(panel_2, BorderLayout.CENTER);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		panelNuevoParametroResultado.setLayout(new BorderLayout(0, 0));
 		
+		crearPanelNuevoParametro();		
+		crearPanelResultados();
+		panelNuevoParametroResultado.add(panelNuevoParametro, BorderLayout.NORTH);
+		panelNuevoParametroResultado.add(scrlResultados, BorderLayout.CENTER);
+	}
+
+
+	private void crearPanelNuevoParametro() {
 		panelNuevoParametro = new JPanel();
-		panel_2.add(panelNuevoParametro, BorderLayout.NORTH);
+		panelNuevoParametro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panelNuevoParametro.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));
 		btnAniadirParametro = new JButton(addIcon);
 		btnAniadirParametro.addActionListener(new ActionListener() {
 			@Override
@@ -223,71 +221,97 @@ public class OptimizadorGUI extends JFrame {
 						(Integer) precisionParametro.getValue());
 			}
 		});
-		
-		panelNombre = new JPanel();
-		panelNombre.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		panelMinimo = new JPanel();
+
+		panelPrecision = new JPanel();
+		precisionParametro = new JSpinner(new SpinnerNumberModel(1, 1, 6, 1));
+		precisionParametro.setPreferredSize(new Dimension(60, 20));
+		lbPrecisionParametro = new JLabel("Precisi\u00F3n:");
+		lbPrecisionParametro.setLabelFor(precisionParametro);
+		panelPrecision.add(lbPrecisionParametro);
+		panelPrecision.add(precisionParametro);
 		
 		panelMaximo = new JPanel();
-		
-		panelPrecision = new JPanel();
-		
-		lbPrecisionParametro = new JLabel("Precisi\u00F3n:");
-		panelPrecision.add(lbPrecisionParametro);
-		
-		precisionParametro = new JSpinner(new SpinnerNumberModel(1, 1, 6, 1));
-		
-		panelPrecision.add(precisionParametro);
-		precisionParametro.setPreferredSize(new Dimension(60, 20));
-		
-		lbPrecisionParametro.setLabelFor(precisionParametro);
-		
 		lbMaximoParametro = new JLabel("M\u00E1ximo:");
-		panelMaximo.add(lbMaximoParametro);
-		
 		maximoParametro = new JFormattedTextField(new Double(0.0));
-		panelMaximo.add(maximoParametro);
 		maximoParametro.setPreferredSize(new Dimension(60, 20));
 		maximoParametro.setColumns(10);
 		lbMaximoParametro.setLabelFor(maximoParametro);
+		panelMaximo.add(lbMaximoParametro);
+		panelMaximo.add(maximoParametro);
 		
+		panelMinimo = new JPanel();
 		lbMinimoParametro = new JLabel("M\u00EDnimo");
-		panelMinimo.add(lbMinimoParametro);
-		
 		minimoParametro = new JFormattedTextField(new Double(0.0));
-		panelMinimo.add(minimoParametro);
 		minimoParametro.setPreferredSize(new Dimension(60, 20));
 		lbMinimoParametro.setLabelFor(minimoParametro);
-		panelNuevoParametro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panelMinimo.add(lbMinimoParametro);
+		panelMinimo.add(minimoParametro);
 		
+		panelNombre = new JPanel();	
 		lbNombreParametro = new JLabel("Nombre:");
-		panelNombre.add(lbNombreParametro);
-		
 		nombreParametro = new JTextField();
-		panelNombre.add(nombreParametro);
 		nombreParametro.setPreferredSize(new Dimension(80, 20));
 		nombreParametro.setColumns(10);
-		lbNombreParametro.setLabelFor(nombreParametro);
+		lbNombreParametro.setLabelFor(nombreParametro);		
+		panelNombre.add(lbNombreParametro);	
+		panelNombre.add(nombreParametro);
+		
 		panelNuevoParametro.add(panelNombre);
 		panelNuevoParametro.add(panelMinimo);
 		panelNuevoParametro.add(panelMaximo);
 		panelNuevoParametro.add(panelPrecision);
 		panelNuevoParametro.add(btnAniadirParametro);
-		
+	}
+
+
+	private void crearPanelResultados() {
 		panelResultados = new JTextPane();
 		scrlResultados = new JScrollPane(panelResultados);
-		panel_2.add(scrlResultados, BorderLayout.CENTER);
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//		scrlResultados.setVisible(true);
-				panelResultados.setVisible(false);
+//		scrlResultados.setVisible(true);
+		panelResultados.setVisible(false);
+	}
+
+
+	private void crearPanelCalculadora() {
+		panelCalculadora = new JPanel();		
+		panelCalculadora.setLayout(new BorderLayout(0, 0));		
+		
+		crearPanelFuncion();		
+		crearPanelBotones();
+		
+		panelCalculadora.add(panelFuncion, BorderLayout.NORTH);
+		panelCalculadora.add(panelBotones, BorderLayout.CENTER);
+	}
+
+
+	private void crearPanelFuncion() {
+		panelFuncion = new JPanel();
+		panelFuncion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelFuncion.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lbFunCoste = new JLabel("Funci\u00F3n de coste:");
+		
+		txtFuncionCoste = new JTextField();
+		txtFuncionCoste.setColumns(10);
+		JButton btnEjecutar = new JButton("Ejecutar");
+		btnEjecutar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ejecutar();			
+			}
+		});
+		
+		panelFuncion.add(lbFunCoste, BorderLayout.WEST);
+		panelFuncion.add(txtFuncionCoste, BorderLayout.CENTER);
+		panelFuncion.add(btnEjecutar, BorderLayout.EAST);
 	}
 
 
 	/**
 	 * 
 	 */
-	private void crarPanelConfiguracion() {
+	private void crearPanelConfiguracion() {
 		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
@@ -300,6 +324,21 @@ public class OptimizadorGUI extends JFrame {
 		crearProbabilidadMutacion();		
 		crearProbabilidadCruce();		
 		crearElitismo();
+		crearTipoSeleccion();
+	}
+
+
+	private void crearTipoSeleccion() {
+		JPanel pTipoSeleccion = new JPanel();
+		rbSelRuleta = new JRadioButton("Seleccion por ruleta");
+		rbSelTorneo = new JRadioButton("Seleccion por torneo");
+		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(rbSelRuleta);
+		grupo.add(rbSelTorneo);
+		pTipoSeleccion.setLayout(new BoxLayout(pTipoSeleccion, BoxLayout.PAGE_AXIS));
+		pTipoSeleccion.add(rbSelRuleta);
+		pTipoSeleccion.add(rbSelTorneo);
+		panelConfiguracion.add(pTipoSeleccion);
 	}
 
 
@@ -513,7 +552,7 @@ public class OptimizadorGUI extends JFrame {
 						(Integer) spNumGen.getValue(), funcionCoste,
 						parametros, (Integer) spTamPoblacion.getValue(),
 						(Double) spProbCruce.getValue(),
-						(Double) spProbMutacion.getValue(), chkElitismo.isSelected());
+						(Double) spProbMutacion.getValue(), chkElitismo.isSelected(), rbSelRuleta.isSelected(), rbSelTorneo.isSelected());
 
 				Algoritmo algoritmo = new Algoritmo(configuracion);
 				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
@@ -558,7 +597,8 @@ public class OptimizadorGUI extends JFrame {
 		panelResultados.setVisible(true);		
 	}
 
-	private void inicializarBotonesFuncion() {
+	private void crearPanelBotones() {
+		panelBotones = new JPanel();
 		botonPi = new JButton("PI");
 		panelBotones.add(botonPi);
 		inicializarBoton(botonPi, " PI ");
@@ -717,6 +757,16 @@ public class OptimizadorGUI extends JFrame {
 				prop.setProperty("probCruce", spProbCruce.getValue().toString());
 				prop.setProperty("probMutacion", spProbMutacion.getValue()
 						.toString());
+				if (rbSelRuleta.isSelected()) {
+					prop.setProperty("selector", Selector.RULETA);
+				} else if (rbSelTorneo.isSelected()) {
+					prop.setProperty("selector", Selector.TORNEO);
+				}
+				if (chkElitismo.isSelected()) {
+					prop.setProperty("elitismo", "TRUE");
+				} else {
+					prop.setProperty("elitismo", "FALSE");
+				}
 				StringBuilder sb = null;
 				for (String key : parametros.keySet()) {
 					if (sb == null) {
@@ -780,6 +830,20 @@ public class OptimizadorGUI extends JFrame {
 				if (prop.containsKey("probMutacion")) {
 					spProbMutacion.setValue(Double.valueOf((String)prop.get("probMutacion")));
 				}
+				
+				if (prop.containsKey("selector")) {
+					if (prop.getProperty("selector").equals(Selector.RULETA)) {
+						rbSelRuleta.setSelected(true);
+					} else if (prop.getProperty("selector").equals(Selector.TORNEO)) {
+						rbSelTorneo.setSelected(true);
+					}
+				}
+				
+				if (prop.containsKey("elitismo") && "TRUE".equals(prop.getProperty("elitismo"))) {
+					chkElitismo.setSelected(true);
+				}
+				
+				
 				if (prop.containsKey("parametros.nombres")) {
 					String strNombres = prop.getProperty("parametros.nombres");
 					String[] arrNombres = strNombres.split(",");
@@ -817,7 +881,6 @@ public class OptimizadorGUI extends JFrame {
 				eliminarParametro(nombre);
 			}
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
