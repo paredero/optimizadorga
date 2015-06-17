@@ -111,10 +111,9 @@ public class Poblacion {
 	 * @return
 	 */
 	public Cromosoma obtenerMejor() {
-		if (mejorCromosoma == null) {
-			mejorCromosoma = Collections.max(cromosomas,
-					new ComparadorMejorCoste());
-		}
+		mejorCromosoma = Collections
+				.max(cromosomas, new ComparadorMejorCoste());
+
 		return mejorCromosoma;
 	}
 

@@ -176,6 +176,9 @@ public class Generacion {
 			Cromosoma peor = nuevaPoblacion.obtenerPeor();
 //			log.debug("El peor de la nueva Generacion" + peor);
 			nuevaPoblacion.sustituirCromosoma(peor, mejorPoblacionInicial);
+			log.error("SUSTITUYE "+mejorPoblacionInicial + " POR " + nuevoMejor);
+		} else {
+			log.error("NO SUSTITUYE "+mejorPoblacionInicial + " POR " + nuevoMejor);
 		}
 	}
 }
