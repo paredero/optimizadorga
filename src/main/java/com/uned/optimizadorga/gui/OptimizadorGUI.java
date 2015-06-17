@@ -133,6 +133,8 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelChartResultados;
 	private JPanel panelChart;
 	private JTextArea textoResultados;
+	private JPanel panelBotonesConfiguracion;
+	private JPanel panelDatosConfiguracion;
 
 	/**
 	 * Launch the application.
@@ -339,16 +341,21 @@ public class OptimizadorGUI extends JFrame {
 	private void crearPanelConfiguracion() {
 		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
+//		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
+		panelConfiguracion.setLayout(new BorderLayout());
 		
+		panelBotonesConfiguracion = new JPanel(new FlowLayout());
 		crearBotonGuardar();			
 		crearBotonAbrir();
+		panelConfiguracion.add(panelBotonesConfiguracion, BorderLayout.LINE_START);
+		panelDatosConfiguracion = new JPanel(new FlowLayout());
 		crearNumeroEras();
 		crearNumeroGeneraciones();
 		crearTamPoblacion();
 		crearProbabilidadMutacion();		
 		crearProbabilidadCruce();		
 		crearElitismo();
+		panelConfiguracion.add(panelDatosConfiguracion, BorderLayout.CENTER);
 		crearTipoSeleccion();
 	}
 
@@ -364,7 +371,7 @@ public class OptimizadorGUI extends JFrame {
 		pTipoSeleccion.setLayout(new BoxLayout(pTipoSeleccion, BoxLayout.PAGE_AXIS));
 		pTipoSeleccion.add(rbSelRuleta);
 		pTipoSeleccion.add(rbSelTorneo);
-		panelConfiguracion.add(pTipoSeleccion);
+		panelConfiguracion.add(pTipoSeleccion, BorderLayout.LINE_END);
 	}
 
 
@@ -375,7 +382,8 @@ public class OptimizadorGUI extends JFrame {
 		JPanel pElitismo = new JPanel();		
 		chkElitismo = new JCheckBox("Elitismo");
 		pElitismo.add(chkElitismo);
-		panelConfiguracion.add(pElitismo);
+		panelDatosConfiguracion.add(pElitismo);
+//		panelConfiguracion.add(pElitismo, BorderLayout.CENTER);
 	}
 
 
@@ -390,7 +398,8 @@ public class OptimizadorGUI extends JFrame {
 		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
 		pProbCruce.add(lblProbabilidadDeCruce);	
 		pProbCruce.add(spProbCruce);			
-		panelConfiguracion.add(pProbCruce);
+		panelDatosConfiguracion.add(pProbCruce);
+//		panelConfiguracion.add(pProbCruce, BorderLayout.CENTER);
 	}
 
 
@@ -404,8 +413,9 @@ public class OptimizadorGUI extends JFrame {
 		spProbMutacion.setPreferredSize(new Dimension(53, 20));
 		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
 		pProbMuta.add(lbProbabilidadMutacion);
-		pProbMuta.add(spProbMutacion);		
-		panelConfiguracion.add(pProbMuta);
+		pProbMuta.add(spProbMutacion);	
+		panelDatosConfiguracion.add(pProbMuta);
+//		panelConfiguracion.add(pProbMuta, BorderLayout.CENTER);
 	}
 
 
@@ -420,7 +430,8 @@ public class OptimizadorGUI extends JFrame {
 		lbTamPoblacion.setLabelFor(spTamPoblacion);
 		pTamPoblacion.add(lbTamPoblacion);
 		pTamPoblacion.add(spTamPoblacion);		
-		panelConfiguracion.add(pTamPoblacion);
+		panelDatosConfiguracion.add(pTamPoblacion);
+//		panelConfiguracion.add(pTamPoblacion, BorderLayout.CENTER);
 	}
 
 
@@ -435,7 +446,8 @@ public class OptimizadorGUI extends JFrame {
 		lblNumeroGeneraciones.setLabelFor(spNumGen);
 		pNumGen.add(lblNumeroGeneraciones);
 		pNumGen.add(spNumGen);
-		panelConfiguracion.add(pNumGen);
+		panelDatosConfiguracion.add(pNumGen);
+//		panelConfiguracion.add(pNumGen, BorderLayout.CENTER);
 	}
 
 
@@ -449,7 +461,8 @@ public class OptimizadorGUI extends JFrame {
 		lblNumEras.setLabelFor(spNumEras);
 		pNumEras.add(lblNumEras);
 		pNumEras.add(spNumEras);
-		panelConfiguracion.add(pNumEras);
+		panelDatosConfiguracion.add(pNumEras);
+//		panelConfiguracion.add(pNumEras, BorderLayout.CENTER);
 	}
 
 
@@ -457,8 +470,8 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private void crearBotonAbrir() {
-		ImageIcon loadIconBig = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
-		Icon loadIcon = new ImageIcon(loadIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+		ImageIcon loadIcon = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
+//		Icon loadIcon = new ImageIcon(loadIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 		JPanel panelAbrir = new JPanel();
 		panelAbrir.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		JButton btnAbrir = new JButton(loadIcon);
@@ -470,7 +483,8 @@ public class OptimizadorGUI extends JFrame {
 				cargarConfiguracion();			
 			}
 		});
-		panelConfiguracion.add(panelAbrir);
+		panelBotonesConfiguracion.add(panelAbrir);
+//		panelConfiguracion.add(panelAbrir, BorderLayout.LINE_START);
 	}
 
 
@@ -478,8 +492,8 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private void crearBotonGuardar() {
-		ImageIcon saveIconBig = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
-		Icon saveIcon = new ImageIcon(saveIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+		ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
+//		Icon saveIcon = new ImageIcon(saveIconBig.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 		JPanel panelGuardar = new JPanel();
 		panelGuardar.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		JButton btnGuardar = new JButton(saveIcon);
@@ -491,7 +505,8 @@ public class OptimizadorGUI extends JFrame {
 				guardarConfiguracion();			
 			}
 		});
-		panelConfiguracion.add(panelGuardar);
+		panelBotonesConfiguracion.add(panelGuardar);
+//		panelConfiguracion.add(panelGuardar, BorderLayout.LINE_START);
 	}
 	
 	/**
@@ -779,8 +794,7 @@ public class OptimizadorGUI extends JFrame {
 			panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelBotones.setLayout(new FlowLayout(FlowLayout.LEFT,5,5));
 			
-			//TODO cambiar icono
-			Icon editIcon = new ImageIcon(this.getClass().getResource("/icons/delete-icon.png"));
+			Icon editIcon = new ImageIcon(this.getClass().getResource("/icons/pencil-icon.png"));
 			JButton btnEditar = new JButton(editIcon);
 			btnEditar.setVerticalAlignment(SwingConstants.TOP);
 			btnEditar.addActionListener(new ActionListener() {
