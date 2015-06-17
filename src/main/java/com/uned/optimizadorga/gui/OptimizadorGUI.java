@@ -2,6 +2,7 @@ package com.uned.optimizadorga.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -44,6 +45,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -156,7 +158,7 @@ public class OptimizadorGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		crearPanelConfiguracion();
 		crearPanelContenido();
-		contentPane.add(panelConfiguracion, BorderLayout.NORTH);
+		contentPane.add(panelConfiguracion, BorderLayout.PAGE_START);
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 		setContentPane(contentPane);
 	}
@@ -167,7 +169,7 @@ public class OptimizadorGUI extends JFrame {
 		panelContenido.setLayout(new BorderLayout(0, 0));
 		crearPanelDatos();		
 		crearPanelNuevoParametroResultado();
-		panelContenido.add(panelDatos, BorderLayout.NORTH);
+		panelContenido.add(panelDatos, BorderLayout.PAGE_START);
 		panelContenido.add(panelNuevoParametroResultado, BorderLayout.CENTER);
 		
 		
@@ -200,7 +202,7 @@ public class OptimizadorGUI extends JFrame {
 		
 		crearPanelNuevoParametro();		
 		crearPanelResultados();
-		panelNuevoParametroResultado.add(panelNuevoParametro, BorderLayout.NORTH);
+		panelNuevoParametroResultado.add(panelNuevoParametro, BorderLayout.PAGE_START);
 		panelNuevoParametroResultado.add(scrlResultados, BorderLayout.CENTER);
 	}
 
@@ -280,7 +282,7 @@ public class OptimizadorGUI extends JFrame {
 		crearPanelFuncion();		
 		crearPanelBotones();
 		
-		panelCalculadora.add(panelFuncion, BorderLayout.NORTH);
+		panelCalculadora.add(panelFuncion, BorderLayout.PAGE_START);
 		panelCalculadora.add(panelBotones, BorderLayout.CENTER);
 	}
 
@@ -302,9 +304,9 @@ public class OptimizadorGUI extends JFrame {
 			}
 		});
 		
-		panelFuncion.add(lbFunCoste, BorderLayout.WEST);
+		panelFuncion.add(lbFunCoste, BorderLayout.LINE_END);
 		panelFuncion.add(txtFuncionCoste, BorderLayout.CENTER);
-		panelFuncion.add(btnEjecutar, BorderLayout.EAST);
+		panelFuncion.add(btnEjecutar, BorderLayout.LINE_START);
 	}
 
 
@@ -703,19 +705,43 @@ public class OptimizadorGUI extends JFrame {
 					.append(" Minimo: ").append(minimo).append(" Maximo: ")
 					.append(maximo).append(" Precisión: ").append(precision);
 			
-			Label label = new Label(texto.toString());
-			panel.add(label, BorderLayout.CENTER);
+			JPanel panelLabel = new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
+			panelLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			JLabel label = new JLabel(texto.toString());
+			label.setVerticalAlignment(SwingConstants.TOP);
+			panelLabel.add(label);
+			
+			
+			JPanel panelBotones = new JPanel();
+			panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panelBotones.setLayout(new FlowLayout(FlowLayout.LEFT,5,5));
+			
+			//TODO cambiar icono
+			Icon editIcon = new ImageIcon(this.getClass().getResource("/icons/delete-icon.png"));
+			JButton btnEditar = new JButton(editIcon);
+			btnEditar.setVerticalAlignment(SwingConstants.TOP);
+			btnEditar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					editarParametro(nombre);					
+				}
+			});
+			
+			
 			Icon removeIcon = new ImageIcon(this.getClass().getResource("/icons/delete-icon.png"));
 			JButton btnEliminarButton = new JButton(removeIcon);
+			btnEliminarButton.setVerticalAlignment(SwingConstants.TOP);
 			btnEliminarButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					eliminarParametro(nombre);					
 				}
-
-
 			});
-			panel.add(btnEliminarButton, BorderLayout.EAST);
+			
+			panelBotones.add(btnEditar);
+			panelBotones.add(btnEliminarButton);
+			panel.add(panelLabel, BorderLayout.CENTER);
+			panel.add(panelBotones, BorderLayout.LINE_END);
 			mapPanelesParametros.put(nombre, panel);
 			
 			panelDatos.revalidate();
@@ -727,6 +753,14 @@ public class OptimizadorGUI extends JFrame {
 		}
 	}
 
+	private void editarParametro(String nombre) {
+		TipoGen parametro = parametros.get(nombre);
+		nombreParametro.setText(nombre);
+		minimoParametro.setText(String.valueOf(parametro.getMinimo()));
+		maximoParametro.setText(String.valueOf(parametro.getMaximo()));
+		precisionParametro.setValue(parametro.getPrecision());
+		this.eliminarParametro(nombre);
+	}
 	private void eliminarParametro(String nombre) {
 		parametros.remove(nombre);					
 		// En segundo lugar elimino el componente
