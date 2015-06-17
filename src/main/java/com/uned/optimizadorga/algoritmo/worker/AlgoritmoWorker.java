@@ -115,7 +115,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 		erasProcesadas.add(eraProcesada);
 		ResultadoParcialEra resultadoEra = ResultadoParcialEra
 					.crearResultadoEra(startTime, erasProcesadas, algoritmo.getConfiguracion());
-		eraProcesada.liberarRecursos();
+//		eraProcesada.liberarRecursos();
 		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		publish(resultadoEra);
 	}

@@ -81,7 +81,7 @@ public class SelectorRuleta implements Selector {
 			int k = 1;
 			try {
 				boolean parar = false;
-				while (!parar && k < probabilidadesAcumuladas.length) {
+				while (!parar && k < probabilidadesAcumuladas.length-1) {
 					double probab = probabilidadesAcumuladas[k];
 					if (numAleatorio <= probab) {
 						parar = true;

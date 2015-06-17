@@ -2,14 +2,12 @@ package com.uned.optimizadorga.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -42,6 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
@@ -50,6 +49,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
@@ -59,6 +62,7 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
 
 public class OptimizadorGUI extends JFrame {
@@ -126,6 +130,9 @@ public class OptimizadorGUI extends JFrame {
 	private JCheckBox chkElitismo;
 	private JRadioButton rbSelRuleta;
 	private JRadioButton rbSelTorneo;
+	private JPanel panelChartResultados;
+	private JPanel panelChart;
+	private JTextArea textoResultados;
 
 	/**
 	 * Launch the application.
@@ -200,10 +207,10 @@ public class OptimizadorGUI extends JFrame {
 		
 		panelNuevoParametroResultado.setLayout(new BorderLayout(0, 0));
 		
-		crearPanelNuevoParametro();		
-		crearPanelResultados();
+		crearPanelNuevoParametro();	
+		crearPanelChartResultados();
 		panelNuevoParametroResultado.add(panelNuevoParametro, BorderLayout.PAGE_START);
-		panelNuevoParametroResultado.add(scrlResultados, BorderLayout.CENTER);
+		panelNuevoParametroResultado.add(panelChartResultados, BorderLayout.CENTER);
 	}
 
 
@@ -265,13 +272,29 @@ public class OptimizadorGUI extends JFrame {
 		panelNuevoParametro.add(btnAniadirParametro);
 	}
 
+	private void crearPanelChartResultados() {
+		panelChartResultados = new JPanel(new GridLayout(0, 2, 0, 0));
+		crearPanelChart();
+		crearPanelResultados();
+		panelChartResultados.add(panelChart);
+		panelChartResultados.add(scrlResultados);
+//		textoResultados.setText("De momento no hay nada");
+//		panelChartResultados.add(textoResultados);
+		panelChartResultados.setVisible(false);
+	}
+	
+	private void crearPanelChart() {
+		panelChart = new JPanel();		
+	}
+
 
 	private void crearPanelResultados() {
-		panelResultados = new JTextPane();
-		scrlResultados = new JScrollPane(panelResultados);
+		textoResultados = new JTextArea();
+//		scrlResultados = new JScrollPane(panelResultados);
+		scrlResultados = new JScrollPane(textoResultados);
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrlResultados.setVisible(true);
-		panelResultados.setVisible(false);
+//		panelResultados.setVisible(false);
 	}
 
 
@@ -304,9 +327,9 @@ public class OptimizadorGUI extends JFrame {
 			}
 		});
 		
-		panelFuncion.add(lbFunCoste, BorderLayout.LINE_END);
+		panelFuncion.add(lbFunCoste, BorderLayout.LINE_START);
 		panelFuncion.add(txtFuncionCoste, BorderLayout.CENTER);
-		panelFuncion.add(btnEjecutar, BorderLayout.LINE_START);
+		panelFuncion.add(btnEjecutar, BorderLayout.LINE_END);
 	}
 
 
@@ -333,6 +356,7 @@ public class OptimizadorGUI extends JFrame {
 	private void crearTipoSeleccion() {
 		JPanel pTipoSeleccion = new JPanel();
 		rbSelRuleta = new JRadioButton("Seleccion por ruleta");
+		rbSelRuleta.setSelected(true);
 		rbSelTorneo = new JRadioButton("Seleccion por torneo");
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbSelRuleta);
@@ -364,8 +388,8 @@ public class OptimizadorGUI extends JFrame {
 		spProbCruce = new JSpinner(new SpinnerNumberModel(0.2, 0.0, 1.0, 0.001));
 		spProbCruce.setPreferredSize(new Dimension(53, 20));		
 		lblProbabilidadDeCruce.setLabelFor(spProbCruce);
-		pProbCruce.add(spProbCruce);
-		pProbCruce.add(lblProbabilidadDeCruce);		
+		pProbCruce.add(lblProbabilidadDeCruce);	
+		pProbCruce.add(spProbCruce);			
 		panelConfiguracion.add(pProbCruce);
 	}
 
@@ -379,8 +403,8 @@ public class OptimizadorGUI extends JFrame {
 		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0, 0.001));
 		spProbMutacion.setPreferredSize(new Dimension(53, 20));
 		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
-		pProbMuta.add(spProbMutacion);
 		pProbMuta.add(lbProbabilidadMutacion);
+		pProbMuta.add(spProbMutacion);		
 		panelConfiguracion.add(pProbMuta);
 	}
 
@@ -394,8 +418,8 @@ public class OptimizadorGUI extends JFrame {
 		spTamPoblacion = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		spTamPoblacion.setPreferredSize(new Dimension(53, 20));
 		lbTamPoblacion.setLabelFor(spTamPoblacion);
-		pTamPoblacion.add(spTamPoblacion);
-		pTamPoblacion.add(lbTamPoblacion);		
+		pTamPoblacion.add(lbTamPoblacion);
+		pTamPoblacion.add(spTamPoblacion);		
 		panelConfiguracion.add(pTamPoblacion);
 	}
 
@@ -409,8 +433,8 @@ public class OptimizadorGUI extends JFrame {
 		spNumGen = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		spNumGen.setPreferredSize(new Dimension(53, 20));
 		lblNumeroGeneraciones.setLabelFor(spNumGen);
-		pNumGen.add(spNumGen);
 		pNumGen.add(lblNumeroGeneraciones);
+		pNumGen.add(spNumGen);
 		panelConfiguracion.add(pNumGen);
 	}
 
@@ -422,9 +446,9 @@ public class OptimizadorGUI extends JFrame {
 		JPanel pNumEras = new JPanel();		
 		spNumEras = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
 		JLabel lblNumEras = new JLabel("N\u00FAmero de eras:");
-		lblNumEras.setLabelFor(spNumEras);		
-		pNumEras.add(spNumEras);
+		lblNumEras.setLabelFor(spNumEras);
 		pNumEras.add(lblNumEras);
+		pNumEras.add(spNumEras);
 		panelConfiguracion.add(pNumEras);
 	}
 
@@ -594,10 +618,39 @@ public class OptimizadorGUI extends JFrame {
 			sb.append("**********************************************").append(
 					"\n");
 		}
-		panelResultados.setText(sb.toString());
-		// scrlResultados.setVisible(true);
-		panelResultados.setVisible(true);		
+		
+//		panelResultados.setText(sb.toString());
+		textoResultados.setText(sb.toString());
+//		textoResultados.validate();
+//		textoResultados.repaint();
+//		scrlResultados.setVisible(true);
+		construirChart(resultados);
+//		panelResultados.setVisible(true);
+		panelChartResultados.setVisible(true);		
 	}
+
+	private void construirChart(List<Era> resultados) {
+		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		int eraActual = 0;
+		for (Era e:resultados) {
+			eraActual++;
+			int generacionActual = 0;
+			for (Poblacion g:e.getEvolucionPoblaciones()) {
+				generacionActual++;
+				Cromosoma mejor = g.obtenerMejor();
+				if (generacionActual == 1) {
+					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
+				} else {
+					dataSet.addValue(mejor.getCoste(), "Coste", "");
+				}
+			}
+		}
+		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era, Generación", "Coste", dataSet);
+		chart.setBackgroundPaint(Color.GRAY);
+		ChartPanel chartPanel = new ChartPanel(chart);
+		panelChart.add(chartPanel);
+	}
+
 
 	private void crearPanelBotones() {
 		panelBotones = new JPanel();
@@ -868,8 +921,10 @@ public class OptimizadorGUI extends JFrame {
 				if (prop.containsKey("selector")) {
 					if (prop.getProperty("selector").equals(Selector.RULETA)) {
 						rbSelRuleta.setSelected(true);
+						rbSelTorneo.setSelected(false);
 					} else if (prop.getProperty("selector").equals(Selector.TORNEO)) {
 						rbSelTorneo.setSelected(true);
+						rbSelRuleta.setSelected(false);
 					}
 				}
 				

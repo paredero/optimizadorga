@@ -110,4 +110,11 @@ public class Era implements EraSubject {
 		this.poblacionInicial = null;
 		this.evolucionPoblaciones = null;
 	}
+
+	/**
+	 * @return the evolucionPoblaciones
+	 */
+	public List<Poblacion> getEvolucionPoblaciones() {
+		return this.evolucionPoblaciones;
+	}
 }
