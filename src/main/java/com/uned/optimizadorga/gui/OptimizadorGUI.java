@@ -630,6 +630,7 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 	private void construirChart(List<Era> resultados) {
+		panelChart.removeAll();
 		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int eraActual = 0;
 		for (Era e:resultados) {
@@ -649,6 +650,7 @@ public class OptimizadorGUI extends JFrame {
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
+		panelChart.validate();
 	}
 
 
@@ -900,16 +902,16 @@ public class OptimizadorGUI extends JFrame {
 				fi = new FileInputStream(fichero);
 				prop.load(fi);
 				if (prop.containsKey("nuEras")) {
-					spNumEras.setValue(Double.valueOf((String) prop.get("nuEras")));
+					spNumEras.setValue(Integer.valueOf((String) prop.get("nuEras")));
 				}
 				if (prop.containsKey("numGens")) {
-					spNumGen.setValue(Double.valueOf((String)prop.get("numGens")));
+					spNumGen.setValue(Integer.valueOf((String)prop.get("numGens")));
 				}
 				if (prop.containsKey("funcionCoste")) {
 					 txtFuncionCoste.setText((String) prop.get("funcionCoste"));
 				}
 				if (prop.containsKey("tamPoblacion")) {
-					spTamPoblacion.setValue(Double.valueOf((String)prop.get("tamPoblacion")));
+					spTamPoblacion.setValue(Integer.valueOf((String)prop.get("tamPoblacion")));
 				}
 				if (prop.containsKey("probCruce")) {
 					spProbCruce.setValue(Double.valueOf((String)prop.get("probCruce")));

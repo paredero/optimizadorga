@@ -76,10 +76,8 @@ public class Era implements EraSubject {
 	 * @return
 	 */
 	public Cromosoma obtenerMejor() {
-		if (mejorIndividuo == null) {
-			mejorIndividuo = this.evolucionPoblaciones.get(
+		mejorIndividuo = this.evolucionPoblaciones.get(
 				this.evolucionPoblaciones.size() - 1).obtenerMejor();
-		}
 		return mejorIndividuo;
 	}
 
