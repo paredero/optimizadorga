@@ -25,22 +25,20 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	@Override
 	public void run() {	
 		try {
-		for (eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
-			Era era = new Era();
-			era.setConfiguracion(configuracion);
-//			El algoritmo observara la era cuando se ejecute para poder informar de su progreso
-			era.registerObserver(this);
-			era.ejecutar();
-			listaEras.add(era);
-			this.notifyFinCalculoEra(era);
-			this.notifyFinEjecucion();
-		}
+			for (eraActual = 1; eraActual <= configuracion.getMaxEras(); eraActual++) {
+				Era era = new Era();
+				era.setConfiguracion(configuracion);
+				//			El algoritmo observara la era cuando se ejecute para poder informar de su progreso
+				era.registerObserver(this);
+				era.ejecutar();
+				listaEras.add(era);
+				this.notifyFinCalculoEra(era);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.notifyError();
-		} finally {
-			
 		}
+		this.notifyFinEjecucion();
 	}
 
 	

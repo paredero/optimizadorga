@@ -7,13 +7,13 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -40,13 +40,14 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
@@ -62,7 +63,6 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
 
 public class OptimizadorGUI extends JFrame {
@@ -132,7 +132,7 @@ public class OptimizadorGUI extends JFrame {
 	private JRadioButton rbSelTorneo;
 	private JPanel panelChartResultados;
 	private JPanel panelChart;
-	private JTextArea textoResultados;
+//	private JTextArea textoResultados;
 	private JPanel panelBotonesConfiguracion;
 	private JPanel panelDatosConfiguracion;
 
@@ -179,9 +179,7 @@ public class OptimizadorGUI extends JFrame {
 		crearPanelDatos();		
 		crearPanelNuevoParametroResultado();
 		panelContenido.add(panelDatos, BorderLayout.PAGE_START);
-		panelContenido.add(panelNuevoParametroResultado, BorderLayout.CENTER);
-		
-		
+		panelContenido.add(panelNuevoParametroResultado, BorderLayout.CENTER);		
 	}
 
 
@@ -291,12 +289,31 @@ public class OptimizadorGUI extends JFrame {
 
 
 	private void crearPanelResultados() {
-		textoResultados = new JTextArea();
-//		scrlResultados = new JScrollPane(panelResultados);
-		scrlResultados = new JScrollPane(textoResultados);
+//		textoResultados = new JTextArea();
+		panelResultados = new JTextPane();
+		panelResultados.setEditable(false);
+		panelResultados.addHyperlinkListener(new HyperlinkListener() {
+		    public void hyperlinkUpdate(HyperlinkEvent e) {
+		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+		           String u = e.getDescription();
+		           e.getSourceElement();
+		           mostrarGraficoEra(Integer.valueOf(u));
+		        }
+		    }
+		});
+		panelResultados.setContentType("text/html");
+		scrlResultados = new JScrollPane(panelResultados);
+		//TODO
+//		scrlResultados = new JScrollPane(textoResultados);
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrlResultados.setVisible(true);
 //		panelResultados.setVisible(false);
+	}
+
+
+	protected void mostrarGraficoEra(Integer numEra) {
+		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Calculando", true);
+		grafico.setVisible(true);
 	}
 
 
@@ -341,6 +358,7 @@ public class OptimizadorGUI extends JFrame {
 	private void crearPanelConfiguracion() {
 		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelConfiguracion.setPreferredSize(new Dimension(10, 150));
 //		panelConfiguracion.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
 		panelConfiguracion.setLayout(new BorderLayout());
 		
@@ -617,25 +635,46 @@ public class OptimizadorGUI extends JFrame {
 
 	private void mostrarResultados(List<Era> resultados) {
 		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN")
-				.append("\n");
+				.append("<br />");
 		int i = 1;
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<th>");
+		sb.append("ERA");
+		sb.append("</th>");
+		sb.append("<th>");
+		sb.append("MEJOR CROMOSOMA");
+		sb.append("</th>");
+		sb.append("<th>");
+		sb.append("COSTE");
+		sb.append("</th>");
+		sb.append("<th></th>");
+		sb.append("</tr>");
 		for (Era e : resultados) {
-			sb.append("Era: ").append(i).append("\n");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append(i-1);
+			sb.append("</td>");
 			Cromosoma mejorCromosomaEra = e.obtenerMejor();
-			sb.append("Mejor cromosoma: ");
+			sb.append("<td>");
+//			sb.append(i);			
 			for (Gen g : mejorCromosomaEra.getGenes()) {
 				sb.append("[").append(g.getNombre()).append(",")
 						.append(g.getValor()).append("]");
 			}
-			sb.append("\nCoste: ").append(mejorCromosomaEra.getCoste())
-					.append("\n");
+			sb.append("</td>");
+			sb.append("<td>").append(mejorCromosomaEra.getCoste())
+					.append("</td>");
+			sb.append("<td><a href=\"").append(i-1).append("\">Ver evolución</a></td>");
+			
+			sb.append("</tr>");
 			i++;
-			sb.append("**********************************************").append(
-					"\n");
+//			sb.append("**********************************************").append(
+//					"\n");
 		}
-		
-//		panelResultados.setText(sb.toString());
-		textoResultados.setText(sb.toString());
+		sb.append("</table>");
+		panelResultados.setText(sb.toString());
+//		textoResultados.setText(sb.toString());
 //		textoResultados.validate();
 //		textoResultados.repaint();
 //		scrlResultados.setVisible(true);
@@ -651,17 +690,19 @@ public class OptimizadorGUI extends JFrame {
 		for (Era e:resultados) {
 			eraActual++;
 			int generacionActual = 0;
-			for (Poblacion g:e.getEvolucionPoblaciones()) {
-				generacionActual++;
-				Cromosoma mejor = g.obtenerMejor();
-				if (generacionActual == 1) {
-					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
-				} else {
-					dataSet.addValue(mejor.getCoste(), "Coste", "");
-				}
-			}
+			Cromosoma mejorCromosomaEra = e.obtenerMejor();
+			dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
+//			for (Poblacion g:e.getEvolucionPoblaciones()) {
+//				generacionActual++;
+//				Cromosoma mejor = g.obtenerMejor();
+//				if (generacionActual == 1) {
+//					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
+//				} else {
+//					dataSet.addValue(mejor.getCoste(), "Coste", "");
+//				}
+//			}
 		}
-		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era, Generación", "Coste", dataSet);
+		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
@@ -838,8 +879,8 @@ public class OptimizadorGUI extends JFrame {
 	private void editarParametro(String nombre) {
 		TipoGen parametro = parametros.get(nombre);
 		nombreParametro.setText(nombre);
-		minimoParametro.setText(String.valueOf(parametro.getMinimo()));
-		maximoParametro.setText(String.valueOf(parametro.getMaximo()));
+		minimoParametro.setValue(Double.valueOf(parametro.getMinimo()));
+		maximoParametro.setValue(Double.valueOf(parametro.getMaximo()));
 		precisionParametro.setValue(parametro.getPrecision());
 		this.eliminarParametro(nombre);
 	}
@@ -974,9 +1015,7 @@ public class OptimizadorGUI extends JFrame {
 						int precision = Integer.valueOf((String)prop.get(nombre+".precision"));
 						aniadirParametro(nombre, minimo, maximo, precision);
 					}
-				}
-					//TODO Falta la Carga de parametros
-				
+				}				
 			} catch (IOException e) {
 				log.error("Error al guardar en fichero ", e);
 			} finally {
