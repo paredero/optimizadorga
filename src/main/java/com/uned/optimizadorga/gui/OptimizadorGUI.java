@@ -740,12 +740,20 @@ public class OptimizadorGUI extends JFrame {
 		});
 	}
 
-	protected void aniadirParametro(final String nombre, double minimo, double maximo, int precision) {
+	protected void aniadirParametro(final String nombre, double minimo,
+			double maximo, int precision) {
 		TipoGen tipoGen = new TipoGen(nombre,minimo, maximo, precision);
 		
 		if (nombre == null || "".equals(nombre)) {
 			JOptionPane.showMessageDialog(this, "El nombre no puede ser nulo");
-		} else if (mapPanelesParametros.containsKey(nombre)) {
+		} else if (nombre.startsWith("0") || nombre.startsWith("1")
+				|| nombre.startsWith("2") || nombre.startsWith("3")
+				|| nombre.startsWith("4") || nombre.startsWith("5")
+				|| nombre.startsWith("6") || nombre.startsWith("7")
+				|| nombre.startsWith("8") || nombre.startsWith("9")) {
+			JOptionPane.showMessageDialog(this, "El nombre no puede comenzar por un dígito");
+		}
+		else if (mapPanelesParametros.containsKey(nombre)) {
 			JOptionPane.showMessageDialog(this, "Ya existe un parámetro con el mismo nombre");
 		} else if (maximo < minimo) {
 			JOptionPane.showMessageDialog(this, "El valor máximo no puede ser inferior al valor mínimo");
@@ -798,6 +806,11 @@ public class OptimizadorGUI extends JFrame {
 			panel.add(panelLabel, BorderLayout.CENTER);
 			panel.add(panelBotones, BorderLayout.LINE_END);
 			mapPanelesParametros.put(nombre, panel);
+			
+			nombreParametro.setText(null);
+			minimoParametro.setValue(null);
+			maximoParametro.setValue(null);
+			precisionParametro.setValue(1);
 			
 			panelDatos.revalidate();
 			panelDatos.repaint();
