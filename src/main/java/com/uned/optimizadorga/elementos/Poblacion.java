@@ -37,6 +37,7 @@ public class Poblacion {
 		return poblacion;
 	}
 
+	
 	public Poblacion() {
 		super();
 		this.cromosomas = new ArrayList<Cromosoma>();
@@ -136,6 +137,18 @@ public class Poblacion {
 		return copia;
 	}
 
+	public static Poblacion copiarPoblacion(Poblacion origen) {
+		Poblacion copia = new Poblacion();
+		copia.setFuncionCoste(origen.getFuncionCoste());
+		copia.setTamanio(origen.getTamanio());
+		List<Cromosoma> listaCromosomas = new ArrayList<Cromosoma>();
+		for (Cromosoma c:origen.getCromosomas()) {
+			Cromosoma nuevo = new Cromosoma(c);
+			listaCromosomas.add(nuevo);
+		}
+		copia.setCromosomas(listaCromosomas);
+		return copia;
+	}
 	
 	/**
 	 * Obtiene la media de la funcion de coste para los cromosomas de la poblacion
@@ -171,4 +184,9 @@ public class Poblacion {
 		Collections.replaceAll(this.getCromosomas(), peor, new Cromosoma(mejorPoblacionInicial));
 		mejorCromosoma = null;
 	}
+
+
+	
+
+
 }

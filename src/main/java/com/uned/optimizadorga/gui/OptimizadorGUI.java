@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -54,6 +54,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
@@ -63,6 +65,7 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
 
 public class OptimizadorGUI extends JFrame {
@@ -284,7 +287,7 @@ public class OptimizadorGUI extends JFrame {
 	}
 	
 	private void crearPanelChart() {
-		panelChart = new JPanel();		
+		panelChart = new JPanel(new BorderLayout(5,5));		
 	}
 
 
@@ -311,10 +314,6 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 
-	protected void mostrarGraficoEra(Integer numEra) {
-		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Calculando", true);
-		grafico.setVisible(true);
-	}
 
 
 	private void crearPanelCalculadora() {
@@ -653,7 +652,7 @@ public class OptimizadorGUI extends JFrame {
 		for (Era e : resultados) {
 			sb.append("<tr>");
 			sb.append("<td>");
-			sb.append(i-1);
+			sb.append(i);
 			sb.append("</td>");
 			Cromosoma mejorCromosomaEra = e.obtenerMejor();
 			sb.append("<td>");
@@ -685,30 +684,55 @@ public class OptimizadorGUI extends JFrame {
 
 	private void construirChart(List<Era> resultados) {
 		panelChart.removeAll();
-		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+//		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int eraActual = 0;
+		int totalEras = new BigDecimal(resultados.size()).divide(BigDecimal.TEN, BigDecimal.ROUND_UP).intValue();
+		int ultimaEraMostrada = 0;
+		List<XYSeries> listaSeries = new ArrayList<XYSeries>();
 		for (Era e:resultados) {
-			eraActual++;
+			XYSeries serie = new XYSeries(eraActual);
+			eraActual++;			
+			boolean mostrarEra = false;
+			if (eraActual-ultimaEraMostrada == totalEras) {
+				mostrarEra = true;
+				ultimaEraMostrada = eraActual;
+			}
 			int generacionActual = 0;
 			Cromosoma mejorCromosomaEra = e.obtenerMejor();
-			dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
-//			for (Poblacion g:e.getEvolucionPoblaciones()) {
-//				generacionActual++;
-//				Cromosoma mejor = g.obtenerMejor();
-//				if (generacionActual == 1) {
-//					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
-//				} else {
-//					dataSet.addValue(mejor.getCoste(), "Coste", "");
-//				}
-//			}
+//			dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
+			for (Poblacion g:e.getEvolucionPoblaciones()) {				
+				
+				Cromosoma mejor = g.obtenerMejor();
+				serie.add(generacionActual, mejor.getCoste());
+				generacionActual++;
+				/*
+				if (resultados.size() == 1) {
+					dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
+				} else if (generacionActual == 1 && mostrarEra) {
+					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
+				} else {
+					dataSet.addValue(mejor.getCoste(), "Coste", "");
+				}
+				*/
+			}
+			listaSeries.add(serie);
 		}
-		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		for (XYSeries serie:listaSeries) {
+			dataset.addSeries(serie);
+		}
+//		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
+		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Era", "Coste", dataset);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
 		panelChart.validate();
 	}
 
+	protected void mostrarGraficoEra(Integer numEra) {
+		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Calculando", true);
+		grafico.setVisible(true);
+	}
 
 	private void crearPanelBotones() {
 		panelBotones = new JPanel();

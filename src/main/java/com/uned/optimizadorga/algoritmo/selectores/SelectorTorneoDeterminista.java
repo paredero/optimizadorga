@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+import org.jfree.util.Log;
+
+import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
@@ -13,6 +17,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
  *
  */
 public class SelectorTorneoDeterminista implements Selector {
+	private static final Logger log = Logger.getLogger(SelectorTorneoDeterminista.class);
 	private int numElemSeleccionados = 2;
 	private Random random = new Random();
 	@Override
@@ -25,11 +30,20 @@ public class SelectorTorneoDeterminista implements Selector {
 		Poblacion poblacionMuestra = Poblacion.copiarPoblacionVacia(poblacionInicial);
 		poblacionMuestra.setTamanio(numElemSeleccionados);
 		
+		//TODO Traza
+		boolean seleccionado = false;
+		Cromosoma mejor = poblacionInicial.obtenerMejor();
 		// Genera grupos aleatorios y toma el mejor de cada grupo para la nueva poblacion
 		while (cromosomasSeleccionados.size()<=poblacionSeleccionados.getTamanio()) {
 			List<Cromosoma> muestra = this.seleccionarAlAzar(poblacionInicial, numElemSeleccionados);
+			if (muestra.contains(mejor)) {
+				seleccionado = true;
+			}
 			poblacionMuestra.setCromosomas(muestra);
 			cromosomasSeleccionados.add(poblacionMuestra.obtenerMejor());
+		}
+		if (!seleccionado) {
+			log.info("No se ha seleccionado el mejor cromosoma " + mejor);
 		}
 		poblacionSeleccionados.setCromosomas(cromosomasSeleccionados);
 		return poblacionSeleccionados;

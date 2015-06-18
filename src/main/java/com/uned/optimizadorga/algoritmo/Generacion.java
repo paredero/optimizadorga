@@ -25,13 +25,25 @@ public class Generacion {
 	}
 
 	public void ejecutar() throws Exception {
+		log.info("INICIO BUCLE GENERACION");
 		nuevaPoblacion = this.seleccionar();
 //		log.debug("Poblacion seleccionada " + nuevaPoblacion);
 		operadorCruce(nuevaPoblacion);
+		log.info("TRAS CRUCE");
+		log.info("Mejor resultado de la poblacion inicial " + poblacionInicial.obtenerMejor());
+		log.info("Mejor resultado de la poblacion cruzada" + nuevaPoblacion.obtenerMejor());
+		
 		operadorMutacion(nuevaPoblacion);
+		log.info("TRAS MUTACION ");
+		log.info("Mejor resultado de la poblacion inicial " + poblacionInicial.obtenerMejor());
+		log.info("Mejor resultado de la poblacion mutada" + nuevaPoblacion.obtenerMejor());
 		if (this.configuracion.getElitismo()) {
 			operadorElitismo(nuevaPoblacion);
+			log.info("TRAS ELITISMO ");
+			log.info("Mejor resultado de la poblacion inicial " + poblacionInicial.obtenerMejor());
+			log.info("Mejor resultado de la poblacion evolucionada" + nuevaPoblacion.obtenerMejor());
 		}
+		
 	}
 	
 	
@@ -58,8 +70,15 @@ public class Generacion {
 		return configuracion;
 	}
 
+	/**
+	 * Dada una poblacion inicial, genera una nueva poblacion aplicando el selector
+	 * @return
+	 */
 	private Poblacion seleccionar() {
 		Poblacion resultado = configuracion.getSelector().seleccionar(poblacionInicial);
+		resultado = Poblacion.copiarPoblacion(resultado);
+		log.info("Mejor resultado de la poblacion inicial " + poblacionInicial.obtenerMejor());
+		log.info("Mejor resultado de la seleccion: " + resultado.obtenerMejor());		
 		return resultado;
 	}
 
@@ -73,11 +92,16 @@ public class Generacion {
 		}
 //		log.debug("Ejecuta operador de cruce PC " + configuracion.getProbabilidadCruce());
 		List<Cromosoma> cromosomasSeleccionados = new ArrayList<Cromosoma>();
+		//TODO Traza
+		Cromosoma mejor = poblacion.obtenerMejor();
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			double random = Math.random();
 //			log.debug("Gira la ruleta......"+random);
 			if (random < configuracion.getProbabilidadCruce()) {
 				cromosomasSeleccionados.add(c);
+				if (c == mejor) {
+					log.info("El mejor cromosoma seleccionado para cruce");
+				}
 //				log.debug(".......TOCO!  " + c);
 			}
 		}
@@ -94,6 +118,17 @@ public class Generacion {
 				cruzar(cPar, cImpar);
 			}
 			i++;
+			if (cImpar == mejor) {
+				log.info("El mejor cromosoma tras cruzar sin evaluar " + mejor);
+			} else if (cPar == mejor) {
+				log.info("El mejor cromosoma tras cruzar sin evaluar " + mejor);
+			}
+		}
+		try {
+			poblacion.calcularCostesPoblacion();
+			log.info("El mejor cromosoma tras cruzar y evaluar " +mejor);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 //		log.debug("Poblacion tras el cruce " + poblacion);
 	}
@@ -135,20 +170,36 @@ public class Generacion {
 		if (configuracion.getProbabilidadMutacion() == 0.0) {
 			log.warn("Probabilidad de Mutacion = 0 Posiblemente no inicializado");
 		}
+		log.info("Mejor cromosoma antes de mutar " + poblacion.obtenerMejor());
 		for (Cromosoma c:poblacion.getCromosomas()) {
 //			log.debug("Operador mutacion con probabilidad " + configuracion.getProbabilidadMutacion());
 //			log.debug("El cromosoma ANTES DE MUTAR" + c);
+			boolean mejorCromosoma  =false;
+			if (c.getCoste() == poblacion.obtenerMejor().getCoste()) {
+				mejorCromosoma = true;
+			}
+			
 			for (Gen g:c.getGenes()) {
 				double random = Math.random();
 				if (random < configuracion.getProbabilidadMutacion()) {
+					if (mejorCromosoma) {
+						log.info("El mejor cromosoma va a mutar ");
+					}
 //					log.debug("TOCÓ para " + g);
 					g.generarValorAleatorio();
+					
 //					log.debug("Pasa a valer" + g);
 				} else {
 //					log.debug("NO TOCA para " + g);
+					if (mejorCromosoma) {
+						log.info("El mejor cromosoma no muta");
+					}
 				}
 			}
 			c.calcularCoste(configuracion.getFuncionCoste());
+			if (mejorCromosoma) {
+				log.info("El mejor cromosoma tras mutar " + c);
+			}
 //			log.debug("El cromosoma DESPUES DE MUTAR" + c);
 		}
 	}
@@ -176,7 +227,7 @@ public class Generacion {
 			Cromosoma peor = nuevaPoblacion.obtenerPeor();
 //			log.debug("El peor de la nueva Generacion" + peor);
 			nuevaPoblacion.sustituirCromosoma(peor, mejorPoblacionInicial);
-			log.error("SUSTITUYE "+mejorPoblacionInicial + " POR " + nuevoMejor);
+			log.error("SI SUSTITUYE "+mejorPoblacionInicial + " POR " + nuevoMejor);
 		} else {
 			log.error("NO SUSTITUYE "+mejorPoblacionInicial + " POR " + nuevoMejor);
 		}
