@@ -53,7 +53,6 @@ import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -690,15 +689,15 @@ public class OptimizadorGUI extends JFrame {
 		int ultimaEraMostrada = 0;
 		List<XYSeries> listaSeries = new ArrayList<XYSeries>();
 		for (Era e:resultados) {
-			XYSeries serie = new XYSeries(eraActual);
+			XYSeries serie = new XYSeries("Era " + (eraActual+1));
 			eraActual++;			
-			boolean mostrarEra = false;
-			if (eraActual-ultimaEraMostrada == totalEras) {
-				mostrarEra = true;
-				ultimaEraMostrada = eraActual;
-			}
+//			boolean mostrarEra = false;
+//			if (eraActual-ultimaEraMostrada == totalEras) {
+//				mostrarEra = true;
+//				ultimaEraMostrada = eraActual;
+//			}
 			int generacionActual = 0;
-			Cromosoma mejorCromosomaEra = e.obtenerMejor();
+//			Cromosoma mejorCromosomaEra = e.obtenerMejor();
 //			dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
 			for (Poblacion g:e.getEvolucionPoblaciones()) {				
 				
@@ -722,7 +721,7 @@ public class OptimizadorGUI extends JFrame {
 			dataset.addSeries(serie);
 		}
 //		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
-		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Era", "Coste", dataset);
+		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
@@ -730,7 +729,7 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 	protected void mostrarGraficoEra(Integer numEra) {
-		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Calculando", true);
+		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Evolución de la era "+(numEra+1), true);
 		grafico.setVisible(true);
 	}
 

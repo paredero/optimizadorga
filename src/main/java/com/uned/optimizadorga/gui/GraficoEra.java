@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.elementos.Cromosoma;
@@ -26,16 +27,20 @@ public class GraficoEra extends JDialog {
 			boolean modal) {
 		super(parent, titulo, modal);
 //		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setBounds(200, 100, 800, 800);
+		setBounds(200, 50, 700, 700);
 		this.setLayout(new BorderLayout());
-		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		XYSeries serie = new XYSeries("Era");
+//		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int generacionActual = 0;
 		for (Poblacion g:era.getEvolucionPoblaciones()) {
 			generacionActual++;
-			Cromosoma mejor = g.obtenerMejor();			
-			dataSet.addValue(mejor.getCoste(), "Coste", generacionActual+"");
+			Cromosoma mejor = g.obtenerMejor();		
+			serie.add(generacionActual, mejor.getCoste());
+//			dataSet.addValue(mejor.getCoste(), "Coste", generacionActual+"");
 		}
-		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Generación", "Coste", dataSet);
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(serie);
+		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		this.add(chartPanel);
