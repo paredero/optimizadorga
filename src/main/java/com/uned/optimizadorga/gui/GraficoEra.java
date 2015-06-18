@@ -41,6 +41,7 @@ public class GraficoEra extends JDialog {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(serie);
 		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
+		chart.setAntiAlias(true);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		this.add(chartPanel);

@@ -632,7 +632,7 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 	private void mostrarResultados(List<Era> resultados) {
-		StringBuilder sb = new StringBuilder("RESULTADOS DE LA EJECUCIÓN")
+		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCIÓN</h1>")
 				.append("<br />");
 		int i = 1;
 		sb.append("<table>");
@@ -723,6 +723,7 @@ public class OptimizadorGUI extends JFrame {
 //		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
 		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setBackgroundPaint(Color.GRAY);
+		chart.setAntiAlias(true);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
 		panelChart.validate();
