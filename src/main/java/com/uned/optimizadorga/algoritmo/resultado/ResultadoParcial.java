@@ -1,19 +1,20 @@
 package com.uned.optimizadorga.algoritmo.resultado;
 
-import java.util.List;
-
-import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.elementos.Configuracion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 public abstract class ResultadoParcial {
 	/**************************************************************************
 	 * VALORES COMUNES
 	 *************************************************************************/
+	
+	@JsonIgnore
 	long tiempoEjecucion;
+	@JsonIgnore
 	private int progreso;
+	@JsonIgnore
 	boolean cambioEra; // TODO Do I really need this??
+	@JsonIgnore
 	boolean cambioGeneracion; // TODO Do I really need this??
 	int eraActual;
 	// El numero de generacion actual

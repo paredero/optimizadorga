@@ -44,6 +44,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
@@ -661,7 +662,6 @@ configuracion = Configuracion.crearConfiguracion(
 			sb.append("<h3>Coste: ").append(mejor.getCoste()).append("</h3>");
 		}
 		int i = 1;
-		//TODO Que medias muestro???
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<th>");
@@ -931,9 +931,12 @@ configuracion = Configuracion.crearConfiguracion(
 	
 	protected void guardarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser();
-		int seleccion = fileChooser.showSaveDialog(this);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "json", "json");
+		fileChooser.setFileFilter(filter);
+		int seleccion = fileChooser.showSaveDialog(this);		
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
-			File fichero = fileChooser.getSelectedFile();
+			File fichero = new File(fileChooser.getSelectedFile()+".json");
 			try {
 				// Estrategia, si configuracion != null obtengo la configuracion de Configuracion
 				Fichero f = new Fichero();
@@ -972,72 +975,12 @@ configuracion = Configuracion.crearConfiguracion(
 			}
 		}
 	}
-	/*TODO
-	protected void guardarConfiguracion() {
-		JFileChooser fileChooser = new JFileChooser();
-		int seleccion = fileChooser.showSaveDialog(this);
-		if (seleccion == JFileChooser.APPROVE_OPTION) {
-			Properties prop = new Properties();
-			File fichero = fileChooser.getSelectedFile();
-			FileOutputStream fo = null;
-			try {
-				fo = new FileOutputStream(fichero);
-				prop.setProperty("nuEras", spNumEras.getValue().toString());
-				prop.setProperty("numGens", spNumGen.getValue().toString());
-				prop.setProperty("funcionCoste", txtFuncionCoste.getText());
-				prop.setProperty("tamPoblacion", spTamPoblacion.getValue()
-						.toString());
-				prop.setProperty("probCruce", spProbCruce.getValue().toString());
-				prop.setProperty("probMutacion", spProbMutacion.getValue()
-						.toString());
-				if (rbSelRuleta.isSelected()) {
-					prop.setProperty("selector", Selector.RULETA);
-				} else if (rbSelTorneo.isSelected()) {
-					prop.setProperty("selector", Selector.TORNEO);
-				}
-				if (chkElitismo.isSelected()) {
-					prop.setProperty("elitismo", "TRUE");
-				} else {
-					prop.setProperty("elitismo", "FALSE");
-				}
-				StringBuilder sb = null;
-				for (String key : parametros.keySet()) {
-					if (sb == null) {
-						sb = new StringBuilder(parametros.get(key)
-								.getNombre());
-					} else {
-						sb.append(",").append(parametros.get(key)
-							.getNombre());
-					}
-					prop.setProperty(key.concat(".minimo"),
-							String.valueOf(parametros.get(key).getMinimo()));
-					prop.setProperty(key.concat(".maximo"),
-							String.valueOf(parametros.get(key).getMaximo()));
-					prop.setProperty(key.concat(".precision"),
-							String.valueOf(parametros.get(key).getPrecision()));
-				}
-				if (sb != null) {
-					prop.setProperty("parametros.nombres", sb.toString());
-				}
-				prop.store(fo, null);
-			} catch (IOException e) {
-				log.error("Error al guardar en fichero ", e);
-			} finally {
-				if (fo != null) {
-					try {
-						fo.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		}
-	}*/
-
 	
 	protected void cargarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "json", "json");
+		fileChooser.setFileFilter(filter);
 		int seleccion = fileChooser.showOpenDialog(this);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
 			File fichero = fileChooser.getSelectedFile();

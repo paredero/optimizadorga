@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.elementos.Configuracion;
@@ -14,9 +15,10 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	private static final Logger log = Logger.getLogger(ResultadoParcialGeneracion.class);
 	
 	private double desviacionTipica;
+	
+	@JsonIgnore
 	private double porcentajeMejora;
 	private Cromosoma mejorCromosomaGeneracion;
-
 	private double mediaCostePoblacion;
 
 	public static ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
