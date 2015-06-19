@@ -7,6 +7,10 @@ public class TipoGen {
 	private int precision;
 	
 	
+	
+	public TipoGen() {
+		super();
+	}
 	/**
 	 * @param nombre
 	 * @param minimo

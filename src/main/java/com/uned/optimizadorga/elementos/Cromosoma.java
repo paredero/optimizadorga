@@ -28,6 +28,7 @@ public class Cromosoma {
 		return cromosoma;
 	}
 
+	
 	public Cromosoma(Cromosoma cromosomaOrigen) {
 		super();
 		this.coste = cromosomaOrigen.getCoste();
@@ -68,7 +69,7 @@ public class Cromosoma {
 		return "\t" + this.hashCode() +" [coste=" + coste + ", genes=" + genes + "]";
 	}
 
-	private Cromosoma() {
+	public Cromosoma() {
 		super();
 		this.genes = new ArrayList<Gen>();
 	}

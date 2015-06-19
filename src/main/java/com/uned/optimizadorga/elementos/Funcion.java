@@ -21,11 +21,11 @@ public class Funcion {
 	private static final String VARIABLE_NO_ASIGNADA2 = "has not been set";
 //	private String expresion;
 	private Expression expresion;
-	
+	private String strExpr;
 	public Funcion(String strExpr, Map<String, TipoGen> parametros) throws Exception {
 		super();
 		this.validarExpresion(strExpr);
-//		this.expresion = expresion;
+		this.strExpr = strExpr;
 		ExpressionBuilder eb = new ExpressionBuilder(strExpr);
 		eb.variables("pi");
 		eb.variables("e");
@@ -82,9 +82,17 @@ public class Funcion {
 
 	public double evaluate(List<Gen> listaParametros) throws Exception{		
 		for (Gen parametro:listaParametros) {
-			expresion.setVariable(parametro.getNombre(), parametro.getValor());
+			expresion.setVariable(parametro.getTipoGen().getNombre(), parametro.getValor());
 		}
 		return expresion.evaluate();
+	}
+
+
+	/**
+	 * @return the expresion
+	 */
+	public String getStrExpresion() {
+		return this.strExpr;
 	}
 
 

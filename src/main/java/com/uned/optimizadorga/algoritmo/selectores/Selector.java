@@ -10,7 +10,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
 public interface Selector {
 
 	String RULETA = "RULETA";
-	String TORNEO = "RULETA";
+	String TORNEO = "TORNEO";
 
 	/**
 	 * Dada una población original devuelve una nueva población con los
@@ -21,5 +21,7 @@ public interface Selector {
 	 * @return
 	 */
 	public Poblacion seleccionar(Poblacion poblacion);
+
+	public String getTipoSelector();
 
 }

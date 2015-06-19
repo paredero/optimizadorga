@@ -15,19 +15,26 @@ public class ResultadoParcialEra extends ResultadoParcial {
 	private Cromosoma mejorCromosomaEra;
 	private double mediaCosteEras;
 
+	
+	
+	public ResultadoParcialEra() {
+		super();
+	}
+
+
 	@Override
 	public String printResultado() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Era Actual: ").append(this.eraActual).append("\n");
 		sb.append("Mejor Cromosoma de la era: ");
 		for (Gen g:this.getMejorCromosomaEra().getGenes()) {
-			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
+			sb.append("[").append(g.getTipoGen().getNombre()).append(",").append(g.getValor()).append("]");
 		}
 		sb.append("\nCoste: ").append(this.getMejorCromosomaEra().getCoste()).append("\n");
 		
 		sb.append("Mejor Cromosoma obtenido hasta el momento: ");
 		for (Gen g:this.getMejorCromosomaTotal().getGenes()) {
-			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
+			sb.append("[").append(g.getTipoGen().getNombre()).append(",").append(g.getValor()).append("]");
 		}
 		sb.append("\nCoste: ").append(this.getMejorCromosomaTotal().getCoste()).append("\n");
 		sb.append("Valor medio del coste: ").append(this.getMediaCosteEras()).append("\n");

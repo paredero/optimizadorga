@@ -51,6 +51,13 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	}
 
 
+	
+	public ResultadoParcialGeneracion() {
+		super();
+	}
+
+
+
 	protected static int calcularProgreso(int eraActual, int generacionActual,
 			Configuracion configuracion) {
 		// log.debug("****************PROGRESO********************************");
@@ -70,7 +77,7 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 		sb.append("Generación Actual: ").append(this.generacionActual).append("\n");
 		sb.append("Mejor Cromosoma obtenido hasta el momento: ");	
 		for (Gen g:this.getMejorCromosomaGeneracion().getGenes()) {
-			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
+			sb.append("[").append(g.getTipoGen().getNombre()).append(",").append(g.getValor()).append("]");
 		}
 		sb.append("\nCoste: ").append(this.getMejorCromosomaGeneracion().getCoste()).append("\n");
 		sb.append("Valor medio del coste: ").append(this.getMediaCostePoblacion()).append("\n");

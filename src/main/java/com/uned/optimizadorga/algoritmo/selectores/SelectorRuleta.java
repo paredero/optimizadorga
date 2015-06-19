@@ -101,4 +101,9 @@ public class SelectorRuleta implements Selector {
 		}
 	}
 
+	@Override
+	public String getTipoSelector() {
+		return RULETA;
+	}
+
 }

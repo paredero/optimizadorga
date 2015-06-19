@@ -10,17 +10,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,6 +52,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
@@ -138,6 +137,7 @@ public class OptimizadorGUI extends JFrame {
 //	private JTextArea textoResultados;
 	private JPanel panelBotonesConfiguracion;
 	private JPanel panelDatosConfiguracion;
+	private Configuracion configuracion;
 
 	/**
 	 * Launch the application.
@@ -570,46 +570,7 @@ public class OptimizadorGUI extends JFrame {
 				resultados = null;
 				ProgressDialog progressDialog = new ProgressDialog(
 						OptimizadorGUI.this, "Calculando", true);
-
-//				TipoGen x1 = new TipoGen("x1", -3.0, 12.1, 1);
-//				TipoGen x2 = new TipoGen("x2", 4.1, 5.8, 1);
-//				parametros.put("x1", x1);
-//				parametros.put("x2", x2);
-
-//				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
-
-				// //*********************************************************************
-				// // Función de prueba caso 2
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-3.0, 5.1, 1));
-				// parametros.add(new Gen("x2",2.1, 7.8, 1));
-				// parametros.add(new Gen("x3",-10.1, 20.3, 1));
-				// parametros.add(new Gen("x4",-3.3, 4.2, 1));
-				// parametros.add(new Gen("x5",-15.3, 70.1, 1));
-				// parametros.add(new Gen("x6",-0.25, 0.35, 2));
-				// String expresion = "100-(x1^2+x2^2+x3^2+x4^2+x5^2+x6^2)";
-
-				// *********************************************************************
-				// Función de prueba caso 3
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-5, 5, 1));
-				// parametros.add(new Gen("x2",-5, 5, 1));
-				//
-				// String expresion =
-				// "-20*e^(-0.2*sqrt((1/2)*(x1^2+x2^2)))-e^((1/2)*(cos(2*pi*x1)+cos(2*pi*x2)))+20+e";
-
-				// *********************************************************************
-				// Función de prueba caso 4
-				// List<Gen> parametros = new ArrayList<Gen>();
-				// parametros.add(new Gen("x1",-100, 100, 1));
-				// parametros.add(new Gen("x2",-100, 100, 1));
-				//
-				// String expresion =
-				// "100-(((x1^2+x2^2)^0.25)*(sin(50*(x1^2+x2^2)^0.1)^2+1))";
-
-				// *********************************************************************
-
-				Configuracion configuracion = Configuracion.crearConfiguracion(
+configuracion = Configuracion.crearConfiguracion(
 						(Integer) spNumEras.getValue(),
 						(Integer) spNumGen.getValue(), funcionCoste,
 						parametros, (Integer) spTamPoblacion.getValue(),
@@ -694,7 +655,7 @@ public class OptimizadorGUI extends JFrame {
 			Cromosoma mejor = resultados.get(resultados.size()-1).getMejorCromosomaTotal();
 			sb.append("<h2>Mejor cromosoma obtenido: ");
 			for (Gen g:mejor.getGenes()) {
-				sb.append(g.getNombre()).append(": ").append(g.getValor());
+				sb.append(g.getTipoGen().getNombre()).append(": ").append(g.getValor());
 			}
 			sb.append("</h2>");
 			sb.append("<h3>Coste: ").append(mejor.getCoste()).append("</h3>");
@@ -723,7 +684,7 @@ public class OptimizadorGUI extends JFrame {
 			sb.append("<td>");
 //			sb.append(i);			
 			for (Gen g : mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getNombre()).append(",")
+				sb.append("[").append(g.getTipoGen().getNombre()).append(",")
 						.append(g.getValor()).append("]");
 			}
 			sb.append("</td>");
@@ -750,36 +711,17 @@ public class OptimizadorGUI extends JFrame {
 	
 	private void construirChart(List<ResultadoParcialEra> resultados) {
 		panelChart.removeAll();
-		//			DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int eraActual = 0;
-		int totalEras = new BigDecimal(resultados.size()).divide(BigDecimal.TEN, BigDecimal.ROUND_UP).intValue();
-		int ultimaEraMostrada = 0;
 		List<XYSeries> listaSeries = new ArrayList<XYSeries>();
 		for (ResultadoParcialEra e:resultados) {
 			XYSeries serie = new XYSeries("Era " + (eraActual+1));
-			eraActual++;			
-			//				boolean mostrarEra = false;
-			//				if (eraActual-ultimaEraMostrada == totalEras) {
-			//					mostrarEra = true;
-			//					ultimaEraMostrada = eraActual;
-			//				}
+			eraActual++;
 			int generacionActual = 0;
-			//				Cromosoma mejorCromosomaEra = e.obtenerMejor();
-			//				dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
 			for (ResultadoParcialGeneracion g:e.getResultadosGeneraciones()) {				
 
 				Cromosoma mejor = g.getMejorCromosomaGeneracion();
 				serie.add(generacionActual, mejor.getCoste());
 				generacionActual++;
-				/*
-					if (resultados.size() == 1) {
-						dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
-					} else if (generacionActual == 1 && mostrarEra) {
-						dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
-					} else {
-						dataSet.addValue(mejor.getCoste(), "Coste", "");
-					}
-				 */
 			}
 			listaSeries.add(serie);
 		}
@@ -787,7 +729,6 @@ public class OptimizadorGUI extends JFrame {
 		for (XYSeries serie:listaSeries) {
 			dataset.addSeries(serie);
 		}
-		//			JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
 		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setBackgroundPaint(Color.GRAY);
 		chart.setAntiAlias(true);
@@ -795,59 +736,9 @@ public class OptimizadorGUI extends JFrame {
 		panelChart.add(chartPanel);
 		panelChart.validate();
 	}
-	/*
-	 * TODO
-	private void construirChart(List<Era> resultados) {
-		panelChart.removeAll();
-//		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-		int eraActual = 0;
-		int totalEras = new BigDecimal(resultados.size()).divide(BigDecimal.TEN, BigDecimal.ROUND_UP).intValue();
-		int ultimaEraMostrada = 0;
-		List<XYSeries> listaSeries = new ArrayList<XYSeries>();
-		for (Era e:resultados) {
-			XYSeries serie = new XYSeries("Era " + (eraActual+1));
-			eraActual++;			
-//			boolean mostrarEra = false;
-//			if (eraActual-ultimaEraMostrada == totalEras) {
-//				mostrarEra = true;
-//				ultimaEraMostrada = eraActual;
-//			}
-			int generacionActual = 0;
-//			Cromosoma mejorCromosomaEra = e.obtenerMejor();
-//			dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
-			for (Poblacion g:e.getEvolucionPoblaciones()) {				
-				
-				Cromosoma mejor = g.obtenerMejor();
-				serie.add(generacionActual, mejor.getCoste());
-				generacionActual++;
-				
-//				if (resultados.size() == 1) {
-//					dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
-//				} else if (generacionActual == 1 && mostrarEra) {
-//					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
-//				} else {
-//					dataSet.addValue(mejor.getCoste(), "Coste", "");
-//				}
-				
-			}
-			listaSeries.add(serie);
-		}
-		XYSeriesCollection dataset = new XYSeriesCollection();
-		for (XYSeries serie:listaSeries) {
-			dataset.addSeries(serie);
-		}
-//		JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
-		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
-		chart.setBackgroundPaint(Color.GRAY);
-		chart.setAntiAlias(true);
-		ChartPanel chartPanel = new ChartPanel(chart);
-		panelChart.add(chartPanel);
-		panelChart.validate();
-	}*/
-
 	protected void mostrarGraficoEra(Integer numEra) {
-//	TODO	GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Evolución de la era "+(numEra+1), true);
-		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Evolución de la era "+(numEra+1), true);
+		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this,
+				"Evolución de la era " + (numEra + 1), true);
 		grafico.setVisible(true);
 	}
 
@@ -1042,6 +933,50 @@ public class OptimizadorGUI extends JFrame {
 		JFileChooser fileChooser = new JFileChooser();
 		int seleccion = fileChooser.showSaveDialog(this);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			File fichero = fileChooser.getSelectedFile();
+			try {
+				// Estrategia, si configuracion != null obtengo la configuracion de Configuracion
+				Fichero f = new Fichero();
+				if (configuracion != null) {					
+					f.setNumeroEras(configuracion.getMaxEras());
+					f.setNumeroGeneraciones(configuracion.getMaxGens());
+					f.setFuncionCoste(configuracion.getFuncionCoste().getStrExpresion());
+					f.setTamanioPoblacion(configuracion.getTamanioPoblacion());
+					f.setProbabilidadCruce(configuracion.getProbabilidadCruce());
+					f.setProbabilidadMutacion(configuracion.getProbabilidadMutacion());
+					f.setSelector(configuracion.getSelector().getTipoSelector());
+					f.setElitismo(configuracion.getElitismo());
+					f.setParametros(new HashSet<TipoGen>(parametros.values()));
+					f.setResultados(resultados);
+				} else {
+					f.setNumeroEras((Integer) spNumEras.getValue());
+					f.setNumeroGeneraciones((Integer) spNumGen.getValue());
+					f.setFuncionCoste(txtFuncionCoste.getText().trim());
+					f.setTamanioPoblacion( (Integer) spTamPoblacion.getValue());
+					f.setProbabilidadCruce((Double) spProbCruce.getValue());
+					f.setProbabilidadMutacion((Double) spProbMutacion.getValue());
+					if (rbSelRuleta.isSelected()){
+						f.setSelector(Selector.RULETA);
+					} else {
+						f.setSelector(Selector.TORNEO);
+					}
+					f.setElitismo(chkElitismo.isSelected());
+					f.setParametros(new HashSet<TipoGen>(parametros.values()));
+				}
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.writeValue(fichero, f);
+			} catch (IOException e) {
+				log.error("Error al guardar en fichero ", e);
+			} finally {
+				
+			}
+		}
+	}
+	/*TODO
+	protected void guardarConfiguracion() {
+		JFileChooser fileChooser = new JFileChooser();
+		int seleccion = fileChooser.showSaveDialog(this);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
 			Properties prop = new Properties();
 			File fichero = fileChooser.getSelectedFile();
 			FileOutputStream fo = null;
@@ -1098,9 +1033,35 @@ public class OptimizadorGUI extends JFrame {
 
 			}
 		}
-	}
+	}*/
+
 	
 	protected void cargarConfiguracion() {
+		JFileChooser fileChooser = new JFileChooser();
+		int seleccion = fileChooser.showOpenDialog(this);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			File fichero = fileChooser.getSelectedFile();
+			ObjectMapper mapper = new ObjectMapper();
+			Fichero f;
+			try {
+				f = mapper.readValue(fichero, Fichero.class);
+				log.debug(f.getFuncionCoste());
+			} catch (JsonParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	/*
+	 * 	protected void cargarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser();
 		int seleccion = fileChooser.showOpenDialog(this);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -1171,6 +1132,7 @@ public class OptimizadorGUI extends JFrame {
 			}
 		}
 	}
+	 */
 
 	private void eliminarParametrosExistentes() {
 		try {

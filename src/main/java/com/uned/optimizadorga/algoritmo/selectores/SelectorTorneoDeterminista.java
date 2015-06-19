@@ -30,20 +30,11 @@ public class SelectorTorneoDeterminista implements Selector {
 		Poblacion poblacionMuestra = Poblacion.copiarPoblacionVacia(poblacionInicial);
 		poblacionMuestra.setTamanio(numElemSeleccionados);
 		
-		//TODO Traza
-		boolean seleccionado = false;
-		Cromosoma mejor = poblacionInicial.obtenerMejor();
 		// Genera grupos aleatorios y toma el mejor de cada grupo para la nueva poblacion
 		while (cromosomasSeleccionados.size()<=poblacionSeleccionados.getTamanio()) {
 			List<Cromosoma> muestra = this.seleccionarAlAzar(poblacionInicial, numElemSeleccionados);
-			if (muestra.contains(mejor)) {
-				seleccionado = true;
-			}
 			poblacionMuestra.setCromosomas(muestra);
 			cromosomasSeleccionados.add(poblacionMuestra.obtenerMejor());
-		}
-		if (!seleccionado) {
-			log.info("No se ha seleccionado el mejor cromosoma " + mejor);
 		}
 		poblacionSeleccionados.setCromosomas(cromosomasSeleccionados);
 		return poblacionSeleccionados;
@@ -74,6 +65,12 @@ public class SelectorTorneoDeterminista implements Selector {
 	 */
 	public void setNumElemSeleccionados(int numElemSeleccionados) {
 		this.numElemSeleccionados = numElemSeleccionados;
+	}
+
+
+	@Override
+	public String getTipoSelector() {
+		return TORNEO;
 	}
 
 	

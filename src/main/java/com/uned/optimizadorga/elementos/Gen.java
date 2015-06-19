@@ -15,6 +15,13 @@ public class Gen {
 	private double valor;	
 	private TipoGen tipoGen;
 	
+	
+	
+	public Gen() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Gen(TipoGen tipoGen) {
 		super();
 		this.tipoGen = tipoGen;
@@ -91,10 +98,6 @@ public class Gen {
 	@Override
 	public String toString() {
 		return "[" + tipoGen.getNombre() + ", " + valor + "]";
-	}
-
-	public String getNombre() {
-		return this.getTipoGen().getNombre();
 	}
 
 }
