@@ -58,6 +58,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 import com.uned.optimizadorga.elementos.Configuracion;
@@ -66,6 +68,7 @@ import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
+import com.uned.optimizadorga.resultados.ResultadoEra;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -81,7 +84,8 @@ public class OptimizadorGUI extends JFrame {
 	private JSpinner spTamPoblacion;
 	private JSpinner spProbCruce;
 	private JSpinner spProbMutacion;
-	private List<Era> resultados;
+//	private List<Era> resultados;
+	private List<ResultadoParcialEra> resultados;
 	private JTextPane panelResultados;
 	private JScrollPane scrlResultados;
 	private JPanel panelConfiguracion;
@@ -538,11 +542,19 @@ public class OptimizadorGUI extends JFrame {
 				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
 						parametros);
 			} catch (EmptyStackException e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto");
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
 					JOptionPane.showMessageDialog(this,"Formato de función de coste incorrecto");
-				} else if (e.getMessage().contains("Mismatched parentheses")) {
+				} else if (e.getMessage().contains("parentesis no abierto")) {
+					JOptionPane.showMessageDialog(this,
+							"Formato de función de coste incorrecto, faltan paréntesis de apertura");
+				} else if (e.getMessage().contains("parentesis no cerrado")) {
+					JOptionPane.showMessageDialog(this,
+							"Formato de función de coste incorrecto, faltan paréntesis de cierre");
+				}
+				else if (e.getMessage().contains("Mismatched parentheses")) {
 					JOptionPane.showMessageDialog(this,
 							"Formato de función de coste incorrecto, por favor, revise los paréntesis");
 				} else if (e.getMessage().contains("Too many operators")) {
@@ -631,6 +643,7 @@ public class OptimizadorGUI extends JFrame {
 		}
 	}
 
+	/*
 	private void mostrarResultados(List<Era> resultados) {
 		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCIÓN</h1>")
 				.append("<br />");
@@ -680,7 +693,116 @@ public class OptimizadorGUI extends JFrame {
 //		panelResultados.setVisible(true);
 		panelChartResultados.setVisible(true);		
 	}
+	*/
+	private void mostrarResultados(List<ResultadoParcialEra> resultados) {
+		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCIÓN</h1>")
+				.append("<br />");
+		if (resultados != null && resultados.size()>0) {
+			Cromosoma mejor = resultados.get(resultados.size()-1).getMejorCromosomaTotal();
+			sb.append("<h2>Mejor cromosoma obtenido: ");
+			for (Gen g:mejor.getGenes()) {
+				sb.append(g.getNombre()).append(": ").append(g.getValor());
+			}
+			sb.append(mejor.getCoste()).append("</h2>");
+		}
+		int i = 1;
+		//TODO Que medias muestro???
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<th>");
+		sb.append("ERA");
+		sb.append("</th>");
+		sb.append("<th>");
+		sb.append("MEJOR CROMOSOMA");
+		sb.append("</th>");
+		sb.append("<th>");
+		sb.append("COSTE");
+		sb.append("</th>");
+		sb.append("<th></th>");
+		sb.append("</tr>");
+		for (ResultadoParcialEra e : resultados) {
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append(i);
+			sb.append("</td>");
+			Cromosoma mejorCromosomaEra = e.getMejorCromosomaEra();
+			sb.append("<td>");
+//			sb.append(i);			
+			for (Gen g : mejorCromosomaEra.getGenes()) {
+				sb.append("[").append(g.getNombre()).append(",")
+						.append(g.getValor()).append("]");
+			}
+			sb.append("</td>");
+			sb.append("<td>").append(mejorCromosomaEra.getCoste())
+					.append("</td>");
+			sb.append("<td><a href=\"").append(i-1).append("\">Ver evolución</a></td>");
+			
+			sb.append("</tr>");
+			i++;
+//			sb.append("**********************************************").append(
+//					"\n");
+		}
+		sb.append("</table>");
+		panelResultados.setText(sb.toString());
+//		textoResultados.setText(sb.toString());
+//		textoResultados.validate();
+//		textoResultados.repaint();
+//		scrlResultados.setVisible(true);
+		construirChart(resultados);
+//		panelResultados.setVisible(true);
+		panelChartResultados.setVisible(true);		
+	}
 
+	
+	private void construirChart(List<ResultadoParcialEra> resultados) {
+		panelChart.removeAll();
+		//			DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		int eraActual = 0;
+		int totalEras = new BigDecimal(resultados.size()).divide(BigDecimal.TEN, BigDecimal.ROUND_UP).intValue();
+		int ultimaEraMostrada = 0;
+		List<XYSeries> listaSeries = new ArrayList<XYSeries>();
+		for (ResultadoParcialEra e:resultados) {
+			XYSeries serie = new XYSeries("Era " + (eraActual+1));
+			eraActual++;			
+			//				boolean mostrarEra = false;
+			//				if (eraActual-ultimaEraMostrada == totalEras) {
+			//					mostrarEra = true;
+			//					ultimaEraMostrada = eraActual;
+			//				}
+			int generacionActual = 0;
+			//				Cromosoma mejorCromosomaEra = e.obtenerMejor();
+			//				dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
+			for (ResultadoParcialGeneracion g:e.getResultadosGeneraciones()) {				
+
+				Cromosoma mejor = g.getMejorCromosomaTotal();
+				serie.add(generacionActual, mejor.getCoste());
+				generacionActual++;
+				/*
+					if (resultados.size() == 1) {
+						dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
+					} else if (generacionActual == 1 && mostrarEra) {
+						dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
+					} else {
+						dataSet.addValue(mejor.getCoste(), "Coste", "");
+					}
+				 */
+			}
+			listaSeries.add(serie);
+		}
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		for (XYSeries serie:listaSeries) {
+			dataset.addSeries(serie);
+		}
+		//			JFreeChart chart = ChartFactory.createLineChart("Evolución del calculo", "Era", "Coste", dataSet);
+		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
+		chart.setBackgroundPaint(Color.GRAY);
+		chart.setAntiAlias(true);
+		ChartPanel chartPanel = new ChartPanel(chart);
+		panelChart.add(chartPanel);
+		panelChart.validate();
+	}
+	/*
+	 * TODO
 	private void construirChart(List<Era> resultados) {
 		panelChart.removeAll();
 //		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
@@ -704,15 +826,15 @@ public class OptimizadorGUI extends JFrame {
 				Cromosoma mejor = g.obtenerMejor();
 				serie.add(generacionActual, mejor.getCoste());
 				generacionActual++;
-				/*
-				if (resultados.size() == 1) {
-					dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
-				} else if (generacionActual == 1 && mostrarEra) {
-					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
-				} else {
-					dataSet.addValue(mejor.getCoste(), "Coste", "");
-				}
-				*/
+				
+//				if (resultados.size() == 1) {
+//					dataSet.addValue(mejor.getCoste(), "Coste", ""+generacionActual);
+//				} else if (generacionActual == 1 && mostrarEra) {
+//					dataSet.addValue(mejor.getCoste(), "Coste", ""+eraActual);
+//				} else {
+//					dataSet.addValue(mejor.getCoste(), "Coste", "");
+//				}
+				
 			}
 			listaSeries.add(serie);
 		}
@@ -727,9 +849,10 @@ public class OptimizadorGUI extends JFrame {
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);
 		panelChart.validate();
-	}
+	}*/
 
 	protected void mostrarGraficoEra(Integer numEra) {
+//	TODO	GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Evolución de la era "+(numEra+1), true);
 		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this, "Evolución de la era "+(numEra+1), true);
 		grafico.setVisible(true);
 	}

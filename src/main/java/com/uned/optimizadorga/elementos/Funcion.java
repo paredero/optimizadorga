@@ -6,6 +6,7 @@ package com.uned.optimizadorga.elementos;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -23,6 +24,7 @@ public class Funcion {
 	
 	public Funcion(String strExpr, Map<String, TipoGen> parametros) throws Exception {
 		super();
+		this.validarExpresion(strExpr);
 //		this.expresion = expresion;
 		ExpressionBuilder eb = new ExpressionBuilder(strExpr);
 		eb.variables("pi");
@@ -45,6 +47,36 @@ public class Funcion {
 					throw new Exception(error);
 				}
 			}
+			// Hay errores pero no esta claro el motivo
+			throw new Exception();
+		}
+	}
+
+
+	/**
+	 * Valida inicialmente la expresion
+	 * @param strExpr
+	 * @throws Exception 
+	 */
+	private void validarExpresion(String strExpr) throws Exception {
+		// 1 Valida los parentesis
+		Stack<Character> stack = new Stack<Character>();
+		char c;
+		for (int i = 0; i<strExpr.length(); i++) {
+			c = strExpr.charAt(i);
+			if(c == '(') {
+	            stack.push(c);
+			} else if(c == ')') {
+	            if(stack.empty()) {
+	            	throw new Exception("parentesis no abierto");
+	            } else if(stack.peek() == '('){
+	            	stack.pop();
+	            }
+			}
+		}
+
+		if (!stack.empty()) {
+			throw new Exception("parentesis no cerrado");
 		}
 	}
 
