@@ -151,7 +151,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoParcialEra>, Resu
 	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFin(java.util.List)
 	 */
 	@Override
-	public void updateFin(List<Era> listaEras) {
+	public void updateFin() {
 //		this.erasProcesadas = listaEras;		
 		finEjecucion = true;
 	}

@@ -47,8 +47,6 @@ public class Funcion {
 					throw new Exception(error);
 				}
 			}
-			// Hay errores pero no esta claro el motivo
-			throw new Exception();
 		}
 	}
 

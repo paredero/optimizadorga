@@ -12,14 +12,14 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 //	private static final Logger log = Logger.getLogger(Algoritmo.class);
 	
 	private Configuracion configuracion;
-	private List<Era> listaEras; //Almacena las eras que se van calculando
+//	private List<Era> listaEras; //Almacena las eras que se van calculando
 	private List<AlgoritmoObserver> observadores;
 	private int eraActual;
 	
 	public Algoritmo(Configuracion configuracion) {
 		this.configuracion = configuracion;
 		observadores = new ArrayList<AlgoritmoObserver>();
-		listaEras = new ArrayList<Era>(configuracion.getMaxEras());	
+//		listaEras = new ArrayList<Era>(configuracion.getMaxEras());	
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 				//			El algoritmo observara la era cuando se ejecute para poder informar de su progreso
 				era.registerObserver(this);
 				era.ejecutar();
-				listaEras.add(era);
+//				listaEras.add(era);
 				this.notifyFinCalculoEra(era);
 			}
 		} catch (Exception e) {
@@ -93,7 +93,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	public void notifyFinEjecucion() {
 //		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
 		for (AlgoritmoObserver o:this.observadores) {
-			o.updateFin(listaEras);
+			o.updateFin();
 		}
 	}
 	

@@ -26,20 +26,25 @@ public class GraficoEra extends JDialog {
 	public GraficoEra(ResultadoParcialEra resultadoParcialEra, JFrame parent, String titulo,
 			boolean modal) {
 		super(parent, titulo, modal);
-//		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setBounds(200, 50, 700, 700);
 		this.setLayout(new BorderLayout());
 		XYSeries serie = new XYSeries("Era");
-//		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		XYSeries media = new XYSeries("Media población");
+		XYSeries dt = new XYSeries("Desviación típica");
+		
 		int generacionActual = 0;
 		for (ResultadoParcialGeneracion g:resultadoParcialEra.getResultadosGeneraciones()) {
 			generacionActual++;
-			Cromosoma mejor = g.getMejorCromosomaTotal();		
+			Cromosoma mejor = g.getMejorCromosomaGeneracion();		
 			serie.add(generacionActual, mejor.getCoste());
+			media.add(generacionActual, g.getMediaCostePoblacion());
+			dt.add(generacionActual, g.getDesviacionTipica());
 //			dataSet.addValue(mejor.getCoste(), "Coste", generacionActual+"");
 		}
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(serie);
+		dataset.addSeries(media);
+		dataset.addSeries(dt);
 		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setAntiAlias(true);
 		chart.setBackgroundPaint(Color.GRAY);

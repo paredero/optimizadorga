@@ -3,8 +3,6 @@
  */
 package com.uned.optimizadorga.algoritmo.interfaces;
 
-import java.util.List;
-
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 
@@ -36,10 +34,8 @@ public interface AlgoritmoObserver {
 	/**
 	 * Metodo que se emplea para que el observador (Worker) reciba una
 	 * actualizacion de finalizacion del algoritmo
-	 * 
-	 * @param listaEras
 	 */
-	public void updateFin(List<Era> listaEras);
+	public void updateFin();
 
 	/**
 	 * Método que se emplea para que el observador sea avisado cuando se

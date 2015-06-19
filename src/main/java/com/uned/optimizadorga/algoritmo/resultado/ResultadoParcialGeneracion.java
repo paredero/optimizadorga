@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.elementos.Configuracion;
@@ -16,6 +15,9 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	
 	private double desviacionTipica;
 	private double porcentajeMejora;
+	private Cromosoma mejorCromosomaGeneracion;
+
+	private double mediaCostePoblacion;
 
 	public static ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
 			long startTime, List<ResultadoParcialEra> resultadosEras, List<ResultadoParcialGeneracion> resultadosGeneraciones,
@@ -26,40 +28,52 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 		r.setTiempoEjecucion((timeParcial - startTime)/1000);
 		r.setCambioGeneracion(true);
 		r.setCambioEra(false);
-		r.setGeneracionActual(resultadosGeneraciones.size());
-		r.setEraActual(resultadosEras.size());
+		r.setGeneracionActual(resultadosGeneraciones.size()+1); //+1 para contarlas como 1, 2, 3...
+		r.setEraActual(resultadosEras.size()+1);
 		Cromosoma mejorCromosomaGeneracion = generacion.getNuevaPoblacion().obtenerMejor();
 		Cromosoma antiguoMejorCromosoma = generacion.getPoblacionInicial().obtenerMejor();
 		
 		if (new ComparadorMejorCoste().compare(mejorCromosomaGeneracion,
 				antiguoMejorCromosoma) >= 0) {
-			r.setMejorCromosomaTotal(mejorCromosomaGeneracion);
+			r.setMejorCromosomaGeneracion(mejorCromosomaGeneracion);
 		} else {
 			log.warn("SI hay elitismo, por qué el mejor es el antiguo mejor cromosoma???????");
-			r.setMejorCromosomaTotal(antiguoMejorCromosoma);
+			r.setMejorCromosomaGeneracion(antiguoMejorCromosoma);
 		}
 		
-		r.setMediaCoste(generacion.getNuevaPoblacion().calcularMediaCoste());
+		r.setMediaCostePoblacion(generacion.getNuevaPoblacion().calcularMediaCoste());
 		r.setDesviacionTipica(generacion.getNuevaPoblacion().calcularDesviacionTipica());
 		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getCoste() - antiguoMejorCromosoma
 				.getCoste()) / antiguoMejorCromosoma.getCoste()) * 100);
-		r.setProgreso(calcularProgreso(resultadosEras,
-				resultadosGeneraciones, configuracion));
+		r.setProgreso(calcularProgreso(r.getEraActual(), r.getGeneracionActual(), configuracion));
 		log.debug("El resultado " + r);
 		return r;
 	}
-	
+
+
+	protected static int calcularProgreso(int eraActual, int generacionActual,
+			Configuracion configuracion) {
+		// log.debug("****************PROGRESO********************************");
+		double progreso = 0;
+		int numEra = eraActual-1;
+		double numGeneracion = generacionActual;
+		double totalGeneraciones = configuracion.getMaxGens();
+		double totalEras = configuracion.getMaxEras();
+
+		progreso = (((numEra) / totalEras) * 100) + ((numGeneracion / (totalEras * totalGeneraciones)) * 100);
+		return (int) progreso;
+	}	
 
 	@Override
 	public String printResultado() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Generación Actual: ").append(this.generacionActual).append("\n");
 		sb.append("Mejor Cromosoma obtenido hasta el momento: ");	
-		for (Gen g:this.getMejorCromosomaTotal().getGenes()) {
+		for (Gen g:this.getMejorCromosomaGeneracion().getGenes()) {
 			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
 		}
-		sb.append("\nCoste: ").append(this.getMejorCromosomaTotal().getCoste()).append("\n");
-		sb.append("Valor medio del coste: ").append(this.getMediaCoste()).append("\n");
+		sb.append("\nCoste: ").append(this.getMejorCromosomaGeneracion().getCoste()).append("\n");
+		sb.append("Valor medio del coste: ").append(this.getMediaCostePoblacion()).append("\n");
 		sb.append("Desviación típica del coste: ").append(this.getDesviacionTipica()).append("\n");
 		sb.append("Porcentaje de mejora: ").append(this.getPorcentajeMejora());
 		return sb.toString();
@@ -98,6 +112,35 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 			log.error("ERROR, GENERACION DETERIORADA");
 		}
 	}
+
+
+	/**
+	 * @return the mejorCromosomaGeneracion
+	 */
+	public Cromosoma getMejorCromosomaGeneracion() {
+		return this.mejorCromosomaGeneracion;
+	}
+
+
+	/**
+	 * @param mejorCromosomaGeneracion the mejorCromosomaGeneracion to set
+	 */
+	public void setMejorCromosomaGeneracion(Cromosoma mejorCromosomaGeneracion) {
+		this.mejorCromosomaGeneracion = mejorCromosomaGeneracion;
+	}
+	
+	
+	public void setMediaCostePoblacion(double mediaCostePoblacion) {
+		this.mediaCostePoblacion = mediaCostePoblacion;
+	}
+	
 	
 
+	/**
+	 * @return the mediaCostePoblacion
+	 */
+	public double getMediaCostePoblacion() {
+		return this.mediaCostePoblacion;
+	}
+	
 }

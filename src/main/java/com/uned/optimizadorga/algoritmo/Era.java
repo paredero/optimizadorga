@@ -62,6 +62,7 @@ public class Era implements EraSubject {
 			generacionActual++;
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
+			// TODO Si puedo me lo cargo
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
 			//				log.debug("******************************************** Generacion numero: "
 			//						+ (generacionActual));

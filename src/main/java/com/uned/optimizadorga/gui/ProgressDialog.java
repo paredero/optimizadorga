@@ -31,7 +31,7 @@ public class ProgressDialog extends JDialog {
 	public ProgressDialog(JFrame parent, String titulo, boolean modal) {
 		super(parent, titulo, modal);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setBounds(200, 100, 600, 600);
+		setBounds(200, 100, 600, 695);
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
@@ -44,23 +44,18 @@ public class ProgressDialog extends JDialog {
 		});
 		
 		panelResultadoEra = new JTextPane();
-		
 		panelResultadoGeneracion = new JTextPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(panelResultadoGeneracion, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(panelResultadoEra, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+								.addComponent(panelResultadoGeneracion, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+								.addComponent(panelResultadoEra, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(230)
 							.addComponent(botonCancelar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
@@ -74,9 +69,9 @@ public class ProgressDialog extends JDialog {
 					.addGap(18)
 					.addComponent(botonCancelar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 					.addGap(37)
-					.addComponent(panelResultadoEra, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelResultadoEra, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
 					.addGap(18)
-					.addComponent(panelResultadoGeneracion, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+					.addComponent(panelResultadoGeneracion, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);

@@ -13,6 +13,7 @@ public class ResultadoParcialEra extends ResultadoParcial {
 
 	private List<ResultadoParcialGeneracion> resultadosGeneraciones;
 	private Cromosoma mejorCromosomaEra;
+	private double mediaCosteEras;
 
 	@Override
 	public String printResultado() {
@@ -29,7 +30,7 @@ public class ResultadoParcialEra extends ResultadoParcial {
 			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
 		}
 		sb.append("\nCoste: ").append(this.getMejorCromosomaTotal().getCoste()).append("\n");
-		sb.append("Valor medio del coste: ").append(this.getMediaCoste()).append("\n");
+		sb.append("Valor medio del coste: ").append(this.getMediaCosteEras()).append("\n");
 		return sb.toString();
 	}
 
@@ -52,44 +53,29 @@ public class ResultadoParcialEra extends ResultadoParcial {
 		resultadoEra.setTiempoEjecucion((timeParcial - startTime)/1000);
 		resultadoEra.setMejorCromosomaEra(era.obtenerMejor());
 		resultadoEra.setMejorCromosomaTotal(obtenerMejorEras(resultadosEras, era, configuracion));
-		//TODO Quiero la media de los mejores y la media de ???
-		resultadoEra.setMediaCoste(obtenerMediaMejores(resultadosEras, era));
-		resultadoEra.setProgreso(calcularProgreso(resultadosEras,
-				new ArrayList<ResultadoParcialGeneracion>(), configuracion));
+		resultadoEra.setMediaCosteEras(obtenerMediaMejores(resultadosEras, era));
+		resultadoEra.setProgreso(calcularProgreso(resultadosEras, configuracion));
 		resultadoEra.setResultadosGeneraciones(resultadosGeneraciones);
 		return resultadoEra;
 	}
 
-
-
-
-	public void setMejorCromosomaEra(Cromosoma mejorCromosomaEra) {
-		this.mejorCromosomaEra = mejorCromosomaEra;
+	protected static int calcularProgreso(
+			List<ResultadoParcialEra> resultadosEras,
+			Configuracion configuracion) {
+		// log.debug("****************PROGRESO********************************");
+		double progreso = 0;
+		double numEra = resultadosEras.size() + 1;
+		double totalEras = configuracion.getMaxEras();
+		progreso = (((numEra) / totalEras) * 100);
+		return (int) progreso;
 	}
 
-	public Cromosoma getMejorCromosomaEra() {
-		return this.mejorCromosomaEra;
-	}
-
-
-	private void setResultadosGeneraciones(
-			List<ResultadoParcialGeneracion> resultadosGeneraciones) {
-		this.resultadosGeneraciones = resultadosGeneraciones;
-	}
-
-
-	/**
-	 * @return the resultadosGeneraciones
-	 */
-	public List<ResultadoParcialGeneracion> getResultadosGeneraciones() {
-		return this.resultadosGeneraciones;
-	}
 
 
 	private static double obtenerMediaMejores(List<ResultadoParcialEra> listaEras, Era era) {
 		double sumaTotal = 0.0;
 		for (ResultadoParcialEra e:listaEras) {
-			sumaTotal += e.getMejorCromosomaTotal().getCoste();
+			sumaTotal += e.getMejorCromosomaEra().getCoste();
 		}
 		sumaTotal += era.obtenerMejor().getCoste();
 		
@@ -116,4 +102,40 @@ public class ResultadoParcialEra extends ResultadoParcial {
 		
 		return p.obtenerMejor();
 	}
+	
+	public void setMediaCosteEras(double mediaCosteEras) {
+		this.mediaCosteEras = mediaCosteEras;
+	}
+
+
+	/**
+	 * @return the mediaCosteEras
+	 */
+	public double getMediaCosteEras() {
+		return this.mediaCosteEras;
+	}
+
+
+	public void setMejorCromosomaEra(Cromosoma mejorCromosomaEra) {
+		this.mejorCromosomaEra = mejorCromosomaEra;
+	}
+
+	public Cromosoma getMejorCromosomaEra() {
+		return this.mejorCromosomaEra;
+	}
+
+
+	private void setResultadosGeneraciones(
+			List<ResultadoParcialGeneracion> resultadosGeneraciones) {
+		this.resultadosGeneraciones = resultadosGeneraciones;
+	}
+
+
+	/**
+	 * @return the resultadosGeneraciones
+	 */
+	public List<ResultadoParcialGeneracion> getResultadosGeneraciones() {
+		return this.resultadosGeneraciones;
+	}
+	
 }

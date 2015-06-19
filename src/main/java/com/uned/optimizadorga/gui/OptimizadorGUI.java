@@ -57,7 +57,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import com.uned.optimizadorga.algoritmo.Algoritmo;
-import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
@@ -66,9 +65,7 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
-import com.uned.optimizadorga.resultados.ResultadoEra;
 
 public class OptimizadorGUI extends JFrame {
 
@@ -295,11 +292,11 @@ public class OptimizadorGUI extends JFrame {
 
 
 	private void crearPanelResultados() {
-//		textoResultados = new JTextArea();
 		panelResultados = new JTextPane();
 		panelResultados.setEditable(false);
 		panelResultados.addHyperlinkListener(new HyperlinkListener() {
-		    public void hyperlinkUpdate(HyperlinkEvent e) {
+		    @Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
 		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 		           String u = e.getDescription();
 		           e.getSourceElement();
@@ -309,11 +306,7 @@ public class OptimizadorGUI extends JFrame {
 		});
 		panelResultados.setContentType("text/html");
 		scrlResultados = new JScrollPane(panelResultados);
-		//TODO
-//		scrlResultados = new JScrollPane(textoResultados);
 		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrlResultados.setVisible(true);
-//		panelResultados.setVisible(false);
 	}
 
 
@@ -583,7 +576,7 @@ public class OptimizadorGUI extends JFrame {
 //				parametros.put("x1", x1);
 //				parametros.put("x2", x2);
 
-				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
+//				String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 
 				// //*********************************************************************
 				// // Función de prueba caso 2
@@ -703,7 +696,8 @@ public class OptimizadorGUI extends JFrame {
 			for (Gen g:mejor.getGenes()) {
 				sb.append(g.getNombre()).append(": ").append(g.getValor());
 			}
-			sb.append(mejor.getCoste()).append("</h2>");
+			sb.append("</h2>");
+			sb.append("<h3>Coste: ").append(mejor.getCoste()).append("</h3>");
 		}
 		int i = 1;
 		//TODO Que medias muestro???
@@ -774,7 +768,7 @@ public class OptimizadorGUI extends JFrame {
 			//				dataSet.addValue(mejorCromosomaEra.getCoste(), "Coste", ""+eraActual);
 			for (ResultadoParcialGeneracion g:e.getResultadosGeneraciones()) {				
 
-				Cromosoma mejor = g.getMejorCromosomaTotal();
+				Cromosoma mejor = g.getMejorCromosomaGeneracion();
 				serie.add(generacionActual, mejor.getCoste());
 				generacionActual++;
 				/*
