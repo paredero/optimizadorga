@@ -25,7 +25,7 @@ import com.uned.optimizadorga.gui.ProgressDialog;
  * @author fpb
  *
  */
-public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> implements
+public class AlgoritmoWorker extends SwingWorker<List<ResultadoParcialEra>, ResultadoParcial> implements
 		AlgoritmoObserver {
 	private static final Logger log = Logger.getLogger(AlgoritmoWorker.class);
 	private ProgressDialog progressDialog;
@@ -33,15 +33,20 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	private long startTime = 0;
 	
 	private Algoritmo algoritmo;
-	private List<Era> erasProcesadas;
-	private List<Generacion> generacionesProcesadas;	
+	
+	private List<ResultadoParcialEra> resultadosEras;
+	private List<ResultadoParcialGeneracion> resultadosGeneraciones;
+//	private List<Era> erasProcesadas;
+//	private List<Generacion> generacionesProcesadas;	
 	
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
 		// Se registra como observador para que sea el algoritmo quien le informe del progreso
 		this.algoritmo.registerObserver(this);
-		this.erasProcesadas = new ArrayList<Era>(algoritmo.getConfiguracion().getMaxEras());
-		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
+//		this.erasProcesadas = new ArrayList<Era>(algoritmo.getConfiguracion().getMaxEras());
+//		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
+		this.resultadosEras = new ArrayList<ResultadoParcialEra>(algoritmo.getConfiguracion().getMaxEras());
+		this.resultadosGeneraciones = new ArrayList<ResultadoParcialGeneracion>(algoritmo.getConfiguracion().getMaxGens());
 		this.progressDialog = progressDialog;		
 	}
 
@@ -49,7 +54,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 
 
 	@Override
-	protected List<Era> doInBackground() throws Exception {
+	protected List<ResultadoParcialEra> doInBackground() throws Exception {
 		startTime = System.currentTimeMillis();
 		Thread threadAlgoritmo = new Thread(algoritmo);
 		finEjecucion = false;
@@ -66,7 +71,9 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 		if (this.isCancelled()) {
 			threadAlgoritmo.interrupt();
 		}
-		return erasProcesadas;
+		//TODO 
+		return resultadosEras;
+//		return erasProcesadas;
 	}
 
 	
@@ -99,7 +106,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	protected void done() {
 		this.progressDialog.setVisible(false);
 		this.progressDialog = null;
-		this.generacionesProcesadas = null;
+//		this.generacionesProcesadas = null;
 		this.algoritmo = null;
 	}
 
@@ -112,11 +119,14 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	@Override
 	public void updateFinCalculoEra(Era eraProcesada) {
 //		log.debug("Cambio de era: " + erasProcesadas.size());
-		erasProcesadas.add(eraProcesada);
+//		erasProcesadas.add(eraProcesada);
 		ResultadoParcialEra resultadoEra = ResultadoParcialEra
-					.crearResultadoEra(startTime, erasProcesadas, algoritmo.getConfiguracion());
+				.crearResultadoEra(startTime, eraProcesada, resultadosEras,
+						resultadosGeneraciones, algoritmo.getConfiguracion());
+		resultadosEras.add(resultadoEra);
+		this.resultadosGeneraciones = new ArrayList<ResultadoParcialGeneracion>(algoritmo.getConfiguracion().getMaxGens());
 //		eraProcesada.liberarRecursos();
-		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
+//		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		publish(resultadoEra);
 	}
 
@@ -128,10 +138,11 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	@Override
 	public void updateFinCalculoGeneracion(Generacion generacionProcesada) {
 //		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
-		generacionesProcesadas.add(generacionProcesada);
+//		generacionesProcesadas.add(generacionProcesada);
 		ResultadoParcialGeneracion resultadoGeneracion = ResultadoParcialGeneracion
-				.crearResultadoGeneracion(startTime, erasProcesadas,
-						generacionesProcesadas, algoritmo.getConfiguracion());
+				.crearResultadoGeneracion(generacionProcesada, startTime, resultadosEras,
+						resultadosGeneraciones, algoritmo.getConfiguracion());
+		resultadosGeneraciones.add(resultadoGeneracion);
 		publish(resultadoGeneracion);
 	}
 
@@ -141,7 +152,7 @@ public class AlgoritmoWorker extends SwingWorker<List<Era>, ResultadoParcial> im
 	 */
 	@Override
 	public void updateFin(List<Era> listaEras) {
-		this.erasProcesadas = listaEras;		
+//		this.erasProcesadas = listaEras;		
 		finEjecucion = true;
 	}
 

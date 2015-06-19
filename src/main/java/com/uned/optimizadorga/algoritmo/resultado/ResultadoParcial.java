@@ -18,18 +18,18 @@ public abstract class ResultadoParcial {
 	int eraActual;
 	// El numero de generacion actual
 	int generacionActual;
-	private Cromosoma mejorCromosoma;
+	private Cromosoma mejorCromosomaTotal;
 	private double mediaCoste;
 
 	public abstract String printResultado();
 
-	protected static int calcularProgreso(List<Era> listaEras,
-			List<Generacion> listaGeneraciones, Configuracion configuracion) {
+	protected static int calcularProgreso(List<ResultadoParcialEra> resultadosEras,
+			List<ResultadoParcialGeneracion> resultadosGeneraciones, Configuracion configuracion) {
 //		log.debug("****************PROGRESO********************************");
 		double progreso = 0;
 
-		double numGeneracion = listaGeneraciones.size();
-		double numEra = listaEras.size();
+		double numGeneracion = resultadosGeneraciones.size()+1;
+		double numEra = resultadosEras.size()+1;
 
 		double totalGeneraciones = configuracion.getMaxGens();
 		double totalEras = configuracion.getMaxEras();
@@ -42,16 +42,16 @@ public abstract class ResultadoParcial {
 	/**
 	 * @return the mejorCromosomaGeneracion
 	 */
-	public Cromosoma getMejorCromosoma() {
-		return this.mejorCromosoma;
+	public Cromosoma getMejorCromosomaTotal() {
+		return this.mejorCromosomaTotal;
 	}
 
 
 	/**
 	 * @param mejorCromosoma the mejorCromosoma to set
 	 */
-	public void setMejorCromosoma(Cromosoma mejorCromosoma) {
-		this.mejorCromosoma = mejorCromosoma;
+	public void setMejorCromosomaTotal(Cromosoma mejorCromosoma) {
+		this.mejorCromosomaTotal = mejorCromosoma;
 	}
 	
 	

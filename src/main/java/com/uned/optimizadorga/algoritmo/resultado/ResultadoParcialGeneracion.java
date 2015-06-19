@@ -17,35 +17,34 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	private double desviacionTipica;
 	private double porcentajeMejora;
 
-	public static ResultadoParcialGeneracion crearResultadoGeneracion(
-			long startTime, List<Era> listaEras, List<Generacion> listaGeneraciones,
+	public static ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
+			long startTime, List<ResultadoParcialEra> resultadosEras, List<ResultadoParcialGeneracion> resultadosGeneraciones,
 			Configuracion configuracion) {
-		log.debug("Procesa el resultado de la generacion " + listaGeneraciones.size());
-		Generacion generacion = listaGeneraciones
-				.get(listaGeneraciones.size() - 1);
+		log.debug("Procesa el resultado de la generacion " + resultadosGeneraciones.size());
 		ResultadoParcialGeneracion r = new ResultadoParcialGeneracion();
 		long timeParcial = System.currentTimeMillis();
 		r.setTiempoEjecucion((timeParcial - startTime)/1000);
 		r.setCambioGeneracion(true);
 		r.setCambioEra(false);
-		r.setGeneracionActual(listaGeneraciones.size());
-		r.setEraActual(listaEras.size());
+		r.setGeneracionActual(resultadosGeneraciones.size());
+		r.setEraActual(resultadosEras.size());
 		Cromosoma mejorCromosomaGeneracion = generacion.getNuevaPoblacion().obtenerMejor();
 		Cromosoma antiguoMejorCromosoma = generacion.getPoblacionInicial().obtenerMejor();
 		
 		if (new ComparadorMejorCoste().compare(mejorCromosomaGeneracion,
-				antiguoMejorCromosoma) > 0) {
-			r.setMejorCromosoma(mejorCromosomaGeneracion);
+				antiguoMejorCromosoma) >= 0) {
+			r.setMejorCromosomaTotal(mejorCromosomaGeneracion);
 		} else {
-			r.setMejorCromosoma(antiguoMejorCromosoma);
+			log.warn("SI hay elitismo, por qué el mejor es el antiguo mejor cromosoma???????");
+			r.setMejorCromosomaTotal(antiguoMejorCromosoma);
 		}
 		
 		r.setMediaCoste(generacion.getNuevaPoblacion().calcularMediaCoste());
 		r.setDesviacionTipica(generacion.getNuevaPoblacion().calcularDesviacionTipica());
 		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getCoste() - antiguoMejorCromosoma
 				.getCoste()) / antiguoMejorCromosoma.getCoste()) * 100);
-		r.setProgreso(calcularProgreso(listaEras,
-				listaGeneraciones, configuracion));
+		r.setProgreso(calcularProgreso(resultadosEras,
+				resultadosGeneraciones, configuracion));
 		log.debug("El resultado " + r);
 		return r;
 	}
@@ -56,10 +55,10 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Generación Actual: ").append(this.generacionActual).append("\n");
 		sb.append("Mejor Cromosoma obtenido hasta el momento: ");	
-		for (Gen g:this.getMejorCromosoma().getGenes()) {
+		for (Gen g:this.getMejorCromosomaTotal().getGenes()) {
 			sb.append("[").append(g.getNombre()).append(",").append(g.getValor()).append("]");
 		}
-		sb.append("\nCoste: ").append(this.getMejorCromosoma().getCoste()).append("\n");
+		sb.append("\nCoste: ").append(this.getMejorCromosomaTotal().getCoste()).append("\n");
 		sb.append("Valor medio del coste: ").append(this.getMediaCoste()).append("\n");
 		sb.append("Desviación típica del coste: ").append(this.getDesviacionTipica()).append("\n");
 		sb.append("Porcentaje de mejora: ").append(this.getPorcentajeMejora());

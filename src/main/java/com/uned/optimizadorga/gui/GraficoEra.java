@@ -12,9 +12,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import com.uned.optimizadorga.algoritmo.Era;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Poblacion;
 
 public class GraficoEra extends JDialog {
 
@@ -23,7 +23,7 @@ public class GraficoEra extends JDialog {
 	 */
 	private static final long serialVersionUID = 4752915912950953908L;
 
-	public GraficoEra(Era era, JFrame parent, String titulo,
+	public GraficoEra(ResultadoParcialEra resultadoParcialEra, JFrame parent, String titulo,
 			boolean modal) {
 		super(parent, titulo, modal);
 //		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -32,9 +32,9 @@ public class GraficoEra extends JDialog {
 		XYSeries serie = new XYSeries("Era");
 //		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int generacionActual = 0;
-		for (Poblacion g:era.getEvolucionPoblaciones()) {
+		for (ResultadoParcialGeneracion g:resultadoParcialEra.getResultadosGeneraciones()) {
 			generacionActual++;
-			Cromosoma mejor = g.obtenerMejor();		
+			Cromosoma mejor = g.getMejorCromosomaTotal();		
 			serie.add(generacionActual, mejor.getCoste());
 //			dataSet.addValue(mejor.getCoste(), "Coste", generacionActual+"");
 		}
