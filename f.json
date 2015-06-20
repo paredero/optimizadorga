@@ -1,0 +1,1 @@
+{"numeroEras":10,"numeroGeneraciones":100,"funcionCoste":"fdsa","tamanioPoblacion":100,"probabilidadCruce":0.2,"probabilidadMutacion":0.015,"parametros":[{"nombre":"a","minimo":0.0,"maximo":0.0,"precision":1}],"selector":"RULETA","elitismo":false,"resultados":null}

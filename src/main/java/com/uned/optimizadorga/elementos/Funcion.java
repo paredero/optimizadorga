@@ -28,13 +28,15 @@ public class Funcion {
 		this.strExpr = strExpr;
 		ExpressionBuilder eb = new ExpressionBuilder(strExpr);
 		eb.variables("pi");
-		eb.variables("e");
+		eb.variables("E");
 		
-		eb.variables(parametros.keySet());
+		for (String var:parametros.keySet()) {
+			eb.variables(var.toLowerCase());
+		}
 		
 		expresion = eb.build();
 		expresion.setVariable("pi", Math.PI);
-		expresion.setVariable("e", Math.E);
+		expresion.setVariable("pi", Math.E);
 		
 		ValidationResult resultadoValidacion = expresion.validate();
 		if (!resultadoValidacion.isValid()) {
@@ -82,7 +84,7 @@ public class Funcion {
 
 	public double evaluate(List<Gen> listaParametros) throws Exception{		
 		for (Gen parametro:listaParametros) {
-			expresion.setVariable(parametro.getTipoGen().getNombre(), parametro.getValor());
+			expresion.setVariable(parametro.getTipoGen().getNombre().toLowerCase(), parametro.getValor());
 		}
 		return expresion.evaluate();
 	}

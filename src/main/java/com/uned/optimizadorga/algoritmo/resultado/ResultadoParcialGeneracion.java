@@ -16,7 +16,7 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 	
 	private double desviacionTipica;
 	
-	@JsonIgnore
+
 	private double porcentajeMejora;
 	private Cromosoma mejorCromosomaGeneracion;
 	private double mediaCostePoblacion;

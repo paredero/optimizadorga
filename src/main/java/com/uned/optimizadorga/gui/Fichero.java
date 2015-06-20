@@ -28,7 +28,7 @@ public class Fichero implements Serializable{
 	/**
 	 * @return the elitismo
 	 */
-	public boolean isElitismo() {
+	public boolean getElitismo() {
 		return this.elitismo;
 	}
 	/**

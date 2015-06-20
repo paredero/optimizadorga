@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -533,7 +534,7 @@ public class OptimizadorGUI extends JFrame {
 		} else {
 			Funcion funcionCoste = null;
 			try {
-				funcionCoste = new Funcion(txtFuncionCoste.getText().trim(),
+				funcionCoste = new Funcion(txtFuncionCoste.getText().trim().toLowerCase().replace(",", "."),
 						parametros);
 			} catch (EmptyStackException e) {
 				e.printStackTrace();
@@ -571,7 +572,7 @@ public class OptimizadorGUI extends JFrame {
 				resultados = null;
 				ProgressDialog progressDialog = new ProgressDialog(
 						OptimizadorGUI.this, "Calculando", true);
-configuracion = Configuracion.crearConfiguracion(
+				configuracion = Configuracion.crearConfiguracion(
 						(Integer) spNumEras.getValue(),
 						(Integer) spNumGen.getValue(), funcionCoste,
 						parametros, (Integer) spTamPoblacion.getValue(),
@@ -598,57 +599,7 @@ configuracion = Configuracion.crearConfiguracion(
 		}
 	}
 
-	/*
-	private void mostrarResultados(List<Era> resultados) {
-		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCIÓN</h1>")
-				.append("<br />");
-		int i = 1;
-		sb.append("<table>");
-		sb.append("<tr>");
-		sb.append("<th>");
-		sb.append("ERA");
-		sb.append("</th>");
-		sb.append("<th>");
-		sb.append("MEJOR CROMOSOMA");
-		sb.append("</th>");
-		sb.append("<th>");
-		sb.append("COSTE");
-		sb.append("</th>");
-		sb.append("<th></th>");
-		sb.append("</tr>");
-		for (Era e : resultados) {
-			sb.append("<tr>");
-			sb.append("<td>");
-			sb.append(i);
-			sb.append("</td>");
-			Cromosoma mejorCromosomaEra = e.obtenerMejor();
-			sb.append("<td>");
-//			sb.append(i);			
-			for (Gen g : mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getNombre()).append(",")
-						.append(g.getValor()).append("]");
-			}
-			sb.append("</td>");
-			sb.append("<td>").append(mejorCromosomaEra.getCoste())
-					.append("</td>");
-			sb.append("<td><a href=\"").append(i-1).append("\">Ver evolución</a></td>");
-			
-			sb.append("</tr>");
-			i++;
-//			sb.append("**********************************************").append(
-//					"\n");
-		}
-		sb.append("</table>");
-		panelResultados.setText(sb.toString());
-//		textoResultados.setText(sb.toString());
-//		textoResultados.validate();
-//		textoResultados.repaint();
-//		scrlResultados.setVisible(true);
-		construirChart(resultados);
-//		panelResultados.setVisible(true);
-		panelChartResultados.setVisible(true);		
-	}
-	*/
+	
 	private void mostrarResultados(List<ResultadoParcialEra> resultados) {
 		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCIÓN</h1>")
 				.append("<br />");
@@ -682,7 +633,6 @@ configuracion = Configuracion.crearConfiguracion(
 			sb.append("</td>");
 			Cromosoma mejorCromosomaEra = e.getMejorCromosomaEra();
 			sb.append("<td>");
-//			sb.append(i);			
 			for (Gen g : mejorCromosomaEra.getGenes()) {
 				sb.append("[").append(g.getTipoGen().getNombre()).append(",")
 						.append(g.getValor()).append("]");
@@ -694,17 +644,10 @@ configuracion = Configuracion.crearConfiguracion(
 			
 			sb.append("</tr>");
 			i++;
-//			sb.append("**********************************************").append(
-//					"\n");
 		}
 		sb.append("</table>");
 		panelResultados.setText(sb.toString());
-//		textoResultados.setText(sb.toString());
-//		textoResultados.validate();
-//		textoResultados.repaint();
-//		scrlResultados.setVisible(true);
 		construirChart(resultados);
-//		panelResultados.setVisible(true);
 		panelChartResultados.setVisible(true);		
 	}
 
@@ -895,8 +838,8 @@ configuracion = Configuracion.crearConfiguracion(
 			mapPanelesParametros.put(nombre, panel);
 			
 			nombreParametro.setText(null);
-			minimoParametro.setValue(null);
-			maximoParametro.setValue(null);
+			minimoParametro.setValue(new Double(0.0));
+			maximoParametro.setValue(new Double(0.0));
 			precisionParametro.setValue(1);
 			
 			panelDatos.revalidate();
@@ -930,13 +873,18 @@ configuracion = Configuracion.crearConfiguracion(
 	}
 	
 	protected void guardarConfiguracion() {
+		URL jarLocation = getClass().getProtectionDomain().getCodeSource().getLocation();
+//		JFileChooser fileChooser = new JFileChooser(new File(jarLocation.toString()));
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		        "json", "json");
 		fileChooser.setFileFilter(filter);
 		int seleccion = fileChooser.showSaveDialog(this);		
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
-			File fichero = new File(fileChooser.getSelectedFile()+".json");
+			File fichero = fileChooser.getSelectedFile();
+			if (!fileChooser.getSelectedFile().toString().endsWith(".json")) {
+				fichero = new File(fileChooser.getSelectedFile()+".json");
+			}
 			try {
 				// Estrategia, si configuracion != null obtengo la configuracion de Configuracion
 				Fichero f = new Fichero();
@@ -988,7 +936,32 @@ configuracion = Configuracion.crearConfiguracion(
 			Fichero f;
 			try {
 				f = mapper.readValue(fichero, Fichero.class);
-				log.debug(f.getFuncionCoste());
+				spNumEras.setValue(f.getNumeroEras());
+				spNumGen.setValue(f.getNumeroGeneraciones());
+				txtFuncionCoste.setText(f.getFuncionCoste());
+				spTamPoblacion.setValue(f.getTamanioPoblacion());
+				spProbCruce.setValue(f.getProbabilidadCruce());
+				spProbMutacion.setValue(f.getProbabilidadMutacion());
+				if (Selector.RULETA.equals(f.getSelector())) {
+					rbSelRuleta.setSelected(true);
+					rbSelTorneo.setSelected(false);
+				} else if (Selector.TORNEO.equals(f.getSelector())) {
+					rbSelTorneo.setSelected(true);
+					rbSelRuleta.setSelected(false);
+				}
+				chkElitismo.setSelected(f.getElitismo());
+				if (f.getParametros() != null) {
+					eliminarParametrosExistentes();
+					parametros = new HashMap<String, TipoGen>();
+					for (TipoGen param : f.getParametros()) {
+						aniadirParametro(param.getNombre(), param.getMinimo(),
+								param.getMaximo(), param.getPrecision());
+					}
+				}
+				if (f.getResultados() != null) {
+					mostrarResultados(f.getResultados());
+					resultados = f.getResultados();
+				}
 			} catch (JsonParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -999,83 +972,9 @@ configuracion = Configuracion.crearConfiguracion(
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-	}
-	
-	/*
-	 * 	protected void cargarConfiguracion() {
-		JFileChooser fileChooser = new JFileChooser();
-		int seleccion = fileChooser.showOpenDialog(this);
-		if (seleccion == JFileChooser.APPROVE_OPTION) {
-			Properties prop = new Properties();
-			File fichero = fileChooser.getSelectedFile();
-			FileInputStream fi = null;
-			try {
-				fi = new FileInputStream(fichero);
-				prop.load(fi);
-				if (prop.containsKey("nuEras")) {
-					spNumEras.setValue(Integer.valueOf((String) prop.get("nuEras")));
-				}
-				if (prop.containsKey("numGens")) {
-					spNumGen.setValue(Integer.valueOf((String)prop.get("numGens")));
-				}
-				if (prop.containsKey("funcionCoste")) {
-					 txtFuncionCoste.setText((String) prop.get("funcionCoste"));
-				}
-				if (prop.containsKey("tamPoblacion")) {
-					spTamPoblacion.setValue(Integer.valueOf((String)prop.get("tamPoblacion")));
-				}
-				if (prop.containsKey("probCruce")) {
-					spProbCruce.setValue(Double.valueOf((String)prop.get("probCruce")));
-				}
-				if (prop.containsKey("probMutacion")) {
-					spProbMutacion.setValue(Double.valueOf((String)prop.get("probMutacion")));
-				}
-				
-				if (prop.containsKey("selector")) {
-					if (prop.getProperty("selector").equals(Selector.RULETA)) {
-						rbSelRuleta.setSelected(true);
-						rbSelTorneo.setSelected(false);
-					} else if (prop.getProperty("selector").equals(Selector.TORNEO)) {
-						rbSelTorneo.setSelected(true);
-						rbSelRuleta.setSelected(false);
-					}
-				}
-				
-				if (prop.containsKey("elitismo") && "TRUE".equals(prop.getProperty("elitismo"))) {
-					chkElitismo.setSelected(true);
-				}
-				
-				
-				if (prop.containsKey("parametros.nombres")) {
-					String strNombres = prop.getProperty("parametros.nombres");
-					String[] arrNombres = strNombres.split(",");
-					List<String> listaNombres = Arrays.asList(arrNombres);
-					eliminarParametrosExistentes();
-					parametros = new HashMap<String, TipoGen>();
-					for (String nombre:listaNombres) {
-						double minimo = Double.valueOf((String)prop.get(nombre+".minimo"));
-						double maximo = Double.valueOf((String)prop.get(nombre+".maximo"));
-						int precision = Integer.valueOf((String)prop.get(nombre+".precision"));
-						aniadirParametro(nombre, minimo, maximo, precision);
-					}
-				}				
-			} catch (IOException e) {
-				log.error("Error al guardar en fichero ", e);
-			} finally {
-				if (fi != null) {
-					try {
-						fi.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
 
-			}
 		}
 	}
-	 */
 
 	private void eliminarParametrosExistentes() {
 		try {

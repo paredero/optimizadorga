@@ -1,6 +1,5 @@
 package com.uned.optimizadorga.algoritmo.resultado;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 public abstract class ResultadoParcial {
@@ -8,13 +7,10 @@ public abstract class ResultadoParcial {
 	 * VALORES COMUNES
 	 *************************************************************************/
 	
-	@JsonIgnore
+
 	long tiempoEjecucion;
-	@JsonIgnore
 	private int progreso;
-	@JsonIgnore
-	boolean cambioEra; // TODO Do I really need this??
-	@JsonIgnore
+	boolean cambioEra;
 	boolean cambioGeneracion; // TODO Do I really need this??
 	int eraActual;
 	// El numero de generacion actual
