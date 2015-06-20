@@ -12,8 +12,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialGeneracion;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 public class GraficoEra extends JDialog {
@@ -23,29 +23,29 @@ public class GraficoEra extends JDialog {
 	 */
 	private static final long serialVersionUID = 4752915912950953908L;
 
-	public GraficoEra(ResultadoParcialEra resultadoParcialEra, JFrame parent, String titulo,
-			boolean modal) {
+	public GraficoEra(ResultadoEra resultadoParcialEra, JFrame parent,
+			String titulo, boolean modal) {
 		super(parent, titulo, modal);
 		setBounds(200, 50, 700, 700);
 		this.setLayout(new BorderLayout());
 		XYSeries serie = new XYSeries("Era");
 		XYSeries media = new XYSeries("Media población");
 		XYSeries dt = new XYSeries("Desviación típica");
-		
 		int generacionActual = 0;
-		for (ResultadoParcialGeneracion g:resultadoParcialEra.getResultadosGeneraciones()) {
+		for (ResultadoGeneracion g : resultadoParcialEra
+				.getResultadosGeneraciones()) {
 			generacionActual++;
-			Cromosoma mejor = g.getMejorCromosomaGeneracion();		
+			Cromosoma mejor = g.getMejorCromosomaGeneracion();
 			serie.add(generacionActual, mejor.getCoste());
 			media.add(generacionActual, g.getMediaCostePoblacion());
 			dt.add(generacionActual, g.getDesviacionTipica());
-//			dataSet.addValue(mejor.getCoste(), "Coste", generacionActual+"");
 		}
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(serie);
 		dataset.addSeries(media);
 		dataset.addSeries(dt);
-		JFreeChart chart = ChartFactory.createXYLineChart("Evolución del calculo", "Generación", "Coste", dataset);
+		JFreeChart chart = ChartFactory.createXYLineChart(
+				"Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setAntiAlias(true);
 		chart.setBackgroundPaint(Color.GRAY);
 		ChartPanel chartPanel = new ChartPanel(chart);

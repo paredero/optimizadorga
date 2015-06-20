@@ -9,15 +9,15 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
-public class ResultadoParcialEra extends ResultadoParcial {
+public class ResultadoEra extends Resultado {
 
-	private List<ResultadoParcialGeneracion> resultadosGeneraciones;
+	private List<ResultadoGeneracion> resultadosGeneraciones;
 	private Cromosoma mejorCromosomaEra;
 	private double mediaCosteEras;
 
 	
 	
-	public ResultadoParcialEra() {
+	public ResultadoEra() {
 		super();
 	}
 
@@ -49,9 +49,9 @@ public class ResultadoParcialEra extends ResultadoParcial {
 	 * @param eraActual 
 	 * @return
 	 */
-	public static ResultadoParcialEra crearResultadoEra(long startTime, Era era,
-			List<ResultadoParcialEra> resultadosEras, List<ResultadoParcialGeneracion> resultadosGeneraciones, Configuracion configuracion) {
-		ResultadoParcialEra resultadoEra = new ResultadoParcialEra();
+	public static ResultadoEra crearResultadoEra(long startTime, Era era,
+			List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones, Configuracion configuracion) {
+		ResultadoEra resultadoEra = new ResultadoEra();
 		resultadoEra.setEraActual(resultadosEras.size()+1);
 		resultadoEra.setGeneracionActual(0);
 		resultadoEra.setCambioEra(true);
@@ -67,7 +67,7 @@ public class ResultadoParcialEra extends ResultadoParcial {
 	}
 
 	protected static int calcularProgreso(
-			List<ResultadoParcialEra> resultadosEras,
+			List<ResultadoEra> resultadosEras,
 			Configuracion configuracion) {
 		// log.debug("****************PROGRESO********************************");
 		double progreso = 0;
@@ -79,9 +79,9 @@ public class ResultadoParcialEra extends ResultadoParcial {
 
 
 
-	private static double obtenerMediaMejores(List<ResultadoParcialEra> listaEras, Era era) {
+	private static double obtenerMediaMejores(List<ResultadoEra> listaEras, Era era) {
 		double sumaTotal = 0.0;
-		for (ResultadoParcialEra e:listaEras) {
+		for (ResultadoEra e:listaEras) {
 			sumaTotal += e.getMejorCromosomaEra().getCoste();
 		}
 		sumaTotal += era.obtenerMejor().getCoste();
@@ -95,10 +95,10 @@ public class ResultadoParcialEra extends ResultadoParcial {
 	 * @param configuracion
 	 * @return
 	 */
-	private static Cromosoma obtenerMejorEras(List<ResultadoParcialEra> listaEras, Era era, Configuracion configuracion) {
+	private static Cromosoma obtenerMejorEras(List<ResultadoEra> listaEras, Era era, Configuracion configuracion) {
 		List<Cromosoma> listaMejoresCromosomas = new ArrayList<Cromosoma>();
 		listaMejoresCromosomas.add(era.obtenerMejor());
-		for (ResultadoParcialEra e:listaEras) {
+		for (ResultadoEra e:listaEras) {
 			listaMejoresCromosomas.add(e.getMejorCromosomaTotal());
 		}
 		// Construyo una poblacion con los mejores elementos de cada era y de ahí obtengo su mejor
@@ -133,7 +133,7 @@ public class ResultadoParcialEra extends ResultadoParcial {
 
 
 	private void setResultadosGeneraciones(
-			List<ResultadoParcialGeneracion> resultadosGeneraciones) {
+			List<ResultadoGeneracion> resultadosGeneraciones) {
 		this.resultadosGeneraciones = resultadosGeneraciones;
 	}
 
@@ -141,7 +141,7 @@ public class ResultadoParcialEra extends ResultadoParcial {
 	/**
 	 * @return the resultadosGeneraciones
 	 */
-	public List<ResultadoParcialGeneracion> getResultadosGeneraciones() {
+	public List<ResultadoGeneracion> getResultadosGeneraciones() {
 		return this.resultadosGeneraciones;
 	}
 	

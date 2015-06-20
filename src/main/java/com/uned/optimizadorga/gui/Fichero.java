@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import com.uned.optimizadorga.algoritmo.resultado.ResultadoParcialEra;
+import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.elementos.TipoGen;
 
 public class Fichero implements Serializable{
@@ -21,7 +21,7 @@ public class Fichero implements Serializable{
 	private Set<TipoGen> parametros;
 	private String selector;
 	private boolean elitismo;
-	private List<ResultadoParcialEra> resultados;
+	private List<ResultadoEra> resultados;
 	
 	
 	
@@ -135,10 +135,10 @@ public class Fichero implements Serializable{
 	public void setSelector(String selector) {
 		this.selector = selector;
 	}
-	public void setResultados(List<ResultadoParcialEra> resultados) {
+	public void setResultados(List<ResultadoEra> resultados) {
 		this.resultados = resultados;
 	}
-	public List<ResultadoParcialEra> getResultados() {
+	public List<ResultadoEra> getResultados() {
 		return this.resultados;
 	}
 	

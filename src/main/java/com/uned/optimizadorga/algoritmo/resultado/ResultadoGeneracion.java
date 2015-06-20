@@ -4,28 +4,25 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 
-public class ResultadoParcialGeneracion extends ResultadoParcial {
-	private static final Logger log = Logger.getLogger(ResultadoParcialGeneracion.class);
+public class ResultadoGeneracion extends Resultado {
+	private static final Logger log = Logger.getLogger(ResultadoGeneracion.class);
 	
 	private double desviacionTipica;
-	
-
 	private double porcentajeMejora;
 	private Cromosoma mejorCromosomaGeneracion;
 	private double mediaCostePoblacion;
 
-	public static ResultadoParcialGeneracion crearResultadoGeneracion(Generacion generacion,
-			long startTime, List<ResultadoParcialEra> resultadosEras, List<ResultadoParcialGeneracion> resultadosGeneraciones,
+	public static ResultadoGeneracion crearResultadoGeneracion(Generacion generacion,
+			long startTime, List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones,
 			Configuracion configuracion) {
 		log.debug("Procesa el resultado de la generacion " + resultadosGeneraciones.size());
-		ResultadoParcialGeneracion r = new ResultadoParcialGeneracion();
+		ResultadoGeneracion r = new ResultadoGeneracion();
 		long timeParcial = System.currentTimeMillis();
 		r.setTiempoEjecucion((timeParcial - startTime)/1000);
 		r.setCambioGeneracion(true);
@@ -54,7 +51,7 @@ public class ResultadoParcialGeneracion extends ResultadoParcial {
 
 
 	
-	public ResultadoParcialGeneracion() {
+	public ResultadoGeneracion() {
 		super();
 	}
 

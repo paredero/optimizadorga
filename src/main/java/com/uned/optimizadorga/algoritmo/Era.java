@@ -3,6 +3,8 @@ package com.uned.optimizadorga.algoritmo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.EraSubject;
 import com.uned.optimizadorga.elementos.Configuracion;
@@ -16,7 +18,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
  *
  */
 public class Era implements EraSubject {
-//	private static final Logger log = Logger.getLogger(Era.class);
+	private static final Logger log = Logger.getLogger(Era.class);
 	private Configuracion configuracion;
 	private Poblacion poblacionInicial;
 	private List<EraObserver> observadores;
@@ -62,7 +64,6 @@ public class Era implements EraSubject {
 			generacionActual++;
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
-			// TODO Si puedo me lo cargo
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
 			//				log.debug("******************************************** Generacion numero: "
 			//						+ (generacionActual));

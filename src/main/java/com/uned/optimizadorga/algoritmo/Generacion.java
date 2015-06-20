@@ -90,22 +90,14 @@ public class Generacion {
 		if (configuracion.getProbabilidadCruce() == 0.0) {
 			log.warn("Probabilidad de cruce = 0 Posiblemente no inicializado");
 		}
-//		log.debug("Ejecuta operador de cruce PC " + configuracion.getProbabilidadCruce());
+
 		List<Cromosoma> cromosomasSeleccionados = new ArrayList<Cromosoma>();
-		//TODO Traza
-		Cromosoma mejor = poblacion.obtenerMejor();
 		for (Cromosoma c:poblacion.getCromosomas()) {
 			double random = Math.random();
-//			log.debug("Gira la ruleta......"+random);
 			if (random < configuracion.getProbabilidadCruce()) {
 				cromosomasSeleccionados.add(c);
-				if (c == mejor) {
-					log.info("El mejor cromosoma seleccionado para cruce");
-				}
-//				log.debug(".......TOCO!  " + c);
 			}
 		}
-//		log.debug("Cromosomas seleccionados para el cruce: " + cromosomasSeleccionados);
 		int i = 0;
 		Iterator<Cromosoma> itCromosomas = cromosomasSeleccionados.iterator();
 		Cromosoma cPar = null;
@@ -118,19 +110,12 @@ public class Generacion {
 				cruzar(cPar, cImpar);
 			}
 			i++;
-			if (cImpar == mejor) {
-				log.info("El mejor cromosoma tras cruzar sin evaluar " + mejor);
-			} else if (cPar == mejor) {
-				log.info("El mejor cromosoma tras cruzar sin evaluar " + mejor);
-			}
 		}
 		try {
 			poblacion.calcularCostesPoblacion();
-			log.info("El mejor cromosoma tras cruzar y evaluar " +mejor);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		log.debug("Poblacion tras el cruce " + poblacion);
 	}
 	
 	/**

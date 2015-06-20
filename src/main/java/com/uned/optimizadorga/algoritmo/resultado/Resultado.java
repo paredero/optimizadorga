@@ -2,7 +2,7 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import com.uned.optimizadorga.elementos.Cromosoma;
 
-public abstract class ResultadoParcial {
+public abstract class Resultado {
 	/**************************************************************************
 	 * VALORES COMUNES
 	 *************************************************************************/
@@ -11,7 +11,7 @@ public abstract class ResultadoParcial {
 	long tiempoEjecucion;
 	private int progreso;
 	boolean cambioEra;
-	boolean cambioGeneracion; // TODO Do I really need this??
+	boolean cambioGeneracion;
 	int eraActual;
 	// El numero de generacion actual
 	int generacionActual;
