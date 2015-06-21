@@ -535,7 +535,11 @@ public class OptimizadorGUI extends JFrame {
 				if (e.getMessage() == null) {
 					JOptionPane.showMessageDialog(this,
 							"Formato de función de coste incorrecto");
-				} else if (e.getMessage().contains("parentesis no abierto")) {
+				} else if (e.getMessage().contains("multiple points")) {
+					JOptionPane
+					.showMessageDialog(this,
+							"Formato de función de coste incorrecto, demasiados puntos decimales en un número");
+				}  else if (e.getMessage().contains("parentesis no abierto")) {
 					JOptionPane
 							.showMessageDialog(this,
 									"Formato de función de coste incorrecto, faltan paréntesis de apertura");
