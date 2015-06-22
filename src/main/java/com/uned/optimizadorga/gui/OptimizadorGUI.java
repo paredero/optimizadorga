@@ -603,6 +603,8 @@ public class OptimizadorGUI extends JFrame {
 					e1.printStackTrace();
 				} catch (ExecutionException e1) {
 					e1.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
