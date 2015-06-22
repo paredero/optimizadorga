@@ -181,6 +181,7 @@ public class Generacion {
 					}
 				}
 			}
+			// TODO Tal vez pueda arreglarmelas para que solo se calcule el coste cuando haya mutado
 			c.calcularCoste(configuracion.getFuncionCoste());
 			if (mejorCromosoma) {
 				log.info("El mejor cromosoma tras mutar " + c);
