@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-import org.jfree.util.Log;
-
-import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
@@ -16,8 +12,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
  * @author fjgarcia
  *
  */
-public class SelectorTorneoDeterminista implements Selector {
-	private static final Logger log = Logger.getLogger(SelectorTorneoDeterminista.class);
+public class SelectorTorneo implements Selector {
 	private int numElemSeleccionados = 2;
 	private Random random = new Random();
 	@Override

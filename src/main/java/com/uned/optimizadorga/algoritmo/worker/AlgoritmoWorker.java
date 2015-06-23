@@ -36,6 +36,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	
 	private List<ResultadoEra> resultadosEras;
 	private List<ResultadoGeneracion> resultadosGeneraciones;
+	private String error;
 //	private List<Era> erasProcesadas;
 //	private List<Generacion> generacionesProcesadas;	
 	
@@ -158,7 +159,30 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 
 
 	@Override
-	public void updateError() {
+	public void updateError(Exception e) {
+		if (e.getMessage().equals("Division by zero!")) {
+			this.error = "Error en la ejecución: División por cero";
+		}
 		this.cancel(true);
 	}
+
+
+
+
+	/**
+	 * @return the resultadosEras
+	 */
+	public List<ResultadoEra> getResultados() {
+		return this.resultadosEras;
+	}
+
+
+
+
+	public String getError() {
+		return this.error;
+	}
+	
+	
+	
 }

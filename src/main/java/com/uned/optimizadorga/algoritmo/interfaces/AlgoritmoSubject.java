@@ -52,5 +52,5 @@ public interface AlgoritmoSubject {
 	 * Si se produce un error enla ejecucion se notifica para que los
 	 * observadores puedan volver a una situación controlada
 	 */
-	public void notifyError();
+	public void notifyError(Exception e);
 }

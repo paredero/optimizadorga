@@ -36,7 +36,7 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.notifyError();
+			this.notifyError(e);
 		}
 		this.notifyFinEjecucion();
 	}
@@ -98,10 +98,10 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 	}
 	
 	@Override
-	public void notifyError() {
+	public void notifyError(Exception e) {
 //		Al final debe enviar todas las eras, las cuales ya contienen todas las generaciones
 		for (AlgoritmoObserver o:this.observadores) {
-			o.updateError();
+			o.updateError(e);
 		}
 	}
 

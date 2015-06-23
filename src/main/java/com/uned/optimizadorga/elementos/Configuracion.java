@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
-import com.uned.optimizadorga.algoritmo.selectores.SelectorTorneoDeterminista;
+import com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo;
 
 public class Configuracion {
 	private static Configuracion instancia = new Configuracion();
@@ -78,7 +78,7 @@ public class Configuracion {
 		if (selectorRuleta) {
 			instancia.selector = new SelectorRuleta();
 		} else if (selectorTorneo) {
-			instancia.selector = new SelectorTorneoDeterminista();
+			instancia.selector = new SelectorTorneo();
 		}
 		
 		

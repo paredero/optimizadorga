@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -603,6 +604,16 @@ public class OptimizadorGUI extends JFrame {
 					e1.printStackTrace();
 				} catch (ExecutionException e1) {
 					e1.printStackTrace();
+				} catch (CancellationException e) {
+					if (worker.getError() != null && !"".equals(worker.getError())) {
+						JOptionPane.showMessageDialog(this,
+								worker.getError());
+					}
+					resultados = worker.getResultados();
+					if (resultados != null) {
+						mostrarResultados(resultados);
+					}
+					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

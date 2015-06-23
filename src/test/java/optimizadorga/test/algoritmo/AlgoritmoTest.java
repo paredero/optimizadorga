@@ -100,8 +100,7 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateError() {
-		// TODO Auto-generated method stub
+	public void updateError(Exception e) {
 		
 	}
 

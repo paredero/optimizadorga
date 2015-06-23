@@ -42,5 +42,5 @@ public interface AlgoritmoObserver {
 	 * produzca un error en la ejecución para que vuelva a una situación
 	 * controlada
 	 */
-	public void updateError();
+	public void updateError(Exception e);
 }

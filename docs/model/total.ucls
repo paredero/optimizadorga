@@ -21,27 +21,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.uned.optimizadorga.resultados.Resultado" project="optimizadorga" 
-    file="/optimizadorga/src/main/java/com/uned/optimizadorga/resultados/Resultado.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="44" width="87" x="917" y="289"/>    
-    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="com.uned.optimizadorga.resultados.ResultadoEra" project="optimizadorga" 
-    file="/optimizadorga/src/main/java/com/uned/optimizadorga/resultados/ResultadoEra.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="44" width="100" x="994" y="373"/>    
-    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="com.uned.optimizadorga.elementos.Gen" project="optimizadorga" 
+  <class id="3" language="java" name="com.uned.optimizadorga.elementos.Gen" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Gen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="599" y="551"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
@@ -50,7 +30,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.uned.optimizadorga.elementos.Funcion" project="optimizadorga" 
+  <class id="4" language="java" name="com.uned.optimizadorga.elementos.Funcion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Funcion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="733" y="467"/>    
@@ -60,7 +40,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.uned.optimizadorga.elementos.Poblacion" project="optimizadorga" 
+  <class id="5" language="java" name="com.uned.optimizadorga.elementos.Poblacion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Poblacion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="714" y="373"/>    
@@ -70,7 +50,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.uned.optimizadorga.elementos.TipoGen" project="optimizadorga" 
+  <class id="6" language="java" name="com.uned.optimizadorga.elementos.TipoGen" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/TipoGen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="599" y="635"/>    
@@ -80,7 +60,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.uned.optimizadorga.elementos.Cromosoma" project="optimizadorga" 
+  <class id="7" language="java" name="com.uned.optimizadorga.elementos.Cromosoma" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Cromosoma.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="94" x="599" y="467"/>    
@@ -90,7 +70,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.uned.optimizadorga.elementos.Configuracion" project="optimizadorga" 
+  <class id="8" language="java" name="com.uned.optimizadorga.elementos.Configuracion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Configuracion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="103" x="841" y="373"/>    
@@ -100,7 +80,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker" project="optimizadorga" 
+  <class id="9" language="java" name="com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/worker/AlgoritmoWorker.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="122" x="767" y="121"/>    
@@ -110,7 +90,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.uned.optimizadorga.algoritmo.util.TimeUtils" project="optimizadorga" 
+  <class id="10" language="java" name="com.uned.optimizadorga.algoritmo.util.TimeUtils" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/util/TimeUtils.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="428" y="205"/>    
@@ -120,7 +100,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="13" language="java" name="com.uned.optimizadorga.algoritmo.selectores.Selector" project="optimizadorga" 
+  <interface id="11" language="java" name="com.uned.optimizadorga.algoritmo.selectores.Selector" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/Selector.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="103" x="259" y="467"/>    
@@ -130,10 +110,10 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="14" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorTorneoDeterminista" 
+  <class id="12" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo" 
     project="optimizadorga" 
-    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorTorneoDeterminista.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorTorneo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="44" width="111" x="108" y="373"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="true">      
@@ -141,7 +121,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta" 
+  <class id="13" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorRuleta.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -152,7 +132,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoEra" project="optimizadorga" 
+  <class id="14" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoEra" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoEra.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="140" x="1291" y="289"/>    
@@ -162,7 +142,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion" 
+  <class id="15" language="java" name="com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/ResultadoGeneracion.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -173,7 +153,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="com.uned.optimizadorga.algoritmo.resultado.Resultado" project="optimizadorga" 
+  <class id="16" language="java" name="com.uned.optimizadorga.algoritmo.resultado.Resultado" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/resultado/Resultado.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="122" x="1148" y="205"/>    
@@ -183,7 +163,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="19" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraSubject" 
+  <interface id="17" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraSubject" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/EraSubject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -194,7 +174,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <interface id="20" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject" 
+  <interface id="18" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/AlgoritmoSubject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -205,7 +185,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <interface id="21" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraObserver" 
+  <interface id="19" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.EraObserver" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/EraObserver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -216,7 +196,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <interface id="22" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver" 
+  <interface id="20" language="java" name="com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/interfaces/AlgoritmoObserver.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -227,7 +207,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="23" language="java" name="com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste" 
+  <class id="21" language="java" name="com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste" 
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/comparadores/ComparadorMejorCoste.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -238,7 +218,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="com.uned.optimizadorga.algoritmo.Generacion" project="optimizadorga" 
+  <class id="22" language="java" name="com.uned.optimizadorga.algoritmo.Generacion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Generacion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="89" x="767" y="289"/>    
@@ -248,7 +228,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="com.uned.optimizadorga.algoritmo.Era" project="optimizadorga" 
+  <class id="23" language="java" name="com.uned.optimizadorga.algoritmo.Era" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Era.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="447" y="289"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
@@ -257,7 +237,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="com.uned.optimizadorga.algoritmo.Algoritmo" project="optimizadorga" 
+  <class id="24" language="java" name="com.uned.optimizadorga.algoritmo.Algoritmo" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Algoritmo.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="44" width="87" x="555" y="205"/>    
@@ -267,112 +247,109 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <association id="27">    
-    <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
-      <attribute id="28" name="resultadosEra">        
+  <association id="25">    
+    <end type="SOURCE" refId="9" navigable="false" variant="ASSOCIATION">      
+      <attribute id="26" name="algoritmo">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="29" minimum="0" maximum="2147483647">        
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="28">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="31">    
+    <end type="SOURCE" refId="22" navigable="false" variant="ASSOCIATION">      
+      <attribute id="32" name="configuracion">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="33" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="34">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <association id="35">    
+    <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
+      <attribute id="36" name="tipoGen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="38">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <realization id="39">    
+    <bendpoint x="693" y="205"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <association id="40">    
+    <end type="SOURCE" refId="23" navigable="false" variant="ASSOCIATION">      
+      <attribute id="41" name="observadores">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="42" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="9" navigable="false" variant="ASSOCIATION">      
+      <attribute id="44" name="progressDialog">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="47" name="funcionCoste">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="48" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="30">    
-    <bendpoint x="850" y="467"/>    
-    <bendpoint x="850" y="551"/>    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="31" name="parametros">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="32" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="33">    
-    <bendpoint x="915" y="205"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <association id="34">    
-    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
-      <attribute id="35" name="tipoGen">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="36" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="24" navigable="false" variant="ASSOCIATION">      
-      <attribute id="38" name="configuracion">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="40">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="18"/>  
-  </dependency>  
-  <association id="41">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="42" name="funcionCoste">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="43" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="44">    
-    <bendpoint x="886" y="205"/>    
-    <bendpoint x="886" y="289"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <association id="45">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="46" name="funcionCoste">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="47" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="48">    
-    <bendpoint x="693" y="205"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="22"/>  
-  </realization>  
   <association id="49">    
-    <bendpoint x="77" y="121"/>    
-    <bendpoint x="77" y="205"/>    
-    <bendpoint x="77" y="289"/>    
-    <bendpoint x="77" y="373"/>    
-    <bendpoint x="77" y="467"/>    
-    <bendpoint x="77" y="551"/>    
-    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="50" name="parametros">        
+    <end type="SOURCE" refId="23" navigable="false" variant="ASSOCIATION">      
+      <attribute id="50" name="configuracion">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="51" minimum="0" maximum="2147483647">        
+      <multiplicity id="51" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
@@ -380,279 +357,254 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="52">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="53" name="selector">        
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="53" name="genes">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="54" minimum="0" maximum="1">        
+      <multiplicity id="54" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="55">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="56" name="cromosomas">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="57" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="58">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="11"/>  
-  </dependency>  
-  <realization id="59">    
-    <bendpoint x="416" y="289"/>    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="60">    
-    <bendpoint x="1260" y="289"/>    
-    <bendpoint x="1260" y="373"/>    
-    <end type="SOURCE" refId="18" navigable="false" variant="ASSOCIATION">      
-      <attribute id="61" name="mejorCromosomaTotal">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="62" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="63">    
-    <bendpoint x="1300" y="205"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="16"/>  
-  </dependency>  
-  <dependency id="64">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
-  </dependency>  
-  <association id="65">    
     <bendpoint x="564" y="289"/>    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="66" name="configuracion">        
+    <end type="SOURCE" refId="24" navigable="false" variant="ASSOCIATION">      
+      <attribute id="56" name="configuracion">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="67" minimum="0" maximum="1">        
+      <multiplicity id="57" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="68">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="69" name="instancia">        
+  <association id="58">    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="59" name="instancia">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="70" minimum="0" maximum="1">        
+      <multiplicity id="60" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
-    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
-      <attribute id="72" name="evolucionPoblaciones">        
+  <association id="61">    
+    <end type="SOURCE" refId="23" navigable="false" variant="ASSOCIATION">      
+      <attribute id="62" name="poblacionInicial">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="73" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="74">    
-    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
-      <attribute id="75" name="poblacionInicial">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="76" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="77">    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="78" name="observadores">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="79" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="80">    
-    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
-      <attribute id="81" name="configuracion">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="82" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="83">    
-    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
-      <attribute id="84" name="progressDialog">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="85" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="86">    
-    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
-      <attribute id="87" name="algoritmo">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="88" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="89">    
-    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
-      <attribute id="90" name="mejorCromosoma">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="91" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="92">    
-    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="93" name="algoritmoWorker">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="94" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="95">    
-    <bendpoint x="540" y="373"/>    
-    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
-      <attribute id="96" name="mejorIndividuo">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="97" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="98">    
-    <end type="SOURCE" refId="9" navigable="false" variant="ASSOCIATION">      
-      <attribute id="99" name="genes">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="100" minimum="0" maximum="2147483647">        
+      <multiplicity id="63" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="101">    
-    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
-      <attribute id="102" name="observadores">        
+  <association id="64">    
+    <end type="SOURCE" refId="22" navigable="false" variant="ASSOCIATION">      
+      <attribute id="65" name="poblacionInicial">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="103" minimum="0" maximum="2147483647">        
+      <multiplicity id="66" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="21" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="104">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="20"/>  
-  </realization>  
-  <realization id="105">    
-    <end type="SOURCE" refId="25"/>    
+  <realization id="67">    
+    <bendpoint x="416" y="289"/>    
+    <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="19"/>  
   </realization>  
-  <generalization id="106">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <realization id="107">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="13"/>  
+  <realization id="68">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
   </realization>  
-  <realization id="108">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <association id="109">    
-    <end type="SOURCE" refId="24" navigable="false" variant="ASSOCIATION">      
-      <attribute id="110" name="nuevaPoblacion">        
+  <association id="69">    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="70" name="algoritmoWorker">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="111" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="112">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <association id="113">    
-    <end type="SOURCE" refId="24" navigable="false" variant="ASSOCIATION">      
-      <attribute id="114" name="poblacionInicial">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="115" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="116">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="117" name="mejorCromosoma">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="118" minimum="0" maximum="1">        
+      <multiplicity id="71" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="24" navigable="false" variant="ASSOCIATION">      
+      <attribute id="73" name="observadores">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="74" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <bendpoint x="77" y="121"/>    
+    <bendpoint x="77" y="205"/>    
+    <bendpoint x="77" y="289"/>    
+    <bendpoint x="77" y="373"/>    
+    <bendpoint x="77" y="467"/>    
+    <bendpoint x="77" y="551"/>    
+    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
+      <attribute id="76" name="parametros">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="77" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="79" name="cromosomas">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="80" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="81">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="82">    
+    <end type="SOURCE" refId="23" navigable="false" variant="ASSOCIATION">      
+      <attribute id="83" name="evolucionPoblaciones">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="84" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="86" name="mejorCromosoma">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="87" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <bendpoint x="850" y="467"/>    
+    <bendpoint x="850" y="551"/>    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="89" name="parametros">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="91">    
+    <bendpoint x="915" y="205"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <association id="92">    
+    <bendpoint x="1260" y="289"/>    
+    <bendpoint x="1260" y="373"/>    
+    <end type="SOURCE" refId="16" navigable="false" variant="ASSOCIATION">      
+      <attribute id="93" name="mejorCromosomaTotal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="94" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="95">    
+    <bendpoint x="1300" y="205"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="96">    
+    <end type="SOURCE" refId="22" navigable="false" variant="ASSOCIATION">      
+      <attribute id="97" name="nuevaPoblacion">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="98" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="99">    
+    <bendpoint x="540" y="373"/>    
+    <end type="SOURCE" refId="23" navigable="false" variant="ASSOCIATION">      
+      <attribute id="100" name="mejorIndividuo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="101" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="102">    
+    <bendpoint x="886" y="205"/>    
+    <bendpoint x="886" y="289"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="103">    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="104" name="selector">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="105" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="107" name="funcionCoste">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="108" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="109">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="false" protected="false" private="false" static="false"/>    
