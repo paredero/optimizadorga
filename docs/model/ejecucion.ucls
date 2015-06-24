@@ -4,7 +4,7 @@
   <class id="1" language="java" name="com.uned.optimizadorga.algoritmo.Algoritmo" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Algoritmo.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="329" y="474"/>    
+    <position height="-1" width="-1" x="262" y="363"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -13,7 +13,7 @@
   </class>  
   <class id="2" language="java" name="com.uned.optimizadorga.algoritmo.Era" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Era.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="351" width="231" x="592" y="338"/>    
+    <position height="-1" width="-1" x="654" y="363"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="false"/>      
@@ -23,7 +23,7 @@
   <class id="3" language="java" name="com.uned.optimizadorga.algoritmo.Generacion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/Generacion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="740" y="857"/>    
+    <position height="-1" width="-1" x="667" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="false"/>      
@@ -33,7 +33,7 @@
   <interface id="4" language="java" name="com.uned.optimizadorga.algoritmo.selectores.Selector" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/Selector.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="135" width="198" x="352" y="1030"/>    
+    <position height="-1" width="-1" x="365" y="758"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="true" protected="true" private="true" static="true"/>      
@@ -44,106 +44,102 @@
     project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorRuleta.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="250" y="791"/>    
+    <position height="-1" width="-1" x="120" y="746"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo" 
-    project="optimizadorga" 
-    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorTorneo.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="485" y="803"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
-      <operations public="true" package="true" protected="true" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="com.uned.optimizadorga.elementos.Poblacion" project="optimizadorga" 
+  <class id="6" language="java" name="com.uned.optimizadorga.elementos.Poblacion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Poblacion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="315" width="286" x="571" y="1205"/>    
+    <position height="-1" width="-1" x="626" y="974"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="false" visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.uned.optimizadorga.elementos.Funcion" project="optimizadorga" 
+  <class id="7" language="java" name="com.uned.optimizadorga.elementos.Funcion" project="optimizadorga" 
     file="/optimizadorga/src/main/java/com/uned/optimizadorga/elementos/Funcion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="328" y="1347"/>    
+    <position height="-1" width="-1" x="635" y="1253"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="9">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="10">    
-    <bendpoint x="848" y="1044"/>    
-    <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
-      <attribute id="11" name="poblacionInicial">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="12" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="13">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
+  <class id="8" language="java" name="com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo" 
+    project="optimizadorga" 
+    file="/optimizadorga/src/main/java/com/uned/optimizadorga/algoritmo/selectores/SelectorTorneo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="154" y="1024"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="14">    
+  <dependency id="10">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <association id="15">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="16" name="funcionCoste">        
-        <position height="0" width="0" x="-346" y="-298"/>      
+  <association id="11">    
+    <bendpoint x="831" y="829"/>    
+    <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
+      <attribute id="12" name="nuevaPoblacion">        
+        <position height="18" width="84" x="728" y="813"/>      
       </attribute>      
-      <multiplicity id="17" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-346" y="-298"/>      
-      </multiplicity>    
+      <multiplicity id="13" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="18">    
-    <bendpoint x="580" y="1030"/>    
+  <realization id="14">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="15">    
+    <bendpoint x="614" y="822"/>    
     <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
-      <attribute id="19" name="nuevaPoblacion">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="16" name="poblacionInicial">        
+        <position height="18" width="80" x="527" y="815"/>      
       </attribute>      
-      <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <realization id="20">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="21">    
+    <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
+      <attribute id="22" name="funcionCoste">        
+        <position height="0" width="0" x="-338" y="-392"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-338" y="-392"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="22">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <realization id="23">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
