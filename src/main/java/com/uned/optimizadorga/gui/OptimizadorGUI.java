@@ -2,15 +2,18 @@ package com.uned.optimizadorga.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -32,6 +35,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -159,18 +165,58 @@ public class OptimizadorGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public OptimizadorGUI() {
+		ImageIcon icono = new ImageIcon(this.getClass().getResource(
+				"/icons/diagram-icon.png"));
+		setIconImage(icono.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setBounds(100, 100, 1000, 720);
+		setBounds(50, 5, 1000, 720);
 		// setBounds(0,0,screenSize.width, screenSize.height);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
+//		setExtendedState(Frame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
+		crearMenuAyuda();
 		crearPanelConfiguracion();
 		crearPanelContenido();
 		contentPane.add(panelConfiguracion, BorderLayout.PAGE_START);
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 		setContentPane(contentPane);
+	}
+
+	private void crearMenuAyuda() {
+		JMenuBar barra = new JMenuBar();
+		JMenu ayuda = new JMenu("Ayuda");
+		JMenuItem menuAyuda = new JMenuItem("Ayuda");
+		menuAyuda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported()) {
+					InputStream is = null;
+				    try {
+				    	is = this.getClass().getResourceAsStream("/docs/ayuda.pdf");
+				    	File temp = File.createTempFile("ayuda", ".pdf");
+				        temp.deleteOnExit();
+				        Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				        Desktop.getDesktop().open(temp);
+				    } catch (IOException ex) {
+				        // no application registered for PDFs
+				    	ex.printStackTrace();
+				    } finally {
+				    	try {
+							is.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+				    }
+				}
+			}
+		});
+		ayuda.add(menuAyuda);
+//		JMenuItem acercaDe = new JMenuItem("Acerca de");
+//		ayuda.add(acercaDe);
+		barra.add(ayuda);		
+        this.setJMenuBar(barra);
 	}
 
 	private void crearPanelContenido() {
@@ -367,9 +413,9 @@ public class OptimizadorGUI extends JFrame {
 
 	private void crearTipoSeleccion() {
 		JPanel pTipoSeleccion = new JPanel();
-		rbSelRuleta = new JRadioButton("Seleccion por ruleta");
+		rbSelRuleta = new JRadioButton("Selección por ruleta");
 		rbSelRuleta.setSelected(true);
-		rbSelTorneo = new JRadioButton("Seleccion por torneo");
+		rbSelTorneo = new JRadioButton("Selección por torneo");
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbSelRuleta);
 		grupo.add(rbSelTorneo);
@@ -697,7 +743,9 @@ public class OptimizadorGUI extends JFrame {
 		}
 		JFreeChart chart = ChartFactory.createXYLineChart(
 				"Evolución del calculo", "Generación", "Coste", dataset);
-		chart.setBackgroundPaint(Color.GRAY);
+		Color defaultColor = panelChart.getBackground();
+		chart.setBackgroundPaint(defaultColor);
+		chart.getPlot().setBackgroundPaint(Color.WHITE);
 		chart.setAntiAlias(true);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		panelChart.add(chartPanel);

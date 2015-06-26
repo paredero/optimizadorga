@@ -28,7 +28,7 @@ public class GraficoEra extends JDialog {
 		super(parent, titulo, modal);
 		setBounds(200, 50, 700, 700);
 		this.setLayout(new BorderLayout());
-		XYSeries serie = new XYSeries("Era");
+		XYSeries serie = new XYSeries("Mejor individuo de la población");
 		XYSeries media = new XYSeries("Media población");
 		XYSeries dt = new XYSeries("Desviación típica");
 		int generacionActual = 0;
@@ -47,7 +47,9 @@ public class GraficoEra extends JDialog {
 		JFreeChart chart = ChartFactory.createXYLineChart(
 				"Evolución del calculo", "Generación", "Coste", dataset);
 		chart.setAntiAlias(true);
-		chart.setBackgroundPaint(Color.GRAY);
+		Color defaultColor = this.getBackground();
+		chart.setBackgroundPaint(defaultColor);
+		chart.getPlot().setBackgroundPaint(Color.WHITE);;
 		ChartPanel chartPanel = new ChartPanel(chart);
 		this.add(chartPanel);
 		this.validate();

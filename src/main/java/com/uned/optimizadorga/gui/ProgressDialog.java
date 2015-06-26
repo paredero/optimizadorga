@@ -31,7 +31,7 @@ public class ProgressDialog extends JDialog {
 	public ProgressDialog(JFrame parent, String titulo, boolean modal) {
 		super(parent, titulo, modal);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setBounds(200, 100, 600, 695);
+		setBounds(200, 10, 600, 695);
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
