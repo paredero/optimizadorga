@@ -270,7 +270,7 @@ public class OptimizadorGUI extends JFrame {
 		btnAniadirParametro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				aniadirParametro(nombreParametro.getText(),
+				aniadirParametro(nombreParametro.getText().trim(),
 						(Double) minimoParametro.getValue(),
 						(Double) maximoParametro.getValue(),
 						(Integer) precisionParametro.getValue());
@@ -432,6 +432,7 @@ public class OptimizadorGUI extends JFrame {
 	private void crearElitismo() {
 		JPanel pElitismo = new JPanel();
 		chkElitismo = new JCheckBox("Elitismo");
+		chkElitismo.setSelected(true);
 		pElitismo.add(chkElitismo);
 		panelDatosConfiguracion.add(pElitismo);
 		// panelConfiguracion.add(pElitismo, BorderLayout.CENTER);
@@ -860,7 +861,33 @@ public class OptimizadorGUI extends JFrame {
 		} else if (mapPanelesParametros.containsKey(nombre)) {
 			JOptionPane.showMessageDialog(this,
 					"Ya existe un parámetro con el mismo nombre");
-		} else if (maximo < minimo) {
+		} else if (nombre.toLowerCase().equals("e") || nombre.toLowerCase().equals("pi")) {
+			JOptionPane.showMessageDialog(this,
+					"El nombre "+nombre+ " es una constante, no puede usarse en un parámetro");
+		} else if (nombre.toLowerCase().contains("+")
+				|| nombre.toLowerCase().contains("-")
+				|| nombre.toLowerCase().contains("*")
+				|| nombre.toLowerCase().contains("/")
+				|| nombre.toLowerCase().contains("\\")
+				|| nombre.toLowerCase().contains("\u221A")
+				|| nombre.toLowerCase().contains("^")) {
+			JOptionPane.showMessageDialog(this, "El nombre " + nombre
+					+ " contiene un carácter no permitido");
+		} else if (nombre.toLowerCase().contains("sin")
+				|| nombre.toLowerCase().contains("cos")
+				|| nombre.toLowerCase().contains("tan")
+				|| nombre.toLowerCase().contains("asin")
+				|| nombre.toLowerCase().contains("acos")
+				|| nombre.toLowerCase().contains("atan")
+				|| nombre.toLowerCase().contains("abs")
+				|| nombre.toLowerCase().contains("log")
+				|| nombre.toLowerCase().contains("cos")) {
+			JOptionPane.showMessageDialog(
+							this,
+							"El nombre "
+									+ nombre
+									+ " no es válido, pues contiene el nombre de una función predefinida");
+		} else if (maximo < minimo) {		
 			JOptionPane.showMessageDialog(this,
 					"El valor máximo no puede ser inferior al valor mínimo");
 		} else {
@@ -1033,7 +1060,7 @@ public class OptimizadorGUI extends JFrame {
 					eliminarParametrosExistentes();
 					parametros = new HashMap<String, TipoGen>();
 					for (TipoGen param : f.getParametros()) {
-						aniadirParametro(param.getNombre(), param.getMinimo(),
+						aniadirParametro(param.getNombre().trim(), param.getMinimo(),
 								param.getMaximo(), param.getPrecision());
 					}
 				}
