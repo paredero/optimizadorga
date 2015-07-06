@@ -1,0 +1,1 @@
+{"numeroEras":10,"numeroGeneraciones":100,"funcionCoste":"21.5+x1 sin(4*pi*x1) +x2*sin(4*pi*x2)","tamanioPoblacion":100,"probabilidadCruce":0.2,"probabilidadMutacion":0.015,"parametros":[{"nombre":"x2","minimo":4.1,"maximo":5.8,"precision":1},{"nombre":"x1","minimo":-3.0,"maximo":5.1,"precision":1}],"selector":"RULETA","elitismo":true,"resultados":null}

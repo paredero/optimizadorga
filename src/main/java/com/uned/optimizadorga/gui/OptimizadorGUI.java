@@ -677,7 +677,7 @@ public class OptimizadorGUI extends JFrame {
 			sb.append("<h2>Mejor cromosoma obtenido: ");
 			for (Gen g : mejor.getGenes()) {
 				sb.append(g.getTipoGen().getNombre()).append(": ")
-						.append(g.getValor());
+						.append(g.getValor()).append(" ");
 			}
 			sb.append("</h2>");
 			sb.append("<h3>Coste: ").append(mejor.getCoste()).append("</h3>");
