@@ -28,7 +28,7 @@ public class Funcion {
 		this.strExpr = strExpr;
 		ExpressionBuilder eb = new ExpressionBuilder(strExpr);
 		eb.variables("pi");
-		eb.variables("E");
+		eb.variables("e");
 		
 		for (String var:parametros.keySet()) {
 			eb.variables(var.toLowerCase());
@@ -36,7 +36,7 @@ public class Funcion {
 		
 		expresion = eb.build();
 		expresion.setVariable("pi", Math.PI);
-		expresion.setVariable("pi", Math.E);
+		expresion.setVariable("e", Math.E);
 		
 		ValidationResult resultadoValidacion = expresion.validate();
 		if (!resultadoValidacion.isValid()) {

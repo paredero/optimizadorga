@@ -16,8 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CancellationException;
@@ -107,9 +107,9 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelMinimo;
 	private JPanel panelMaximo;
 	private JPanel panelPrecision;
-	private Map<String, TipoGen> parametros = new HashMap<String, TipoGen>();
+	private Map<String, TipoGen> parametros = new LinkedHashMap<String, TipoGen>();
 	private JPanel panelParametros;
-	private Map<String, JPanel> mapPanelesParametros = new HashMap<String, JPanel>();
+	private Map<String, JPanel> mapPanelesParametros = new LinkedHashMap<String, JPanel>();
 	private JPanel panelFuncion;
 	private JScrollPane scrollPane;
 	private JPanel panelContenido;
@@ -1058,7 +1058,7 @@ public class OptimizadorGUI extends JFrame {
 				chkElitismo.setSelected(f.getElitismo());
 				if (f.getParametros() != null) {
 					eliminarParametrosExistentes();
-					parametros = new HashMap<String, TipoGen>();
+					parametros = new LinkedHashMap<String, TipoGen>();
 					for (TipoGen param : f.getParametros()) {
 						aniadirParametro(param.getNombre().trim(), param.getMinimo(),
 								param.getMaximo(), param.getPrecision());
