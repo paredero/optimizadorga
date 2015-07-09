@@ -26,7 +26,7 @@ public class SelectorTorneo implements Selector {
 		poblacionMuestra.setTamanio(numElemSeleccionados);
 		
 		// Genera grupos aleatorios y toma el mejor de cada grupo para la nueva poblacion
-		while (cromosomasSeleccionados.size()<=poblacionSeleccionados.getTamanio()) {
+		while (cromosomasSeleccionados.size()<poblacionSeleccionados.getTamanio()) {
 			List<Cromosoma> muestra = this.seleccionarAlAzar(poblacionInicial, numElemSeleccionados);
 			poblacionMuestra.setCromosomas(muestra);
 			cromosomasSeleccionados.add(poblacionMuestra.obtenerMejor());

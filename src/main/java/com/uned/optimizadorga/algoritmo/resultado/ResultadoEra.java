@@ -85,7 +85,6 @@ public class ResultadoEra extends Resultado {
 			sumaTotal += e.getMejorCromosomaEra().getCoste();
 		}
 		sumaTotal += era.obtenerMejor().getCoste();
-		
 		return sumaTotal/(listaEras.size()+1);
 	}
 

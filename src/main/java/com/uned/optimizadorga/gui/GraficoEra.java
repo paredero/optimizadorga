@@ -45,7 +45,7 @@ public class GraficoEra extends JDialog {
 		dataset.addSeries(media);
 		dataset.addSeries(dt);
 		JFreeChart chart = ChartFactory.createXYLineChart(
-				"Evolución del calculo", "Generación", "Coste", dataset);
+				"Evolución del cálculo", "Generación", "Coste", dataset);
 		chart.setAntiAlias(true);
 		Color defaultColor = this.getBackground();
 		chart.setBackgroundPaint(defaultColor);
