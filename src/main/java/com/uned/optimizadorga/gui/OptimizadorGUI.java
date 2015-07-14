@@ -1023,7 +1023,8 @@ public class OptimizadorGUI extends JFrame {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.writeValue(fichero, f);
 			} catch (IOException e) {
-				log.error("Error al guardar en fichero ", e);
+				JOptionPane.showMessageDialog(this,
+						"Error al guardar el fichero");
 			} finally {
 
 			}
