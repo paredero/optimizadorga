@@ -28,12 +28,12 @@ public class SelectorRuleta implements Selector {
 		// Aplica el operador de selección mediante el método de la ruleta
 		Poblacion poblacionSeleccionados = Poblacion.copiarPoblacionVacia(poblacionInicial);
 		
-
+		double offset = this.calcularOffset(poblacionInicial);
 		// 1.- Calcula la suma total de los valores de la funcion de coste para
 		// todos los cromosomas de la población
 		double sumaCoste = 0;
 		for (Cromosoma c : poblacionInicial.getCromosomas()) {
-			sumaCoste += c.getCoste();
+			sumaCoste += c.getCoste() + offset;
 		}
 
 		// 2. Calcula la probabilidad de selección para cada cromosoma
@@ -43,7 +43,7 @@ public class SelectorRuleta implements Selector {
 		double sumaProbabilidades = 0;
 		int i = 0;
 		for (Cromosoma c : poblacionInicial.getCromosomas()) {
-			double probabilidadElemento = c.getCoste() / sumaCoste;
+			double probabilidadElemento = (c.getCoste()+offset) / sumaCoste;
 			sumaProbabilidades += probabilidadElemento;
 			probabilidadesAcumuladas[i] = sumaProbabilidades;
 //			log.debug("Prob Accum "+c.hashCode()+": " + probabilidadesAcumuladas[i]);
@@ -57,6 +57,20 @@ public class SelectorRuleta implements Selector {
 					probabilidadesAcumuladas);
 		}
 		return poblacionSeleccionados;
+	}
+
+	/**
+	 * Si la poblacion tiene valores de coste menores que 0, obtiene un offset para normalizarla
+	 * @param poblacionInicial
+	 * @return
+	 */
+	private double calcularOffset(Poblacion poblacionInicial) {
+		double offset = 0;
+		double minimo = poblacionInicial.obtenerPeor().getCoste();
+		if (minimo<0) {
+			offset = (-1 * minimo) + 1; // Le sumo 1 para que el mínimo normalizado no sea 0
+		}
+		return offset;
 	}
 
 	/**
