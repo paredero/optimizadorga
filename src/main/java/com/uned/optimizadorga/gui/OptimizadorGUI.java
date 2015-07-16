@@ -31,6 +31,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -213,11 +214,20 @@ public class OptimizadorGUI extends JFrame {
 			}
 		});
 		ayuda.add(menuAyuda);
-//		JMenuItem acercaDe = new JMenuItem("Acerca de");
-//		ayuda.add(acercaDe);
+		JMenuItem acercaDe = new JMenuItem("Acerca de");
+		acercaDe.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mostrarAcercaDe();
+			}			
+		});
+		ayuda.add(acercaDe);
 		barra.add(ayuda);		
         this.setJMenuBar(barra);
 	}
+
+	
 
 	private void crearPanelContenido() {
 		panelContenido = new JPanel();
@@ -757,6 +767,12 @@ public class OptimizadorGUI extends JFrame {
 		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this,
 				"Evolución de la era " + (numEra + 1), true);
 		grafico.setVisible(true);
+	}
+	
+	protected void mostrarAcercaDe() {
+		AcercaDe ventana= new AcercaDe(this,
+				"Acerca de", true);
+		ventana.setVisible(true);
 	}
 
 	private void crearPanelBotones() {
