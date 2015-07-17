@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.uned.optimizadorga</groupId>
 	<artifactId>optimizadorga</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>6</version>
 	<dependencies>
 		<dependency>
 			<groupId>net.objecthunter</groupId>
