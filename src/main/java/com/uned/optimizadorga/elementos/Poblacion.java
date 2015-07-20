@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 
-public class Poblacion {
-	private static final Logger log = Logger.getLogger(Poblacion.class);
-	
+public class Poblacion {	
 	private List<Cromosoma> cromosomas;
 	private int tamanio;
 	private Funcion funcionCoste;

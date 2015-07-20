@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
-import org.apache.log4j.Logger;
-
 import com.uned.optimizadorga.algoritmo.Algoritmo;
 import com.uned.optimizadorga.algoritmo.Era;
 import com.uned.optimizadorga.algoritmo.Generacion;
@@ -27,7 +25,6 @@ import com.uned.optimizadorga.gui.ProgressDialog;
  */
 public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> implements
 		AlgoritmoObserver {
-	private static final Logger log = Logger.getLogger(AlgoritmoWorker.class);
 	private ProgressDialog progressDialog;
 	private boolean finEjecucion;
 	private long startTime = 0;
@@ -66,7 +63,6 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 			try {
 				Thread.sleep(1500);
 			} catch (InterruptedException e) {
-				log.debug("interrumpido");
 			}
 		}
 		if (this.isCancelled()) {

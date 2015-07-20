@@ -4,8 +4,6 @@
 package com.uned.optimizadorga.algoritmo.selectores;
 
 
-import org.apache.log4j.Logger;
-
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
@@ -14,9 +12,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
  *         la ruleta
  */
 public class SelectorRuleta implements Selector {
-
-	private static final Logger log = Logger.getLogger(SelectorRuleta.class);
-	/*
+/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -105,9 +101,7 @@ public class SelectorRuleta implements Selector {
 				}
 				poblacionSeleccionados.getCromosomas().add(new Cromosoma(
 						poblacion.getCromosomas().get(k)));
-//				log.debug("Seleccionado "+poblacion.getCromosomas().get(k));
 			} catch (RuntimeException e) {
-				log.error(e.getStackTrace());
 				e.printStackTrace();
 				throw e;
 			}

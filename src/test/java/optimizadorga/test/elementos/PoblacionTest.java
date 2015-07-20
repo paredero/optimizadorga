@@ -3,29 +3,14 @@
  */
 package optimizadorga.test.elementos;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.Poblacion;
-import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb
  *
  */
 public class PoblacionTest {
-
-	private static final Logger log = Logger.getLogger(PoblacionTest.class);
 	
 	/**
 	 * @throws java.lang.Exception

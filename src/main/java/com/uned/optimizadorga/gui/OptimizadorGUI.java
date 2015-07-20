@@ -31,7 +31,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -54,7 +53,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -77,11 +75,7 @@ import com.uned.optimizadorga.elementos.TipoGen;
 
 public class OptimizadorGUI extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2384122644561114083L;
-	private static final Logger log = Logger.getLogger(OptimizadorGUI.class);
 	private JPanel contentPane;
 	private JTextField txtFuncionCoste;
 	private JSpinner spNumEras;

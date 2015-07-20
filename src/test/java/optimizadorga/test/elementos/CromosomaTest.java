@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +20,6 @@ import com.uned.optimizadorga.elementos.TipoGen;
  *
  */
 public class CromosomaTest {
-	private static final Logger log = Logger.getLogger(CromosomaTest.class);
 
 	/**
 	 * @throws java.lang.Exception
@@ -65,9 +63,7 @@ public class CromosomaTest {
 						.getGenes().get(2).getTipoGen().getMaximo());
 		assertTrue("Valor Erroneo en gen p3" + c.getGenes().get(2), c
 				.getGenes().get(2).getValor() >= c
-						.getGenes().get(2).getTipoGen().getMinimo());
-		
-		log.debug(c);
+						.getGenes().get(2).getTipoGen().getMinimo());		
 	}
 
 }

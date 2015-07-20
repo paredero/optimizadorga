@@ -2,8 +2,6 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.uned.optimizadorga.algoritmo.Generacion;
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 import com.uned.optimizadorga.elementos.Configuracion;
@@ -11,7 +9,6 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 
 public class ResultadoGeneracion extends Resultado {
-	private static final Logger log = Logger.getLogger(ResultadoGeneracion.class);
 	
 	private double desviacionTipica;
 	private double porcentajeMejora;
@@ -21,7 +18,6 @@ public class ResultadoGeneracion extends Resultado {
 	public static ResultadoGeneracion crearResultadoGeneracion(Generacion generacion,
 			long startTime, List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones,
 			Configuracion configuracion) {
-		log.debug("Procesa el resultado de la generacion " + resultadosGeneraciones.size());
 		ResultadoGeneracion r = new ResultadoGeneracion();
 		long timeParcial = System.currentTimeMillis();
 		r.setTiempoEjecucion((timeParcial - startTime)/1000);
@@ -36,7 +32,6 @@ public class ResultadoGeneracion extends Resultado {
 				antiguoMejorCromosoma) >= 0) {
 			r.setMejorCromosomaGeneracion(mejorCromosomaGeneracion);
 		} else {
-			log.warn("SI hay elitismo, por qué el mejor es el antiguo mejor cromosoma???????");
 			r.setMejorCromosomaGeneracion(antiguoMejorCromosoma);
 		}
 		
@@ -45,7 +40,6 @@ public class ResultadoGeneracion extends Resultado {
 		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getCoste() - antiguoMejorCromosoma
 				.getCoste()) / antiguoMejorCromosoma.getCoste()) * 100);
 		r.setProgreso(calcularProgreso(r.getEraActual(), r.getGeneracionActual(), configuracion));
-		log.debug("El resultado " + r);
 		return r;
 	}
 
@@ -114,9 +108,7 @@ public class ResultadoGeneracion extends Resultado {
 	 */
 	public void setPorcentajeMejora(double porcentajeMejora) {
 		this.porcentajeMejora = porcentajeMejora;
-		if (porcentajeMejora<0) {
-			log.error("ERROR, GENERACION DETERIORADA");
-		}
+		
 	}
 
 

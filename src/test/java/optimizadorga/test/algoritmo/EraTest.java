@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,6 @@ import com.uned.optimizadorga.elementos.TipoGen;
  *
  */
 public class EraTest implements EraObserver {
-	private static final Logger log = Logger.getLogger(EraTest.class);
 	private Generacion g;
 	private Poblacion p;
 	private Era e;
@@ -66,7 +64,6 @@ public class EraTest implements EraObserver {
 		try {
 			era.ejecutar();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals("No se han recibido las notificaciones necesarias",
@@ -80,7 +77,6 @@ public class EraTest implements EraObserver {
 	@Override
 	public void updateGeneracion(Generacion resultadoParcial) {
 		numeroActualizaciones++;
-		log.debug("Recibe actualizacion de la generacion " + numeroActualizaciones);
 	}
 
 }

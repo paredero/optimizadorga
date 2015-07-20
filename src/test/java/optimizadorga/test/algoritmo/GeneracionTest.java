@@ -3,23 +3,12 @@
  */
 package optimizadorga.test.algoritmo;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.Poblacion;
 import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
@@ -27,9 +16,6 @@ import com.uned.optimizadorga.elementos.TipoGen;
  * 
  */
 public class GeneracionTest {
-	private static final Logger log = Logger.getLogger(GeneracionTest.class);
-//	private Generacion g;
-//	private Poblacion p;
 
 	/**
 	 * @throws java.lang.Exception
