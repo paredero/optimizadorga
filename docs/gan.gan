@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2013-05-01" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.7" locale="es_ES">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-10-01" view-index="0" gantt-divider-location="465" resource-divider-location="300" version="2.7" locale="es">
     <description/>
-    <view zooming-state="default:11" id="gantt-chart">
-        <field id="tpd3" name="Nombre" width="57" order="0"/>
-        <field id="tpd4" name="Fecha de inicio" width="21" order="1"/>
-        <field id="tpd5" name="Fecha de fin" width="21" order="2"/>
+    <view zooming-state="default:10" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="51" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="24" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="24" order="2"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Nombre" width="56" order="0"/>
-        <field id="1" name="Función" width="43" order="1"/>
+        <field id="0" name="Nombre" width="50" order="0"/>
+        <field id="1" name="Función" width="50" order="1"/>
     </view>
     <!-- -->
     <calendars>
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
             <only-show-weekends value="false"/>
             <overriden-day-types/>
             <days/>
@@ -33,19 +33,32 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="Modelo datos" color="#8cb6ce" meeting="false" start="2015-02-10" duration="12" complete="0" expand="true"/>
-        <task id="12" name="operador mutacion" color="#8cb6ce" meeting="false" start="2015-02-25" duration="4" complete="0" expand="true"/>
-        <task id="13" name="Mostrar gráficas" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="2" name="Algoritmo" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="3" name="Interfaz gráfica" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="4" name="Mostrar resultados parciales" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="5" name="Mostrar resultados finales" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="6" name="Creacion lista parametros" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="7" name="Guardado en fichero" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="8" name="Carga de fichero" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="9" name="Selector por ruleta" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="10" name="Selección por torneo" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
-        <task id="11" name="operador de cruce" meeting="false" start="2013-05-01" duration="1" complete="0" expand="true"/>
+        <task id="0" name="Planificación del proyecto" color="#8cb6ce" meeting="false" start="2015-02-02" duration="19" complete="0" expand="true">
+            <task id="2" name="Referencias bibliográficas" color="#8cb6ce" meeting="false" start="2015-02-17" duration="4" complete="0" expand="true"/>
+            <task id="13" name="Referencias técnicas" meeting="false" start="2015-02-02" duration="11" complete="0" expand="true"/>
+            <task id="4" name="Análisis preliminar" color="#8cb6ce" meeting="false" start="2015-02-03" duration="14" complete="0" expand="true"/>
+        </task>
+        <task id="8" name="Motor de cálculo" meeting="false" start="2015-02-20" duration="32" complete="0" expand="true">
+            <task id="9" name="Análisis" color="#8cb6ce" meeting="false" start="2015-02-20" duration="4" complete="0" expand="true"/>
+            <task id="10" name="Modelo de datos" color="#8cb6ce" meeting="false" start="2015-02-25" duration="7" complete="0" expand="true"/>
+            <task id="11" name="Algoritmo" color="#8cb6ce" meeting="false" start="2015-03-06" duration="11" complete="0" expand="true"/>
+            <task id="12" name="Pruebas" color="#8cb6ce" meeting="false" start="2015-03-23" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="14" name="Herramienta gráfica" meeting="false" start="2015-04-15" duration="39" complete="0" expand="true">
+            <task id="15" name="Diseño interfaz gráfica" color="#8cb6ce" meeting="false" start="2015-04-15" duration="4" complete="0" expand="true"/>
+            <task id="16" name="Implementación interfaz gráfica" color="#8cb6ce" meeting="false" start="2015-04-20" duration="9" complete="0" expand="true"/>
+            <task id="17" name="Integración con motor de cálculo" color="#8cb6ce" meeting="false" start="2015-05-01" duration="11" complete="0" expand="true"/>
+            <task id="18" name="Introducción función de coste" color="#8cb6ce" meeting="false" start="2015-05-15" duration="3" complete="0" expand="true"/>
+            <task id="19" name="Codificación de parámetros" color="#8cb6ce" meeting="false" start="2015-05-17" duration="3" complete="0" expand="true"/>
+            <task id="20" name="Procesamiento resultados" color="#8cb6ce" meeting="false" start="2015-05-19" duration="5" complete="0" expand="true"/>
+        </task>
+        <task id="21" name="Pruebas de usuario" color="#8cb6ce" meeting="false" start="2015-05-23" duration="2" complete="0" expand="true"/>
+        <task id="22" name="Mejoras en la herramienta gráfica" meeting="false" start="2015-05-25" duration="12" complete="0" expand="true">
+            <task id="23" name="Guardado en fichero" color="#8cb6ce" meeting="false" start="2015-05-25" duration="2" complete="0" expand="true"/>
+            <task id="24" name="Carga de ficheros" color="#8cb6ce" meeting="false" start="2015-05-27" duration="4" complete="0" expand="true"/>
+            <task id="25" name="Resultados gráficos" color="#8cb6ce" meeting="false" start="2015-05-31" duration="6" complete="0" expand="true"/>
+        </task>
+        <task id="26" name="Documentación" color="#8cb6ce" meeting="false" start="2015-06-07" duration="45" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
@@ -61,10 +74,11 @@
         <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="199" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="75" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="75" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="236" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="113" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="112" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
 </project>
