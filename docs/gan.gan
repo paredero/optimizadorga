@@ -38,16 +38,16 @@
             <task id="13" name="Referencias técnicas" meeting="false" start="2015-02-02" duration="11" complete="0" expand="true"/>
             <task id="4" name="Análisis preliminar" color="#8cb6ce" meeting="false" start="2015-02-03" duration="14" complete="0" expand="true"/>
         </task>
-        <task id="8" name="Motor de cálculo" meeting="false" start="2015-02-20" duration="32" complete="0" expand="true">
+        <task id="8" name="Motor de ejecución" meeting="false" start="2015-02-20" duration="32" complete="0" expand="true">
             <task id="9" name="Análisis" color="#8cb6ce" meeting="false" start="2015-02-20" duration="4" complete="0" expand="true"/>
             <task id="10" name="Modelo de datos" color="#8cb6ce" meeting="false" start="2015-02-25" duration="7" complete="0" expand="true"/>
-            <task id="11" name="Algoritmo" color="#8cb6ce" meeting="false" start="2015-03-06" duration="11" complete="0" expand="true"/>
-            <task id="12" name="Pruebas" color="#8cb6ce" meeting="false" start="2015-03-23" duration="1" complete="0" expand="true"/>
+            <task id="11" name="Módulo de ejecución" color="#8cb6ce" meeting="false" start="2015-03-06" duration="11" complete="0" expand="true"/>
+            <task id="12" name="Pruebas y correcciones" color="#8cb6ce" meeting="false" start="2015-03-23" duration="1" complete="0" expand="true"/>
         </task>
         <task id="14" name="Herramienta gráfica" meeting="false" start="2015-04-15" duration="39" complete="0" expand="true">
             <task id="15" name="Diseño interfaz gráfica" color="#8cb6ce" meeting="false" start="2015-04-15" duration="4" complete="0" expand="true"/>
             <task id="16" name="Implementación interfaz gráfica" color="#8cb6ce" meeting="false" start="2015-04-20" duration="9" complete="0" expand="true"/>
-            <task id="17" name="Integración con motor de cálculo" color="#8cb6ce" meeting="false" start="2015-05-01" duration="11" complete="0" expand="true"/>
+            <task id="17" name="Integración con motor de ejecución" color="#8cb6ce" meeting="false" start="2015-05-01" duration="11" complete="0" expand="true"/>
             <task id="18" name="Introducción función de coste" color="#8cb6ce" meeting="false" start="2015-05-15" duration="3" complete="0" expand="true"/>
             <task id="19" name="Codificación de parámetros" color="#8cb6ce" meeting="false" start="2015-05-17" duration="3" complete="0" expand="true"/>
             <task id="20" name="Procesamiento resultados" color="#8cb6ce" meeting="false" start="2015-05-19" duration="5" complete="0" expand="true"/>
