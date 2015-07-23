@@ -1,0 +1,38 @@
+MPX,Microsoft Project for Windows,4.0,ANSI
+10,$,1,2,.,","
+11,2,0,1,"8,00","40,00","$10,00/h","$15,00/h",1,0
+12,1,1,480,/,:,am,pm,20,20
+20,Standard,1,1,1,1,1,1,1
+25,1,08:00,12:00,13:00,17:00
+25,2,08:00,12:00,13:00,17:00
+25,3,08:00,12:00,13:00,17:00
+25,4,08:00,12:00,13:00,17:00
+25,5,08:00,12:00,13:00,17:00
+25,6,08:00,12:00,13:00,17:00
+25,7,08:00,12:00,13:00,17:00
+30,Project1,,,Standard,10/02/2015,24/07/2015,0,22/07/2015,,"$0,00","$0,00","$0,00",0h,0h,0h,0%,0d,0d,0d,0%,,,,,0d,0d
+60,Nombre,WBS,Nivel de Esquema,Costo,Duración,Duración Real,Duración Restante,% Completado,Comienzo,Fin,Fijo,Hito,ID,Tipo de Restricción,Prioridad,ID Único,Número de Esquema,Summary
+61,1,2,3,30,40,42,43,44,50,51,80,81,90,91,95,98,99,120
+70,,0,0,,165d,,,,10/02/2015,24/07/2015,No,,0,Lo antes posible,,0,0
+70,Planificación del proyecto,1,1,"$0,00",13d,0d,13d,0%,10/02/2015,22/02/2015,No,No,1,Lo antes posible,Media,27,1,Sí­
+70,Referencias bibliográficas,1.1,2,"$0,00",11d,0d,11d,0%,10/02/2015,20/02/2015,No,No,2,Lo antes posible,Media,2,1.1
+70,Referencias técnicas,1.2,2,"$0,00",5d,0d,5d,0%,18/02/2015,22/02/2015,No,No,3,Lo antes posible,Media,13,1.2
+70,Análisis preliminar,1.3,2,"$0,00",3d,0d,3d,0%,20/02/2015,22/02/2015,No,No,4,Lo antes posible,Media,4,1.3
+70,Motor de ejecución,2,1,"$0,00",42d,0d,42d,0%,23/02/2015,05/04/2015,No,No,5,Lo antes posible,Media,8,2,Sí­
+70,Análisis,2.1,2,"$0,00",3d,0d,3d,0%,23/02/2015,25/02/2015,No,No,6,Lo antes posible,Media,9,2.1
+70,Modelo de datos,2.2,2,"$0,00",7d,0d,7d,0%,25/02/2015,03/03/2015,No,No,7,Lo antes posible,Media,10,2.2
+70,Módulo de ejecución,2.3,2,"$0,00",8d,0d,8d,0%,04/03/2015,11/03/2015,No,No,8,Lo antes posible,Media,11,2.3
+70,Pruebas y correcciones,2.4,2,"$0,00",25d,0d,25d,0%,12/03/2015,05/04/2015,No,No,9,Lo antes posible,Media,12,2.4
+70,Herramienta gráfica,3,1,"$0,00",74d,0d,74d,0%,06/04/2015,18/06/2015,No,No,10,Lo antes posible,Media,14,3,Sí­
+70,Diseño interfaz gráfica,3.1,2,"$0,00",3d,0d,3d,0%,06/04/2015,08/04/2015,No,No,11,Lo antes posible,Media,15,3.1
+70,Implementación interfaz gráfica,3.2,2,"$0,00",4d,0d,4d,0%,09/04/2015,12/04/2015,No,No,12,Lo antes posible,Media,16,3.2
+70,Integración con motor de ejecución,3.3,2,"$0,00",9d,0d,9d,0%,12/04/2015,20/04/2015,No,No,13,Lo antes posible,Media,17,3.3
+70,Introducción función de coste,3.4,2,"$0,00",3d,0d,3d,0%,21/04/2015,23/04/2015,No,No,14,Lo antes posible,Media,18,3.4
+70,Codificación de parámetros,3.5,2,"$0,00",3d,0d,3d,0%,23/04/2015,25/04/2015,No,No,15,Lo antes posible,Media,19,3.5
+70,Procesamiento resultados,3.6,2,"$0,00",11d,0d,11d,0%,26/04/2015,06/05/2015,No,No,16,Lo antes posible,Media,20,3.6
+70,Pruebas y correcciones,3.7,2,"$0,00",43d,0d,43d,0%,07/05/2015,18/06/2015,No,No,17,Lo antes posible,Media,21,3.7
+70,Mejoras en la herramienta gráfica,4,1,"$0,00",4d,0d,4d,0%,18/06/2015,21/06/2015,No,No,18,Lo antes posible,Media,22,4,Sí­
+70,Guardado en fichero,4.1,2,"$0,00",4d,0d,4d,0%,18/06/2015,21/06/2015,No,No,19,Lo antes posible,Media,23,4.1
+70,Carga de ficheros,4.2,2,"$0,00",4d,0d,4d,0%,18/06/2015,21/06/2015,No,No,20,Lo antes posible,Media,24,4.2
+70,Resultados gráficos,4.3,2,"$0,00",1d,0d,1d,0%,19/06/2015,19/06/2015,No,No,21,Lo antes posible,Media,25,4.3
+70,Documentación,5,1,"$0,00",54d,0d,54d,0%,01/06/2015,24/07/2015,No,No,22,Lo antes posible,Media,26,5
