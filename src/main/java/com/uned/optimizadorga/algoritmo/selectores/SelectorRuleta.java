@@ -64,7 +64,7 @@ public class SelectorRuleta implements Selector {
 		double offset = 0;
 		double minimo = poblacionInicial.obtenerPeor().getCoste();
 		if (minimo<0) {
-			offset = (-1 * minimo) + 1; // Le sumo 1 para que el mínimo normalizado no sea 0
+			offset = (-1 * minimo);
 		}
 		return offset;
 	}
