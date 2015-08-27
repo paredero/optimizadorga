@@ -3,7 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.uned.optimizadorga</groupId>
 	<artifactId>optimizadorga</artifactId>
-	<version>6</version>
+	<version>7</version>
+	  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 	<dependencies>
 		<dependency>
 			<groupId>net.objecthunter</groupId>

@@ -13,6 +13,11 @@ import javax.swing.JTextPane;
 
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
 
+/**
+ * Muestra el progreso de la ejecucion
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class ProgressDialog extends JDialog {
 
 	/**

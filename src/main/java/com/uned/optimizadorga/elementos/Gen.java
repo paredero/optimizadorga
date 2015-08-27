@@ -8,7 +8,8 @@ import java.text.DecimalFormatSymbols;
 
 
 /**
- * @author fpb
+ * Representa un gen, con su codificación y su valor
+ * @author Francisco Javier García Paredero
  *
  */
 public class Gen {
@@ -45,9 +46,9 @@ public class Gen {
 	}
 	
 	/**
-	 * Redondea un valor double a la precisión asignada
+	 * Redondea un valor double a la precisión asignada por la codificacion
 	 * @param valor
-	 * @return
+	 * @return el valor formateado
 	 */
 	private double formatear(double valor) {
 		DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance();

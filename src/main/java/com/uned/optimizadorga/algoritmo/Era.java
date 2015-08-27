@@ -12,7 +12,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
 /**
  * Clase que contiene la ejecucion de una era
  * Es observable por el algoritmo, al que informa de su proggreso
- * @author fpb
+ * @author Francisco Javier García Paredero
  *
  */
 public class Era implements EraSubject {
@@ -38,6 +38,10 @@ public class Era implements EraSubject {
 		this.configuracion = configuracion;
 	}
 
+	/**
+	 * Realiza la ejecucion de la era
+	 * @throws Exception
+	 */
 	public void ejecutar() throws Exception {
 		if (!Thread.currentThread().isInterrupted()) {
 			this.inicializarPoblacion();
@@ -62,8 +66,6 @@ public class Era implements EraSubject {
 			generacion.ejecutar();
 			// Añado el resultado de la generacion que es una nueva poblacion
 			this.evolucionPoblaciones.add(generacion.getNuevaPoblacion());
-			//				log.debug("******************************************** Generacion numero: "
-			//						+ (generacionActual));
 			// La poblacion inicial de la siguiente generacion sera la obtenida en la ultima iteracion
 			this.poblacionInicial = generacion.getNuevaPoblacion();
 			this.notifyGeneracion(generacion);
@@ -71,8 +73,7 @@ public class Era implements EraSubject {
 	}
 
 	/**
-	 * Devuelve El mejor cromosoma obtenido en la computación hasta el momento
-	 * @return
+	 * @return  El mejor cromosoma obtenido en la computación hasta el momento
 	 */
 	public Cromosoma obtenerMejor() {
 		mejorIndividuo = this.evolucionPoblaciones.get(
@@ -109,7 +110,7 @@ public class Era implements EraSubject {
 	}
 
 	/**
-	 * @return the evolucionPoblaciones
+	 * @return Devuelve las poblaciones que se han ido generando durante la ejecucion de las generaciones de una era
 	 */
 	public List<Poblacion> getEvolucionPoblaciones() {
 		return this.evolucionPoblaciones;

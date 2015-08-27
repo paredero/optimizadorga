@@ -6,6 +6,11 @@ import java.util.List;
 
 import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
 
+/**
+ * Representa una población
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class Poblacion {	
 	private List<Cromosoma> cromosomas;
 	private int tamanio;
@@ -14,9 +19,8 @@ public class Poblacion {
 	private Cromosoma mejorCromosoma;
 	
 	/**
-	 * Genera una poblacion con cromosomas aleatorios y calcula su coste
 	 * @param configuracion
-	 * @return
+	 * @return una poblacion inicializada con cromosomas aleatorios
 	 * @throws Exception 
 	 */
 	public static Poblacion generarPoblacionInicializada(Configuracion configuracion) throws Exception {
@@ -104,8 +108,7 @@ public class Poblacion {
 	}
 
 	/**
-	 * Obtiene el mejor individuo de la población
-	 * @return
+	 * @return el mejor individuo de la población
 	 */
 	public Cromosoma obtenerMejor() {
 		mejorCromosoma = Collections
@@ -114,6 +117,9 @@ public class Poblacion {
 		return mejorCromosoma;
 	}
 
+	/**
+	 * @return el peor individuo de la poblacion
+	 */
 	public Cromosoma obtenerPeor() {
 		Cromosoma peorCromosoma = Collections.min(cromosomas,
 				new ComparadorMejorCoste());
@@ -123,8 +129,8 @@ public class Poblacion {
 	/**
 	 * Crea una poblacion sin cromosomas
 	 * copia la funcion de coste y el tamaño
-	 * @param poblacionInicial
-	 * @return
+	 * @param poblacion
+	 * @return una poblacion vacia
 	 */
 	public static Poblacion copiarPoblacionVacia(Poblacion poblacion) {
 		Poblacion copia = new Poblacion();
@@ -147,8 +153,7 @@ public class Poblacion {
 	}
 	
 	/**
-	 * Obtiene la media de la funcion de coste para los cromosomas de la poblacion
-	 * @return
+	 * @return la media de la funcion de coste para los cromosomas de la poblacion
 	 */
 	public double calcularMediaCoste() {
 		double sumaCostes = 0.0;
@@ -169,15 +174,14 @@ public class Poblacion {
 	}
 
 	
-	
-	public void sustituirCromosoma(Cromosoma peor,
-			Cromosoma mejorPoblacionInicial) {
-//		peor.setCoste(mejorPoblacionInicial.getCoste());
-//		peor.setGenes(new ArrayList<Gen>());
-//		for (Gen g:mejorPoblacionInicial.getGenes()) {
-//			peor.getGenes().add(new Gen(g));
-//		}
-		Collections.replaceAll(this.getCromosomas(), peor, new Cromosoma(mejorPoblacionInicial));
+	/**
+	 * Sustituye en la poblacion un cromosoma por otro
+	 * @param antiguo
+	 * @param nuevo
+	 */
+	public void sustituirCromosoma(Cromosoma antiguo,
+			Cromosoma nuevo) {
+		Collections.replaceAll(this.getCromosomas(), antiguo, new Cromosoma(nuevo));
 		mejorCromosoma = null;
 	}
 

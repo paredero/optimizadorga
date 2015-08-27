@@ -6,6 +6,11 @@ import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.selectores.SelectorRuleta;
 import com.uned.optimizadorga.algoritmo.selectores.SelectorTorneo;
 
+/**
+ * Clase contenedora de la configuración del algoritmo
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class Configuracion {
 	private static Configuracion instancia = new Configuracion();
 	private int maxEras;

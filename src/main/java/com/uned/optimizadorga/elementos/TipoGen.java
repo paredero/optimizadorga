@@ -1,5 +1,9 @@
 package com.uned.optimizadorga.elementos;
-
+/**
+ * Representa la codificación de los genes
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class TipoGen {
 	private String nombre;	
 	private double minimo;

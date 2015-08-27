@@ -9,6 +9,10 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
+/**
+ * Clase para mostrar los resultados correspondientes al calculo de una era
+ * @author Francisco Javier García Paredero
+ */
 public class ResultadoEra extends Resultado {
 
 	private List<ResultadoGeneracion> resultadosGeneraciones;
@@ -22,6 +26,10 @@ public class ResultadoEra extends Resultado {
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.resultado.Resultado#printResultado()
+	 */
 	@Override
 	public String printResultado() {
 		StringBuilder sb = new StringBuilder();
@@ -43,11 +51,8 @@ public class ResultadoEra extends Resultado {
 
 
 	/**
-	 * @param startTime
-	 * @param resultadosGeneraciones 
-	 * @param era
-	 * @param eraActual 
-	 * @return
+	 * Metodo de factoria estática
+	 * @return El resultado de una era ya procesada
 	 */
 	public static ResultadoEra crearResultadoEra(long startTime, Era era,
 			List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones, Configuracion configuracion) {
@@ -89,10 +94,9 @@ public class ResultadoEra extends Resultado {
 	}
 
 	/**
-	 * Obtiene el mejor cromosoma entre una lista de eras
 	 * @param listaEras
 	 * @param configuracion
-	 * @return
+	 * @return el mejor cromosoma entre una lista de eras
 	 */
 	private static Cromosoma obtenerMejorEras(List<ResultadoEra> listaEras, Era era, Configuracion configuracion) {
 		List<Cromosoma> listaMejoresCromosomas = new ArrayList<Cromosoma>();

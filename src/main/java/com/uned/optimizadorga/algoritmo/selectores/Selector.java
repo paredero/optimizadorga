@@ -4,7 +4,7 @@ import com.uned.optimizadorga.elementos.Poblacion;
 
 /**
  * 
- * @author fpb
+ * @author Francisco Javier García Paredero
  * Interfaz que deben cumplir los distintos operadores de selección
  */
 public interface Selector {
@@ -18,7 +18,9 @@ public interface Selector {
 	 * seleccion
 	 * 
 	 * @param poblacion
-	 * @return
+	 * @return  una nueva población con los
+	 * cromosomas seleccionados como resultado de aplicar el operador de
+	 * seleccion
 	 */
 	public Poblacion seleccionar(Poblacion poblacion);
 

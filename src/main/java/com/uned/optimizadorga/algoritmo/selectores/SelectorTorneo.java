@@ -9,12 +9,16 @@ import com.uned.optimizadorga.elementos.Poblacion;
 
 /**
  * Implementacion del operador selector mediante una seleccion por torneo determinística
- * @author fjgarcia
+ * @author Francisco Javier García Paredero
  *
  */
 public class SelectorTorneo implements Selector {
 	private int numElemSeleccionados = 2;
 	private Random random = new Random();
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.selectores.Selector#seleccionar(com.uned.optimizadorga.elementos.Poblacion)
+	 */
 	@Override
 	public Poblacion seleccionar(Poblacion poblacionInicial) {
 		// 1 Inicialmente crea una poblacion vacia con la misma configuración
@@ -63,6 +67,10 @@ public class SelectorTorneo implements Selector {
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.selectores.Selector#getTipoSelector()
+	 */
 	@Override
 	public String getTipoSelector() {
 		return TORNEO;

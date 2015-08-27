@@ -7,9 +7,10 @@ package com.uned.optimizadorga.algoritmo.selectores;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Poblacion;
 
-/**
- * @author fpb Implementación de un operador de selección basado en el método de
+/** 
+ * Implementación de un operador de selección basado en el método de
  *         la ruleta
+ * @author Francisco Javier García Paredero
  */
 public class SelectorRuleta implements Selector {
 /*
@@ -42,10 +43,8 @@ public class SelectorRuleta implements Selector {
 			double probabilidadElemento = (c.getCoste()+offset) / sumaCoste;
 			sumaProbabilidades += probabilidadElemento;
 			probabilidadesAcumuladas[i] = sumaProbabilidades;
-//			log.debug("Prob Accum "+c.hashCode()+": " + probabilidadesAcumuladas[i]);
 			i++;
-		}
-		
+		}		
 
 		// 4. Se gira la ruleta pop_size veces
 		for (int j = 0; j < poblacionInicial.getTamanio(); j++) {
@@ -81,10 +80,8 @@ public class SelectorRuleta implements Selector {
 			Poblacion poblacionSeleccionados, double[] probabilidadesAcumuladas) {
 		// 4a. Se genera un numero aleatorio
 		double numAleatorio = Math.random();
-//		log.debug("Giro de la ruleta:......." + numAleatorio);
 		// 4b. Selecciona el cromosoma en base al numero aleatorio
 		if (numAleatorio < probabilidadesAcumuladas[0]) {
-//			log.debug("Seleccionado "+poblacion.getCromosomas().get(0));
 			poblacionSeleccionados.getCromosomas().add(new Cromosoma(
 					poblacion.getCromosomas().get(0)));
 		} else {
@@ -109,6 +106,10 @@ public class SelectorRuleta implements Selector {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.selectores.Selector#getTipoSelector()
+	 */
 	@Override
 	public String getTipoSelector() {
 		return RULETA;

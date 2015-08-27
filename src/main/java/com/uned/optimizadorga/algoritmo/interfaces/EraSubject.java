@@ -6,7 +6,7 @@ import com.uned.optimizadorga.algoritmo.Generacion;
  * Interfaz para implementar el patron observer para registrar el progreso del
  * calculo de una era. Proporciona metodos para que la era informe del progreso de su ejecucion
  * 
- * @author fpb
+ * @author Francisco Javier García Paredero
  *
  */
 public interface EraSubject {

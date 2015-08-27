@@ -2,6 +2,11 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import com.uned.optimizadorga.elementos.Cromosoma;
 
+/**
+ * Clase para mostrar los resultados de la operacion
+ * @author Francisco Javier García Paredero
+ *
+ */
 public abstract class Resultado {
 	/**************************************************************************
 	 * VALORES COMUNES
@@ -17,6 +22,10 @@ public abstract class Resultado {
 	int generacionActual;
 	private Cromosoma mejorCromosomaTotal;
 
+	/**
+	 * 
+	 * @return Cadena con el resultado que se quier emostrar
+	 */
 	public abstract String printResultado();
 
 

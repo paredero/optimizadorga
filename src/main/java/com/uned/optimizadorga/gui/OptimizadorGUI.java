@@ -73,6 +73,11 @@ import com.uned.optimizadorga.elementos.Funcion;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.TipoGen;
 
+/**
+ * Interfaz gráfico principal
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class OptimizadorGUI extends JFrame {
 
 	private static final long serialVersionUID = -2384122644561114083L;

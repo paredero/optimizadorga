@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author fpb
+ * Clase que representa un cromosoma
+ * @author Francisco Javier García Paredero
  *
  */
 public class Cromosoma {

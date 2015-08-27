@@ -6,7 +6,11 @@ import java.util.Set;
 
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.elementos.TipoGen;
-
+/**
+ * Almacena los datos de la aplicacion que se guardaran en fichero
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class Fichero implements Serializable{
 	/**
 	 * 

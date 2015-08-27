@@ -13,7 +13,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.ValidationResult;
 
 /**
- * @author fpb
+ * Representa la funcion que se quiere optimizar
+ * @author Francisco Javier García Paredero
  *
  */
 public class Funcion {
@@ -81,7 +82,12 @@ public class Funcion {
 	}
 
 
-
+/**
+ * Evalua la funcion para una serie de parametros
+ * @param listaParametros
+ * @return el valor de la función ejecutada con los parametros pasados
+ * @throws Exception
+ */
 	public double evaluate(List<Gen> listaParametros) throws Exception{		
 		for (Gen parametro:listaParametros) {
 			expresion.setVariable(parametro.getTipoGen().getNombre().toLowerCase(), parametro.getValor());

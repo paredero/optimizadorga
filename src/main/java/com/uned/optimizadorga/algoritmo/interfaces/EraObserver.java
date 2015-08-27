@@ -8,7 +8,7 @@ import com.uned.optimizadorga.algoritmo.Generacion;
  * segun va cambiando su estado Las modificaciones del estado de una era
  * consisten en que se calcule una nueva generación
  * 
- * @author jgarcia
+ * @author Francisco Javier García Paredero
  * 
  */
 public interface EraObserver {

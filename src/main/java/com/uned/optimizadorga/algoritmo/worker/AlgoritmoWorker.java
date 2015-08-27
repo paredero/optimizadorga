@@ -20,7 +20,7 @@ import com.uned.optimizadorga.gui.ProgressDialog;
  * AlgoritmoObserver para recibir actualizaciones del progreso del algoritmo y
  * poder mostrar resultados parciales y finales
  * 
- * @author fpb
+ * @author Francisco Javier García Paredero
  *
  */
 public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> implements
@@ -34,21 +34,20 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	private List<ResultadoEra> resultadosEras;
 	private List<ResultadoGeneracion> resultadosGeneraciones;
 	private String error;
-//	private List<Era> erasProcesadas;
-//	private List<Generacion> generacionesProcesadas;	
-	
+
+	/**
+	 * Constructor del worker
+	 * @param algoritmo la instancia del algoritmo a ejecutar
+	 * @param progressDialog El dialogo que va a recibir las actualizaciones
+	 */
 	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
 		// Se registra como observador para que sea el algoritmo quien le informe del progreso
 		this.algoritmo.registerObserver(this);
-//		this.erasProcesadas = new ArrayList<Era>(algoritmo.getConfiguracion().getMaxEras());
-//		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		this.resultadosEras = new ArrayList<ResultadoEra>(algoritmo.getConfiguracion().getMaxEras());
 		this.resultadosGeneraciones = new ArrayList<ResultadoGeneracion>(algoritmo.getConfiguracion().getMaxGens());
 		this.progressDialog = progressDialog;		
 	}
-
-
 
 
 	@Override
@@ -80,7 +79,6 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	@Override
 	protected void process(List<Resultado> chunks) {		
 		for (Resultado r:chunks) {
-//			log.debug("Era: " + r.getEraActual() +" Gen: " + r.getGeneracionActual() + " progreso: " + r.getProgreso());
 			String tiempoTranscurrido = TimeUtils.formatear(r.getTiempoEjecucion());
 			this.progressDialog.getProgressBar().setValue(r.getProgreso());
 			this.progressDialog.getProgressBar().setString(r.getProgreso()+"%  "+ tiempoTranscurrido);
@@ -101,7 +99,6 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	protected void done() {
 		this.progressDialog.setVisible(false);
 		this.progressDialog = null;
-//		this.generacionesProcesadas = null;
 		this.algoritmo = null;
 	}
 
@@ -113,15 +110,11 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 */
 	@Override
 	public void updateFinCalculoEra(Era eraProcesada) {
-//		log.debug("Cambio de era: " + erasProcesadas.size());
-//		erasProcesadas.add(eraProcesada);
 		ResultadoEra resultadoEra = ResultadoEra
 				.crearResultadoEra(startTime, eraProcesada, resultadosEras,
 						resultadosGeneraciones, algoritmo.getConfiguracion());
 		resultadosEras.add(resultadoEra);
 		this.resultadosGeneraciones = new ArrayList<ResultadoGeneracion>(algoritmo.getConfiguracion().getMaxGens());
-//		eraProcesada.liberarRecursos();
-//		this.generacionesProcesadas = new ArrayList<Generacion>(algoritmo.getConfiguracion().getMaxGens());
 		publish(resultadoEra);
 	}
 
@@ -132,8 +125,6 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 */
 	@Override
 	public void updateFinCalculoGeneracion(Generacion generacionProcesada) {
-//		log.debug("Cambio de generacion: " + generacionesProcesadas.size());
-//		generacionesProcesadas.add(generacionProcesada);
 		ResultadoGeneracion resultadoGeneracion = ResultadoGeneracion
 				.crearResultadoGeneracion(generacionProcesada, startTime, resultadosEras,
 						resultadosGeneraciones, algoritmo.getConfiguracion());
@@ -146,14 +137,14 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFin(java.util.List)
 	 */
 	@Override
-	public void updateFin() {
-//		this.erasProcesadas = listaEras;		
+	public void updateFin() {		
 		finEjecucion = true;
 	}
 
-
-
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateError(java.lang.Exception)
+	 */
 	@Override
 	public void updateError(Exception e) {
 		if (e.getMessage().equals("Division by zero!")) {
@@ -162,9 +153,6 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 		this.cancel(true);
 	}
 
-
-
-
 	/**
 	 * @return the resultadosEras
 	 */
@@ -172,9 +160,10 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 		return this.resultadosEras;
 	}
 
-
-
-
+/**
+ * 
+ * @return Si se ha producido un error devuelve el mensaje
+ */
 	public String getError() {
 		return this.error;
 	}

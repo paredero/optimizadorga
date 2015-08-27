@@ -7,21 +7,25 @@ import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoSubject;
 import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
 import com.uned.optimizadorga.elementos.Configuracion;
-
+/**
+ * Clase que implementa la ejecución del algoritmo
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
-//	private static final Logger log = Logger.getLogger(Algoritmo.class);
-	
+
 	private Configuracion configuracion;
-//	private List<Era> listaEras; //Almacena las eras que se van calculando
 	private List<AlgoritmoObserver> observadores;
 	private int eraActual;
 	
 	public Algoritmo(Configuracion configuracion) {
 		this.configuracion = configuracion;
-		observadores = new ArrayList<AlgoritmoObserver>();
-//		listaEras = new ArrayList<Era>(configuracion.getMaxEras());	
+		observadores = new ArrayList<AlgoritmoObserver>();	
 	}
 
+	/**
+	 * Ejecuta las eras configuradas
+	 */
 	@Override
 	public void run() {	
 		try {
@@ -31,7 +35,6 @@ public class Algoritmo implements Runnable, AlgoritmoSubject, EraObserver {
 				//			El algoritmo observara la era cuando se ejecute para poder informar de su progreso
 				era.registerObserver(this);
 				era.ejecutar();
-//				listaEras.add(era);
 				this.notifyFinCalculoEra(era);
 			}
 		} catch (Exception e) {

@@ -11,6 +11,11 @@ import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 import com.uned.optimizadorga.elementos.Poblacion;
 
+/**
+ * Clase encargada de la evolución de una generación
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class Generacion {
 	private Poblacion poblacionInicial;
 	private Poblacion nuevaPoblacion;
@@ -21,6 +26,10 @@ public class Generacion {
 		this.configuracion = configuracion;
 	}
 
+	/**
+	 * Ejecución de la evolución de una generación
+	 * @throws Exception
+	 */
 	public void ejecutar() throws Exception {
 		nuevaPoblacion = this.seleccionar();
 		operadorCruce(nuevaPoblacion);
@@ -34,7 +43,7 @@ public class Generacion {
 	
 	
 	/**
-	 * @return the nuevaPoblacion
+	 * @return La nueva población surgida tras un paso evolutivo
 	 */
 	public Poblacion getNuevaPoblacion() {
 		return this.nuevaPoblacion;
@@ -57,7 +66,7 @@ public class Generacion {
 
 	/**
 	 * Dada una poblacion inicial, genera una nueva poblacion aplicando el selector
-	 * @return
+	 * @return la nueva poblacion aplicando el selector
 	 */
 	private Poblacion seleccionar() {
 		Poblacion resultado = configuracion.getSelector().seleccionar(poblacionInicial);

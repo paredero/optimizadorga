@@ -8,6 +8,11 @@ import com.uned.optimizadorga.elementos.Configuracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.elementos.Gen;
 
+/**
+ * Metodo para calcular los resultados de una generacion
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class ResultadoGeneracion extends Resultado {
 	
 	private double desviacionTipica;
@@ -15,6 +20,15 @@ public class ResultadoGeneracion extends Resultado {
 	private Cromosoma mejorCromosomaGeneracion;
 	private double mediaCostePoblacion;
 
+	/**
+	 * Metodo de factoria estatica
+	 * @param generacion
+	 * @param startTime
+	 * @param resultadosEras
+	 * @param resultadosGeneraciones
+	 * @param configuracion
+	 * @return el resultado del calculo de una generación
+	 */
 	public static ResultadoGeneracion crearResultadoGeneracion(Generacion generacion,
 			long startTime, List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones,
 			Configuracion configuracion) {

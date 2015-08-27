@@ -7,7 +7,7 @@ import com.uned.optimizadorga.algoritmo.Generacion;
  * Interfaz para implementar el patron observer para registrar el progreso del
  * calculo del algoritmo
  * 
- * @author jgarcia
+ * @author Francisco Javier García Paredero
  *
  */
 public interface AlgoritmoSubject {

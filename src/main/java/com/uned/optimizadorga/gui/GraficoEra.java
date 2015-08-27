@@ -16,6 +16,11 @@ import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
+/**
+ * Ventana con el detalle de los resultados de una era
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class GraficoEra extends JDialog {
 
 	/**

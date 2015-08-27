@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Dialogo "Acerca De"
+ * @author Francisco Javier García Paredero
+ *
+ */
 public class AcercaDe extends JDialog {
 
 	/**

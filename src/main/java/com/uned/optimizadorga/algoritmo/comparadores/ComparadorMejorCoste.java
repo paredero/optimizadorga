@@ -8,7 +8,8 @@ import java.util.Comparator;
 import com.uned.optimizadorga.elementos.Cromosoma;
 
 /**
- * @author fpb
+ * Implementación de un comparador de cromosomas en función del coste
+ * @author Francisco Javier García Paredero
  *
  */
 public class ComparadorMejorCoste implements Comparator<Cromosoma> {
