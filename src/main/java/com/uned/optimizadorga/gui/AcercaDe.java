@@ -6,7 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 /**
  * Dialogo "Acerca De"
@@ -26,13 +26,13 @@ public class AcercaDe extends JDialog {
 		JPanel panelContenido = new JPanel();
 		panelContenido.setLayout(new BoxLayout(panelContenido,
 				BoxLayout.Y_AXIS));
-		JTextField opti = new JTextField();
+		JLabel opti = new JLabel();
 		opti.setText("OptimizadorGA");
 		panelContenido.add(opti);
-		JTextField version = new JTextField();
+		JLabel version = new JLabel();
 		version.setText("Version 1.0");
 		panelContenido.add(version);
-		JTextField autor = new JTextField();
+		JLabel autor = new JLabel();
 		autor.setText("Autor: Francisco Javier García Paredero");
 		panelContenido.add(autor);
 		this.add(panelContenido, BorderLayout.CENTER);
