@@ -62,16 +62,16 @@ import org.jfree.data.xy.XYSeriesCollection;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uned.optimizadorga.algoritmo.Algoritmo;
+import com.fjgarcia.optimizadorga.algoritmo.Algoritmo;
+import com.fjgarcia.optimizadorga.algoritmo.selectores.Selector;
+import com.fjgarcia.optimizadorga.elementos.Configuracion;
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
+import com.fjgarcia.optimizadorga.elementos.Funcion;
+import com.fjgarcia.optimizadorga.elementos.Gen;
+import com.fjgarcia.optimizadorga.elementos.TipoGen;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
-import com.uned.optimizadorga.algoritmo.selectores.Selector;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.TipoGen;
 
 /**
  * Interfaz gráfico principal

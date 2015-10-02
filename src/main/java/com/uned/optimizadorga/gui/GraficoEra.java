@@ -12,9 +12,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
 
 /**
  * Ventana con el detalle de los resultados de una era

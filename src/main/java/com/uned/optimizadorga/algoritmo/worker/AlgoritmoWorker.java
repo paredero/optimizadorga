@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
-import com.uned.optimizadorga.algoritmo.Algoritmo;
-import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
+import com.fjgarcia.optimizadorga.algoritmo.Algoritmo;
+import com.fjgarcia.optimizadorga.algoritmo.Era;
+import com.fjgarcia.optimizadorga.algoritmo.Generacion;
+import com.fjgarcia.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
 import com.uned.optimizadorga.algoritmo.resultado.Resultado;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;

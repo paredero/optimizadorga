@@ -8,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.TipoGen;
+import com.fjgarcia.optimizadorga.elementos.Gen;
+import com.fjgarcia.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb

@@ -12,8 +12,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.TipoGen;
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
+import com.fjgarcia.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb

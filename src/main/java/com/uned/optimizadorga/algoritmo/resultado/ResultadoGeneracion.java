@@ -2,11 +2,11 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import java.util.List;
 
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Gen;
+import com.fjgarcia.optimizadorga.algoritmo.Generacion;
+import com.fjgarcia.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
+import com.fjgarcia.optimizadorga.elementos.Configuracion;
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
+import com.fjgarcia.optimizadorga.elementos.Gen;
 
 /**
  * Metodo para calcular los resultados de una generacion

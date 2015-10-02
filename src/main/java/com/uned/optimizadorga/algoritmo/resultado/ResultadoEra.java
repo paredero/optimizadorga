@@ -3,11 +3,11 @@ package com.uned.optimizadorga.algoritmo.resultado;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Gen;
-import com.uned.optimizadorga.elementos.Poblacion;
+import com.fjgarcia.optimizadorga.algoritmo.Era;
+import com.fjgarcia.optimizadorga.elementos.Configuracion;
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
+import com.fjgarcia.optimizadorga.elementos.Gen;
+import com.fjgarcia.optimizadorga.elementos.Poblacion;
 
 /**
  * Clase para mostrar los resultados correspondientes al calculo de una era

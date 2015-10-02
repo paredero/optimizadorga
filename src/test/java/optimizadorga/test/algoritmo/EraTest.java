@@ -11,13 +11,13 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.interfaces.EraObserver;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.Poblacion;
-import com.uned.optimizadorga.elementos.TipoGen;
+import com.fjgarcia.optimizadorga.algoritmo.Era;
+import com.fjgarcia.optimizadorga.algoritmo.Generacion;
+import com.fjgarcia.optimizadorga.algoritmo.interfaces.EraObserver;
+import com.fjgarcia.optimizadorga.elementos.Configuracion;
+import com.fjgarcia.optimizadorga.elementos.Funcion;
+import com.fjgarcia.optimizadorga.elementos.Poblacion;
+import com.fjgarcia.optimizadorga.elementos.TipoGen;
 
 /**
  * @author fpb

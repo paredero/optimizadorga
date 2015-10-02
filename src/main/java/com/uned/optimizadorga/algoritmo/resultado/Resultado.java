@@ -1,6 +1,6 @@
 package com.uned.optimizadorga.algoritmo.resultado;
 
-import com.uned.optimizadorga.elementos.Cromosoma;
+import com.fjgarcia.optimizadorga.elementos.Cromosoma;
 
 /**
  * Clase para mostrar los resultados de la operacion

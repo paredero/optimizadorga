@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import com.fjgarcia.optimizadorga.elementos.TipoGen;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
-import com.uned.optimizadorga.elementos.TipoGen;
 /**
  * Almacena los datos de la aplicacion que se guardaran en fichero
  * @author Francisco Javier García Paredero
