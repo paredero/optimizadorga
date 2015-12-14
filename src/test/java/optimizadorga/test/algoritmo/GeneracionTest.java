@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.elementos.TipoGen;
+import com.uned.optimizadorga.model.GeneType;
 
 /**
  * @author fpb
@@ -22,9 +22,9 @@ public class GeneracionTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Map<String, TipoGen> genesParametro = new HashMap<String, TipoGen>();
-		genesParametro.put("x1", new TipoGen("x1", -3.0, 12.1, 1));
-		genesParametro.put("x2", new TipoGen("x2",4.1, 5.8, 1));
+		Map<String, GeneType> genesParametro = new HashMap<String, GeneType>();
+		genesParametro.put("x1", new GeneType("x1", -3.0, 12.1, 1));
+		genesParametro.put("x2", new GeneType("x2",4.1, 5.8, 1));
 //		p = Poblacion.generarPoblacionInicializada(5, genesParametro);
 //
 //		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
@@ -39,7 +39,7 @@ public class GeneracionTest {
 
 	/**
 	 * Test method for
-	 * {@link com.uned.optimizadorga.algoritmo.Generacion#ejecutar()}.
+	 * {@link com.uned.optimizadorga.algorithm.Generation#execute()}.
 	 */
 	@Test
 	public void testEjecutar() {

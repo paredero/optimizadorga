@@ -20,7 +20,7 @@ public class PoblacionTest {
 	}
 
 	/**
-	 * Test method for {@link com.uned.optimizadorga.elementos.Poblacion#generarPoblacionInicializada(int, java.util.List)}.
+	 * Test method for {@link com.uned.optimizadorga.model.Population#generarPoblacionInicializada(int, java.util.List)}.
 	 */
 	@Test
 	public void testGenerarPoblacionInicializada() {
@@ -32,7 +32,7 @@ public class PoblacionTest {
 //				.generarPoblacionInicializada(5, genesParametro);
 //		
 //		assertNotNull("La poblacion no se ha creado", p);
-//		assertTrue("El tamaño de la poblacion no se ha copiado " + p.getTamanio(),
+//		assertTrue("El tamaï¿½o de la poblacion no se ha copiado " + p.getTamanio(),
 //				p.getTamanio() == 5);
 //		assertNotNull("La lista de cromosomas no se ha creado", p.getCromosomas());	
 //		
@@ -58,7 +58,7 @@ public class PoblacionTest {
 		
 //		Poblacion copia = new Poblacion(p);
 //		assertNotNull("La copia no se ha creado", copia);
-//		assertTrue("El tamaño de la poblacion no se ha copiado " + copia.getTamanio(),
+//		assertTrue("El tamaï¿½o de la poblacion no se ha copiado " + copia.getTamanio(),
 //				copia.getTamanio() == 5);
 //		assertNotNull("La lista de cromosomas no se ha creado", copia.getCromosomas());
 //		assertNotNull("No se ha creado la funcion de coste de la poblacion", 

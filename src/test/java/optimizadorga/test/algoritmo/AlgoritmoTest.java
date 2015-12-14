@@ -8,19 +8,20 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.uned.optimizadorga.algoritmo.Algoritmo;
-import com.uned.optimizadorga.algoritmo.Era;
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Funcion;
-import com.uned.optimizadorga.elementos.TipoGen;
+import com.uned.optimizadorga.algorithm.Algorithm;
+import com.uned.optimizadorga.algorithm.Era;
+import com.uned.optimizadorga.algorithm.Generation;
+import com.uned.optimizadorga.algorithm.observerinterfaces.AlgorithmObserver;
+import com.uned.optimizadorga.algorithm.selectors.SelectorType;
+import com.uned.optimizadorga.model.Configuration;
+import com.uned.optimizadorga.model.FitnessFunction;
+import com.uned.optimizadorga.model.GeneType;
 
-public class AlgoritmoTest implements AlgoritmoObserver {
+public class AlgoritmoTest implements AlgorithmObserver {
 
-	private Funcion funcionCoste;
-	private Configuracion c;
-	private Algoritmo a;
+	private FitnessFunction funcionCoste;
+	private Configuration c;
+	private Algorithm a;
 	private int notificacionesFin;
 	private int notificacionesGeneracion;
 	private int notificacionesEra;
@@ -29,14 +30,14 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 	public void setUp() throws Exception {
 		String expresion = "21.5 + x1 * sin(4 * pi * x1) + x2 * sin(4 * pi * x2)";
 		
-		Map<String, TipoGen> genesParametro = new HashMap<String, TipoGen>();
-		genesParametro.put("x1", new TipoGen("x1", -3.0, 12.1, 1));
-		genesParametro.put("x2", new TipoGen("x2", 4.1, 5.8, 1));
-		funcionCoste = new Funcion(expresion,genesParametro);
-		c = Configuracion.crearConfiguracion(3, 4,
-				funcionCoste, genesParametro, 3, 0.5, 0.5, false, false, true);
+		Map<String, GeneType> genesParametro = new HashMap<String, GeneType>();
+		genesParametro.put("x1", new GeneType("x1", -3.0, 12.1, 1));
+		genesParametro.put("x2", new GeneType("x2", 4.1, 5.8, 1));
+		funcionCoste = new FitnessFunction(expresion,genesParametro);
+		c = Configuration.createConfiguration(3, 4,
+				funcionCoste, genesParametro, 3, 0.5, 0.5, false, SelectorType.ROULETTE);
 
-		a = new Algoritmo(c);
+		a = new Algorithm(c);
 	}
 
 
@@ -81,19 +82,19 @@ public class AlgoritmoTest implements AlgoritmoObserver {
 
 
 	@Override
-	public void updateFinCalculoEra(Era resultadoParcial) {
+	public void updateEndEraExecution(Era resultadoParcial) {
 		notificacionesEra++;
 	}
 
 
 	@Override
-	public void updateFinCalculoGeneracion(Generacion resultadoParcial) {
+	public void updateEndGenerationExecution(Generation resultadoParcial) {
 		notificacionesGeneracion++;
 	}
 
 
 	@Override
-	public void updateFin() {
+	public void updateEnd() {
 		notificacionesFin++;
 	}
 

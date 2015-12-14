@@ -2,22 +2,23 @@ package com.uned.optimizadorga.algoritmo.resultado;
 
 import java.util.List;
 
-import com.uned.optimizadorga.algoritmo.Generacion;
-import com.uned.optimizadorga.algoritmo.comparadores.ComparadorMejorCoste;
-import com.uned.optimizadorga.elementos.Configuracion;
-import com.uned.optimizadorga.elementos.Cromosoma;
-import com.uned.optimizadorga.elementos.Gen;
+import com.uned.optimizadorga.algorithm.Generation;
+import com.uned.optimizadorga.algorithm.comparators.BestFitnessComparator;
+import com.uned.optimizadorga.model.Chromosome;
+import com.uned.optimizadorga.model.Configuration;
+import com.uned.optimizadorga.model.Gene;
+import com.uned.optimizadorga.model.Population;
 
 /**
  * Metodo para calcular los resultados de una generacion
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public class ResultadoGeneracion extends Resultado {
 	
 	private double desviacionTipica;
 	private double porcentajeMejora;
-	private Cromosoma mejorCromosomaGeneracion;
+	private Chromosome mejorCromosomaGeneracion;
 	private double mediaCostePoblacion;
 
 	/**
@@ -27,11 +28,11 @@ public class ResultadoGeneracion extends Resultado {
 	 * @param resultadosEras
 	 * @param resultadosGeneraciones
 	 * @param configuracion
-	 * @return el resultado del calculo de una generación
+	 * @return el resultado del calculo de una generaciï¿½n
 	 */
-	public static ResultadoGeneracion crearResultadoGeneracion(Generacion generacion,
+	public static ResultadoGeneracion crearResultadoGeneracion(Generation generacion,
 			long startTime, List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones,
-			Configuracion configuracion) {
+			Configuration configuracion) {
 		ResultadoGeneracion r = new ResultadoGeneracion();
 		long timeParcial = System.currentTimeMillis();
 		r.setTiempoEjecucion((timeParcial - startTime)/1000);
@@ -39,20 +40,20 @@ public class ResultadoGeneracion extends Resultado {
 		r.setCambioEra(false);
 		r.setGeneracionActual(resultadosGeneraciones.size()+1); //+1 para contarlas como 1, 2, 3...
 		r.setEraActual(resultadosEras.size()+1);
-		Cromosoma mejorCromosomaGeneracion = generacion.getNuevaPoblacion().obtenerMejor();
-		Cromosoma antiguoMejorCromosoma = generacion.getPoblacionInicial().obtenerMejor();
+		Chromosome mejorCromosomaGeneracion = generacion.getEvolvedPopulation().obtainBest();
+		Chromosome antiguoMejorCromosoma = generacion.getInitialPopulation().obtainBest();
 		
-		if (new ComparadorMejorCoste().compare(mejorCromosomaGeneracion,
+		if (new BestFitnessComparator().compare(mejorCromosomaGeneracion,
 				antiguoMejorCromosoma) >= 0) {
 			r.setMejorCromosomaGeneracion(mejorCromosomaGeneracion);
 		} else {
 			r.setMejorCromosomaGeneracion(antiguoMejorCromosoma);
 		}
 		
-		r.setMediaCostePoblacion(generacion.getNuevaPoblacion().calcularMediaCoste());
-		r.setDesviacionTipica(generacion.getNuevaPoblacion().calcularDesviacionTipica());
-		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getCoste() - antiguoMejorCromosoma
-				.getCoste()) / antiguoMejorCromosoma.getCoste()) * 100);
+		r.setMediaCostePoblacion(calcularMediaCoste(generacion.getEvolvedPopulation()));
+		r.setDesviacionTipica(calcularDesviacionTipica(generacion.getEvolvedPopulation()));
+		r.setPorcentajeMejora(((mejorCromosomaGeneracion.getFitness() - antiguoMejorCromosoma
+				.getFitness()) / antiguoMejorCromosoma.getFitness()) * 100);
 		r.setProgreso(calcularProgreso(r.getEraActual(), r.getGeneracionActual(), configuracion));
 		return r;
 	}
@@ -66,7 +67,7 @@ public class ResultadoGeneracion extends Resultado {
 
 
 	protected static int calcularProgreso(int eraActual, int generacionActual,
-			Configuracion configuracion) {
+			Configuration configuracion) {
 		// log.debug("****************PROGRESO********************************");
 		double progreso = 0;
 		int numEra = eraActual-1;
@@ -81,14 +82,14 @@ public class ResultadoGeneracion extends Resultado {
 	@Override
 	public String printResultado() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Generación Actual: ").append(this.generacionActual).append("\n");
+		sb.append("Generaciï¿½n Actual: ").append(this.generacionActual).append("\n");
 		sb.append("Mejor Cromosoma obtenido hasta el momento: ");	
-		for (Gen g:this.getMejorCromosomaGeneracion().getGenes()) {
-			sb.append("[").append(g.getTipoGen().getNombre()).append(",").append(g.getValor()).append("]");
+		for (Gene g:this.getMejorCromosomaGeneracion().getGenes()) {
+			sb.append("[").append(g.getGeneType().getName()).append(",").append(g.getValue()).append("]");
 		}
-		sb.append("\nCoste: ").append(this.getMejorCromosomaGeneracion().getCoste()).append("\n");
+		sb.append("\nCoste: ").append(this.getMejorCromosomaGeneracion().getFitness()).append("\n");
 		sb.append("Valor medio del coste: ").append(this.getMediaCostePoblacion()).append("\n");
-		sb.append("Desviación típica del coste: ").append(this.getDesviacionTipica()).append("\n");
+		sb.append("Desviaciï¿½n tï¿½pica del coste: ").append(this.getDesviacionTipica()).append("\n");
 		sb.append("Porcentaje de mejora: ").append(this.getPorcentajeMejora());
 		return sb.toString();
 	}
@@ -129,7 +130,7 @@ public class ResultadoGeneracion extends Resultado {
 	/**
 	 * @return the mejorCromosomaGeneracion
 	 */
-	public Cromosoma getMejorCromosomaGeneracion() {
+	public Chromosome getMejorCromosomaGeneracion() {
 		return this.mejorCromosomaGeneracion;
 	}
 
@@ -137,7 +138,7 @@ public class ResultadoGeneracion extends Resultado {
 	/**
 	 * @param mejorCromosomaGeneracion the mejorCromosomaGeneracion to set
 	 */
-	public void setMejorCromosomaGeneracion(Cromosoma mejorCromosomaGeneracion) {
+	public void setMejorCromosomaGeneracion(Chromosome mejorCromosomaGeneracion) {
 		this.mejorCromosomaGeneracion = mejorCromosomaGeneracion;
 	}
 	
@@ -155,4 +156,24 @@ public class ResultadoGeneracion extends Resultado {
 		return this.mediaCostePoblacion;
 	}
 	
+	/**
+	 * @return la media de la funcion de coste para los cromosomas de la poblacion
+	 */
+	public static double calcularMediaCoste(Population p) {
+		double sumaCostes = 0.0;
+		for(Chromosome c: p.getChromosomes()) {
+			sumaCostes+=c.getFitness();
+		}
+		return sumaCostes/p.getSize();
+	}
+
+	public static double calcularDesviacionTipica(Population p) {
+		double media = calcularMediaCoste(p);
+		double cuadradosAcumulados = 0;
+		for(Chromosome c: p.getChromosomes()) {
+			double diferencia = c.getFitness() - media;
+			cuadradosAcumulados += (diferencia*diferencia);
+		}
+		return Math.sqrt(cuadradosAcumulados/p.getSize());
+	}
 }
