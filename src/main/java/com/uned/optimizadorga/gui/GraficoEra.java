@@ -12,13 +12,13 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import com.fjgarcia.optimizadorga.elementos.Cromosoma;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
+import com.uned.optimizadorga.model.Chromosome;
 
 /**
  * Ventana con el detalle de los resultados de una era
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public class GraficoEra extends JDialog {
@@ -33,15 +33,15 @@ public class GraficoEra extends JDialog {
 		super(parent, titulo, modal);
 		setBounds(200, 50, 700, 700);
 		this.setLayout(new BorderLayout());
-		XYSeries serie = new XYSeries("Mejor individuo de la población");
-		XYSeries media = new XYSeries("Media población");
-		XYSeries dt = new XYSeries("Desviación típica");
+		XYSeries serie = new XYSeries("Mejor individuo de la poblaciï¿½n");
+		XYSeries media = new XYSeries("Media poblaciï¿½n");
+		XYSeries dt = new XYSeries("Desviaciï¿½n tï¿½pica");
 		int generacionActual = 0;
 		for (ResultadoGeneracion g : resultadoParcialEra
 				.getResultadosGeneraciones()) {
 			generacionActual++;
-			Cromosoma mejor = g.getMejorCromosomaGeneracion();
-			serie.add(generacionActual, mejor.getCoste());
+			Chromosome mejor = g.getMejorCromosomaGeneracion();
+			serie.add(generacionActual, mejor.getFitness());
 			media.add(generacionActual, g.getMediaCostePoblacion());
 			dt.add(generacionActual, g.getDesviacionTipica());
 		}
@@ -50,7 +50,7 @@ public class GraficoEra extends JDialog {
 		dataset.addSeries(media);
 		dataset.addSeries(dt);
 		JFreeChart chart = ChartFactory.createXYLineChart(
-				"Evolución del cálculo", "Generación", "Coste", dataset);
+				"Evoluciï¿½n del cï¿½lculo", "Generaciï¿½n", "Coste", dataset);
 		chart.setAntiAlias(true);
 		Color defaultColor = this.getBackground();
 		chart.setBackgroundPaint(defaultColor);

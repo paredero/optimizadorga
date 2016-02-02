@@ -62,20 +62,20 @@ import org.jfree.data.xy.XYSeriesCollection;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fjgarcia.optimizadorga.algoritmo.Algoritmo;
-import com.fjgarcia.optimizadorga.algoritmo.selectores.Selector;
-import com.fjgarcia.optimizadorga.elementos.Configuracion;
-import com.fjgarcia.optimizadorga.elementos.Cromosoma;
-import com.fjgarcia.optimizadorga.elementos.Funcion;
-import com.fjgarcia.optimizadorga.elementos.Gen;
-import com.fjgarcia.optimizadorga.elementos.TipoGen;
+import com.uned.optimizadorga.algorithm.Algorithm;
+import com.uned.optimizadorga.algorithm.selectors.SelectorType;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
 import com.uned.optimizadorga.algoritmo.worker.AlgoritmoWorker;
+import com.uned.optimizadorga.model.Chromosome;
+import com.uned.optimizadorga.model.Configuration;
+import com.uned.optimizadorga.model.FitnessFunction;
+import com.uned.optimizadorga.model.Gene;
+import com.uned.optimizadorga.model.GeneType;
 
 /**
- * Interfaz gráfico principal
- * @author Francisco Javier García Paredero
+ * Interfaz grï¿½fico principal
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public class OptimizadorGUI extends JFrame {
@@ -107,7 +107,7 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelMinimo;
 	private JPanel panelMaximo;
 	private JPanel panelPrecision;
-	private Map<String, TipoGen> parametros = new LinkedHashMap<String, TipoGen>();
+	private Map<String, GeneType> parametros = new LinkedHashMap<String, GeneType>();
 	private JPanel panelParametros;
 	private Map<String, JPanel> mapPanelesParametros = new LinkedHashMap<String, JPanel>();
 	private JPanel panelFuncion;
@@ -142,7 +142,7 @@ public class OptimizadorGUI extends JFrame {
 	// private JTextArea textoResultados;
 	private JPanel panelBotonesConfiguracion;
 	private JPanel panelDatosConfiguracion;
-	private Configuracion configuracion;
+	private Configuration configuracion;
 
 	/**
 	 * Launch the application.
@@ -422,9 +422,9 @@ public class OptimizadorGUI extends JFrame {
 
 	private void crearTipoSeleccion() {
 		JPanel pTipoSeleccion = new JPanel();
-		rbSelRuleta = new JRadioButton("Selección por ruleta");
+		rbSelRuleta = new JRadioButton("Selecciï¿½n por ruleta");
 		rbSelRuleta.setSelected(true);
-		rbSelTorneo = new JRadioButton("Selección por torneo");
+		rbSelTorneo = new JRadioButton("Selecciï¿½n por torneo");
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbSelRuleta);
 		grupo.add(rbSelTorneo);
@@ -578,40 +578,40 @@ public class OptimizadorGUI extends JFrame {
 	private void ejecutar() {
 		if (txtFuncionCoste.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(this,
-					"Debe introducirse la función de coste");
+					"Debe introducirse la funciï¿½n de coste");
 		} else {
-			Funcion funcionCoste = null;
+			FitnessFunction funcionCoste = null;
 			try {
-				funcionCoste = new Funcion(txtFuncionCoste.getText().trim()
+				funcionCoste = new FitnessFunction(txtFuncionCoste.getText().trim()
 						.toLowerCase().replace(",", "."), parametros);
 			} catch (EmptyStackException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this,
-						"Formato de función de coste incorrecto");
+						"Formato de funciï¿½n de coste incorrecto");
 			} catch (Exception e) {
 				if (e.getMessage() == null) {
 					JOptionPane.showMessageDialog(this,
-							"Formato de función de coste incorrecto");
+							"Formato de funciï¿½n de coste incorrecto");
 				} else if (e.getMessage().contains("multiple points")) {
 					JOptionPane
 					.showMessageDialog(this,
-							"Formato de función de coste incorrecto, demasiados puntos decimales en un número");
+							"Formato de funciï¿½n de coste incorrecto, demasiados puntos decimales en un nï¿½mero");
 				}  else if (e.getMessage().contains("parentesis no abierto")) {
 					JOptionPane
 							.showMessageDialog(this,
-									"Formato de función de coste incorrecto, faltan paréntesis de apertura");
+									"Formato de funciï¿½n de coste incorrecto, faltan parï¿½ntesis de apertura");
 				} else if (e.getMessage().contains("parentesis no cerrado")) {
 					JOptionPane
 							.showMessageDialog(this,
-									"Formato de función de coste incorrecto, faltan paréntesis de cierre");
+									"Formato de funciï¿½n de coste incorrecto, faltan parï¿½ntesis de cierre");
 				} else if (e.getMessage().contains("Mismatched parentheses")) {
 					JOptionPane
 							.showMessageDialog(this,
-									"Formato de función de coste incorrecto, por favor, revise los paréntesis");
+									"Formato de funciï¿½n de coste incorrecto, por favor, revise los parï¿½ntesis");
 				} else if (e.getMessage().contains("Too many operators")) {
 					JOptionPane
 							.showMessageDialog(this,
-									"Formato de función de coste incorrecto, demasiados operadores");
+									"Formato de funciï¿½n de coste incorrecto, demasiados operadores");
 				} else if (e
 						.getMessage()
 						.contains(
@@ -623,12 +623,12 @@ public class OptimizadorGUI extends JFrame {
 					String parametro = m.group();
 					JOptionPane.showMessageDialog(
 							this,
-							"Formato de función de coste incorrecto, parámetro desconocido: "
+							"Formato de funciï¿½n de coste incorrecto, parï¿½metro desconocido: "
 									+ txtFuncionCoste.getText().charAt(
 											new Integer(parametro)));
 				} else {
 					JOptionPane.showMessageDialog(this,
-							"Formato de función de coste incorrecto");
+							"Formato de funciï¿½n de coste incorrecto");
 				}
 
 			}
@@ -636,16 +636,21 @@ public class OptimizadorGUI extends JFrame {
 				resultados = null;
 				ProgressDialog progressDialog = new ProgressDialog(
 						OptimizadorGUI.this, "Calculando", true);
-				configuracion = Configuracion.crearConfiguracion(
+				SelectorType selectorType = SelectorType.ROULETTE;
+				if (rbSelTorneo.isSelected()) {
+					selectorType = SelectorType.TOURNAMENT;
+				} else if (rbSelRuleta.isSelected()) {
+					selectorType = SelectorType.ROULETTE;
+				}
+				configuracion = Configuration.createConfiguration(
 						(Integer) spNumEras.getValue(),
 						(Integer) spNumGen.getValue(), funcionCoste,
 						parametros, (Integer) spTamPoblacion.getValue(),
 						(Double) spProbCruce.getValue(),
 						(Double) spProbMutacion.getValue(),
-						chkElitismo.isSelected(), rbSelRuleta.isSelected(),
-						rbSelTorneo.isSelected());
+						chkElitismo.isSelected(), selectorType);
 
-				Algoritmo algoritmo = new Algoritmo(configuracion);
+				Algorithm algoritmo = new Algorithm(configuracion);
 				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
 						progressDialog);
 
@@ -679,17 +684,17 @@ public class OptimizadorGUI extends JFrame {
 
 	private void mostrarResultados(List<ResultadoEra> resultados) {
 		StringBuilder sb = new StringBuilder(
-				"<h1>RESULTADOS DE LA EJECUCIÓN</h1>").append("<br />");
+				"<h1>RESULTADOS DE LA EJECUCIï¿½N</h1>").append("<br />");
 		if (resultados != null && resultados.size() > 0) {
-			Cromosoma mejor = resultados.get(resultados.size() - 1)
+			Chromosome mejor = resultados.get(resultados.size() - 1)
 					.getMejorCromosomaTotal();
 			sb.append("<h2>Mejor cromosoma obtenido: ");
-			for (Gen g : mejor.getGenes()) {
-				sb.append(g.getTipoGen().getNombre()).append(": ")
-						.append(g.getValor()).append(" ");
+			for (Gene g : mejor.getGenes()) {
+				sb.append(g.getGeneType().getName()).append(": ")
+						.append(g.getValue()).append(" ");
 			}
 			sb.append("</h2>");
-			sb.append("<h3>Coste: ").append(mejor.getCoste()).append("</h3>");
+			sb.append("<h3>Coste: ").append(mejor.getFitness()).append("</h3>");
 		}
 		int i = 1;
 		sb.append("<table>");
@@ -710,17 +715,17 @@ public class OptimizadorGUI extends JFrame {
 			sb.append("<td>");
 			sb.append(i);
 			sb.append("</td>");
-			Cromosoma mejorCromosomaEra = e.getMejorCromosomaEra();
+			Chromosome mejorCromosomaEra = e.getMejorCromosomaEra();
 			sb.append("<td>");
-			for (Gen g : mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getTipoGen().getNombre()).append(",")
-						.append(g.getValor()).append("]");
+			for (Gene g : mejorCromosomaEra.getGenes()) {
+				sb.append("[").append(g.getGeneType().getName()).append(",")
+						.append(g.getValue()).append("]");
 			}
 			sb.append("</td>");
-			sb.append("<td>").append(mejorCromosomaEra.getCoste())
+			sb.append("<td>").append(mejorCromosomaEra.getFitness())
 					.append("</td>");
 			sb.append("<td><a href=\"").append(i - 1)
-					.append("\">Ver evolución</a></td>");
+					.append("\">Ver evoluciï¿½n</a></td>");
 
 			sb.append("</tr>");
 			i++;
@@ -741,8 +746,8 @@ public class OptimizadorGUI extends JFrame {
 			int generacionActual = 0;
 			for (ResultadoGeneracion g : e.getResultadosGeneraciones()) {
 
-				Cromosoma mejor = g.getMejorCromosomaGeneracion();
-				serie.add(generacionActual, mejor.getCoste());
+				Chromosome mejor = g.getMejorCromosomaGeneracion();
+				serie.add(generacionActual, mejor.getFitness());
 				generacionActual++;
 			}
 			listaSeries.add(serie);
@@ -752,7 +757,7 @@ public class OptimizadorGUI extends JFrame {
 			dataset.addSeries(serie);
 		}
 		JFreeChart chart = ChartFactory.createXYLineChart(
-				"Evolución del calculo", "Generación", "Coste", dataset);
+				"Evoluciï¿½n del calculo", "Generaciï¿½n", "Coste", dataset);
 		Color defaultColor = panelChart.getBackground();
 		chart.setBackgroundPaint(defaultColor);
 		chart.getPlot().setBackgroundPaint(Color.WHITE);
@@ -764,7 +769,7 @@ public class OptimizadorGUI extends JFrame {
 
 	protected void mostrarGraficoEra(Integer numEra) {
 		GraficoEra grafico = new GraficoEra(resultados.get(numEra), this,
-				"Evolución de la era " + (numEra + 1), true);
+				"Evoluciï¿½n de la era " + (numEra + 1), true);
 		grafico.setVisible(true);
 	}
 	
@@ -862,7 +867,7 @@ public class OptimizadorGUI extends JFrame {
 
 	protected void aniadirParametro(final String nombre, double minimo,
 			double maximo, int precision) {
-		TipoGen tipoGen = new TipoGen(nombre, minimo, maximo, precision);
+		GeneType tipoGen = new GeneType(nombre, minimo, maximo, precision);
 
 		if (nombre == null || "".equals(nombre)) {
 			JOptionPane.showMessageDialog(this, "El nombre no puede ser nulo");
@@ -872,13 +877,13 @@ public class OptimizadorGUI extends JFrame {
 				|| nombre.startsWith("6") || nombre.startsWith("7")
 				|| nombre.startsWith("8") || nombre.startsWith("9")) {
 			JOptionPane.showMessageDialog(this,
-					"El nombre no puede comenzar por un dígito");
+					"El nombre no puede comenzar por un dï¿½gito");
 		} else if (mapPanelesParametros.containsKey(nombre)) {
 			JOptionPane.showMessageDialog(this,
-					"Ya existe un parámetro con el mismo nombre");
+					"Ya existe un parï¿½metro con el mismo nombre");
 		} else if (nombre.toLowerCase().equals("e") || nombre.toLowerCase().equals("pi")) {
 			JOptionPane.showMessageDialog(this,
-					"El nombre "+nombre+ " es una constante, no puede usarse en un parámetro");
+					"El nombre "+nombre+ " es una constante, no puede usarse en un parï¿½metro");
 		} else if (nombre.toLowerCase().contains("+")
 				|| nombre.toLowerCase().contains("-")
 				|| nombre.toLowerCase().contains("*")
@@ -887,7 +892,7 @@ public class OptimizadorGUI extends JFrame {
 				|| nombre.toLowerCase().contains("\u221A")
 				|| nombre.toLowerCase().contains("^")) {
 			JOptionPane.showMessageDialog(this, "El nombre " + nombre
-					+ " contiene un carácter no permitido");
+					+ " contiene un carï¿½cter no permitido");
 		} else if (nombre.toLowerCase().contains("sin")
 				|| nombre.toLowerCase().contains("cos")
 				|| nombre.toLowerCase().contains("tan")
@@ -901,12 +906,12 @@ public class OptimizadorGUI extends JFrame {
 							this,
 							"El nombre "
 									+ nombre
-									+ " no es válido, pues contiene el nombre de una función predefinida");
+									+ " no es vï¿½lido, pues contiene el nombre de una funciï¿½n predefinida");
 		} else if (maximo < minimo) {		
 			JOptionPane.showMessageDialog(this,
-					"El valor máximo no puede ser inferior al valor mínimo");
+					"El valor mï¿½ximo no puede ser inferior al valor mï¿½nimo");
 		} else {
-			// Añado el parametro a la lista de parametros
+			// Aï¿½ado el parametro a la lista de parametros
 			parametros.put(nombre, tipoGen);
 
 			// Creo el panel
@@ -914,7 +919,7 @@ public class OptimizadorGUI extends JFrame {
 			panel.setLayout(new BorderLayout());
 			StringBuilder texto = new StringBuilder("Nombre: ").append(nombre)
 					.append(" Minimo: ").append(minimo).append(" Maximo: ")
-					.append(maximo).append(" Precisión: ").append(precision);
+					.append(maximo).append(" Precisiï¿½n: ").append(precision);
 
 			JPanel panelLabel = new JPanel(
 					new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -970,11 +975,11 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 	private void editarParametro(String nombre) {
-		TipoGen parametro = parametros.get(nombre);
+		GeneType parametro = parametros.get(nombre);
 		nombreParametro.setText(nombre);
-		minimoParametro.setValue(Double.valueOf(parametro.getMinimo()));
-		maximoParametro.setValue(Double.valueOf(parametro.getMaximo()));
-		precisionParametro.setValue(parametro.getPrecision());
+		minimoParametro.setValue(Double.valueOf(parametro.getMin()));
+		maximoParametro.setValue(Double.valueOf(parametro.getMax()));
+		precisionParametro.setValue(parametro.getPrecission());
 		this.eliminarParametro(nombre);
 	}
 
@@ -1009,15 +1014,15 @@ public class OptimizadorGUI extends JFrame {
 				if (configuracion != null) {
 					f.setNumeroEras(configuracion.getMaxEras());
 					f.setNumeroGeneraciones(configuracion.getMaxGens());
-					f.setFuncionCoste(configuracion.getFuncionCoste()
+					f.setFuncionCoste(configuracion.getFitnessFunction()
 							.getStrExpresion());
-					f.setTamanioPoblacion(configuracion.getTamanioPoblacion());
-					f.setProbabilidadCruce(configuracion.getProbabilidadCruce());
+					f.setTamanioPoblacion(configuracion.getPopulationSize());
+					f.setProbabilidadCruce(configuracion.getCrossoverProbability());
 					f.setProbabilidadMutacion(configuracion
-							.getProbabilidadMutacion());
-					f.setSelector(configuracion.getSelector().getTipoSelector());
-					f.setElitismo(configuracion.getElitismo());
-					f.setParametros(new HashSet<TipoGen>(parametros.values()));
+							.getMutationProbability());
+					f.setSelector(configuracion.getSelector().getSelectorType());
+					f.setElitismo(configuracion.getElitism());
+					f.setParametros(new HashSet<GeneType>(parametros.values()));
 					f.setResultados(resultados);
 				} else {
 					f.setNumeroEras((Integer) spNumEras.getValue());
@@ -1028,12 +1033,12 @@ public class OptimizadorGUI extends JFrame {
 					f.setProbabilidadMutacion((Double) spProbMutacion
 							.getValue());
 					if (rbSelRuleta.isSelected()) {
-						f.setSelector(Selector.RULETA);
+						f.setSelector(SelectorType.ROULETTE);
 					} else {
-						f.setSelector(Selector.TORNEO);
+						f.setSelector(SelectorType.TOURNAMENT);
 					}
 					f.setElitismo(chkElitismo.isSelected());
-					f.setParametros(new HashSet<TipoGen>(parametros.values()));
+					f.setParametros(new HashSet<GeneType>(parametros.values()));
 				}
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.writeValue(fichero, f);
@@ -1064,20 +1069,20 @@ public class OptimizadorGUI extends JFrame {
 				spTamPoblacion.setValue(f.getTamanioPoblacion());
 				spProbCruce.setValue(f.getProbabilidadCruce());
 				spProbMutacion.setValue(f.getProbabilidadMutacion());
-				if (Selector.RULETA.equals(f.getSelector())) {
+				if (SelectorType.ROULETTE == f.getSelector()) {
 					rbSelRuleta.setSelected(true);
 					rbSelTorneo.setSelected(false);
-				} else if (Selector.TORNEO.equals(f.getSelector())) {
+				} else if (SelectorType.TOURNAMENT == f.getSelector()) {
 					rbSelTorneo.setSelected(true);
 					rbSelRuleta.setSelected(false);
 				}
 				chkElitismo.setSelected(f.getElitismo());
 				if (f.getParametros() != null) {
 					eliminarParametrosExistentes();
-					parametros = new LinkedHashMap<String, TipoGen>();
-					for (TipoGen param : f.getParametros()) {
-						aniadirParametro(param.getNombre().trim(), param.getMinimo(),
-								param.getMaximo(), param.getPrecision());
+					parametros = new LinkedHashMap<String, GeneType>();
+					for (GeneType param : f.getParametros()) {
+						aniadirParametro(param.getName().trim(), param.getMin(),
+								param.getMax(), param.getPrecission());
 					}
 				}
 				if (f.getResultados() != null) {

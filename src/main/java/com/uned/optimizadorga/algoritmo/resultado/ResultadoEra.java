@@ -3,20 +3,20 @@ package com.uned.optimizadorga.algoritmo.resultado;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fjgarcia.optimizadorga.algoritmo.Era;
-import com.fjgarcia.optimizadorga.elementos.Configuracion;
-import com.fjgarcia.optimizadorga.elementos.Cromosoma;
-import com.fjgarcia.optimizadorga.elementos.Gen;
-import com.fjgarcia.optimizadorga.elementos.Poblacion;
+import com.uned.optimizadorga.algorithm.Era;
+import com.uned.optimizadorga.model.Chromosome;
+import com.uned.optimizadorga.model.Configuration;
+import com.uned.optimizadorga.model.Gene;
+import com.uned.optimizadorga.model.Population;
 
 /**
  * Clase para mostrar los resultados correspondientes al calculo de una era
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  */
 public class ResultadoEra extends Resultado {
 
 	private List<ResultadoGeneracion> resultadosGeneraciones;
-	private Cromosoma mejorCromosomaEra;
+	private Chromosome mejorCromosomaEra;
 	private double mediaCosteEras;
 
 	

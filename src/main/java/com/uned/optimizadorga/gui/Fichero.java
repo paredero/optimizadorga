@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import com.fjgarcia.optimizadorga.elementos.TipoGen;
+import com.uned.optimizadorga.algorithm.selectors.SelectorType;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
+import com.uned.optimizadorga.model.GeneType;
 /**
  * Almacena los datos de la aplicacion que se guardaran en fichero
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public class Fichero implements Serializable{
@@ -22,8 +23,8 @@ public class Fichero implements Serializable{
 	private int tamanioPoblacion;
 	private double probabilidadCruce;
 	private double probabilidadMutacion;
-	private Set<TipoGen> parametros;
-	private String selector;
+	private Set<GeneType> parametros;
+	private SelectorType selector;
 	private boolean elitismo;
 	private List<ResultadoEra> resultados;
 	
@@ -118,26 +119,26 @@ public class Fichero implements Serializable{
 	/**
 	 * @return the parametros
 	 */
-	public Set<TipoGen> getParametros() {
+	public Set<GeneType> getParametros() {
 		return this.parametros;
 	}
 	/**
 	 * @param parametros the parametros to set
 	 */
-	public void setParametros(Set<TipoGen> parametros) {
+	public void setParametros(Set<GeneType> parametros) {
 		this.parametros = parametros;
 	}
 	/**
 	 * @return the selector
 	 */
-	public String getSelector() {
+	public SelectorType getSelector() {
 		return this.selector;
 	}
 	/**
-	 * @param selector the selector to set
+	 * @param selectorType the selector to set
 	 */
-	public void setSelector(String selector) {
-		this.selector = selector;
+	public void setSelector(SelectorType selectorType) {
+		this.selector = selectorType;
 	}
 	public void setResultados(List<ResultadoEra> resultados) {
 		this.resultados = resultados;

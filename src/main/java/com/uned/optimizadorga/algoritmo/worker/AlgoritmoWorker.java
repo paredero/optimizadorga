@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
-import com.fjgarcia.optimizadorga.algoritmo.Algoritmo;
-import com.fjgarcia.optimizadorga.algoritmo.Era;
-import com.fjgarcia.optimizadorga.algoritmo.Generacion;
-import com.fjgarcia.optimizadorga.algoritmo.interfaces.AlgoritmoObserver;
+import com.uned.optimizadorga.algorithm.Algorithm;
+import com.uned.optimizadorga.algorithm.Era;
+import com.uned.optimizadorga.algorithm.Generation;
+import com.uned.optimizadorga.algorithm.observerinterfaces.AlgorithmObserver;
 import com.uned.optimizadorga.algoritmo.resultado.Resultado;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
@@ -20,16 +20,16 @@ import com.uned.optimizadorga.gui.ProgressDialog;
  * AlgoritmoObserver para recibir actualizaciones del progreso del algoritmo y
  * poder mostrar resultados parciales y finales
  * 
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> implements
-		AlgoritmoObserver {
+		AlgorithmObserver {
 	private ProgressDialog progressDialog;
 	private boolean finEjecucion;
 	private long startTime = 0;
 	
-	private Algoritmo algoritmo;
+	private Algorithm algoritmo;
 	
 	private List<ResultadoEra> resultadosEras;
 	private List<ResultadoGeneracion> resultadosGeneraciones;
@@ -40,7 +40,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 * @param algoritmo la instancia del algoritmo a ejecutar
 	 * @param progressDialog El dialogo que va a recibir las actualizaciones
 	 */
-	public AlgoritmoWorker(Algoritmo algoritmo, ProgressDialog progressDialog) {
+	public AlgoritmoWorker(Algorithm algoritmo, ProgressDialog progressDialog) {
 		this.algoritmo = algoritmo;
 		// Se registra como observador para que sea el algoritmo quien le informe del progreso
 		this.algoritmo.registerObserver(this);
@@ -109,7 +109,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFinCalculoEra(com.uned.optimizadorga.algoritmo.Era)
 	 */
 	@Override
-	public void updateFinCalculoEra(Era eraProcesada) {
+	public void updateEndEraExecution(Era eraProcesada) {
 		ResultadoEra resultadoEra = ResultadoEra
 				.crearResultadoEra(startTime, eraProcesada, resultadosEras,
 						resultadosGeneraciones, algoritmo.getConfiguracion());
@@ -124,7 +124,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFinCalculoGeneracion(com.uned.optimizadorga.algoritmo.Generacion)
 	 */
 	@Override
-	public void updateFinCalculoGeneracion(Generacion generacionProcesada) {
+	public void updateEndGenerationExecution(Generation generacionProcesada) {
 		ResultadoGeneracion resultadoGeneracion = ResultadoGeneracion
 				.crearResultadoGeneracion(generacionProcesada, startTime, resultadosEras,
 						resultadosGeneraciones, algoritmo.getConfiguracion());
@@ -137,7 +137,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 * @see com.uned.optimizadorga.algoritmo.interfaces.AlgoritmoObserver#updateFin(java.util.List)
 	 */
 	@Override
-	public void updateFin() {		
+	public void updateEnd() {		
 		finEjecucion = true;
 	}
 
@@ -148,7 +148,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	@Override
 	public void updateError(Exception e) {
 		if (e.getMessage().equals("Division by zero!")) {
-			this.error = "Error en la ejecución: División por cero";
+			this.error = "Error en la ejecuciï¿½n: Divisiï¿½n por cero";
 		}
 		this.cancel(true);
 	}

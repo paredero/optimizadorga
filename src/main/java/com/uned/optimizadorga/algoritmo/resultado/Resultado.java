@@ -1,10 +1,10 @@
 package com.uned.optimizadorga.algoritmo.resultado;
 
-import com.fjgarcia.optimizadorga.elementos.Cromosoma;
+import com.uned.optimizadorga.model.Chromosome;
 
 /**
  * Clase para mostrar los resultados de la operacion
- * @author Francisco Javier García Paredero
+ * @author Francisco Javier Garcï¿½a Paredero
  *
  */
 public abstract class Resultado {
@@ -20,7 +20,7 @@ public abstract class Resultado {
 	int eraActual;
 	// El numero de generacion actual
 	int generacionActual;
-	private Cromosoma mejorCromosomaTotal;
+	private Chromosome mejorCromosomaTotal;
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public abstract class Resultado {
 	/**
 	 * @return the mejorCromosomaGeneracion
 	 */
-	public Cromosoma getMejorCromosomaTotal() {
+	public Chromosome getMejorCromosomaTotal() {
 		return this.mejorCromosomaTotal;
 	}
 
@@ -41,7 +41,7 @@ public abstract class Resultado {
 	 * @param mejorCromosoma
 	 *            the mejorCromosoma to set
 	 */
-	public void setMejorCromosomaTotal(Cromosoma mejorCromosoma) {
+	public void setMejorCromosomaTotal(Chromosome mejorCromosoma) {
 		this.mejorCromosomaTotal = mejorCromosoma;
 	}
 
