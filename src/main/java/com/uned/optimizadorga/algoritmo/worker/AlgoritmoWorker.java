@@ -2,8 +2,12 @@ package com.uned.optimizadorga.algoritmo.worker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.SwingWorker;
+
+import org.jfree.util.Log;
 
 import com.uned.optimizadorga.algorithm.Algorithm;
 import com.uned.optimizadorga.algorithm.Era;
@@ -14,6 +18,7 @@ import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
 import com.uned.optimizadorga.algoritmo.util.TimeUtils;
 import com.uned.optimizadorga.gui.ProgressDialog;
+import com.uned.optimizadorga.model.Population;
 
 /**
  * Esta clase es un observer del progreso del algoritmo implementa el interfaz
@@ -53,9 +58,9 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	@Override
 	protected List<ResultadoEra> doInBackground() throws Exception {
 		startTime = System.currentTimeMillis();
-		Thread threadAlgoritmo = new Thread(algoritmo);
+		ExecutorService pool = Executors.newCachedThreadPool();
 		finEjecucion = false;
-		threadAlgoritmo.start();
+		pool.submit(this.algoritmo);
 		
 		while (!this.finEjecucion && !this.isCancelled()) {
 			// Espera a que termine la ejecucion o sea cancelada
@@ -65,7 +70,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 			}
 		}
 		if (this.isCancelled()) {
-			threadAlgoritmo.interrupt();
+			pool.shutdownNow();
 		}
 		return resultadosEras;
 	}
@@ -110,9 +115,15 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	 */
 	@Override
 	public void updateEndEraExecution(Era eraProcesada) {
-		ResultadoEra resultadoEra = ResultadoEra
-				.crearResultadoEra(startTime, eraProcesada, resultadosEras,
-						resultadosGeneraciones, algoritmo.getConfiguracion());
+		ResultadoEra resultadoEra = null;
+		try {
+			resultadoEra = ResultadoEra
+					.crearResultadoEra(startTime, eraProcesada, resultadosEras,
+							resultadosGeneraciones, algoritmo.getConfiguracion());
+		} catch (Exception e) {
+			Log.error("Error while processing ERA results", e);
+			this.updateError(e);
+		}
 		resultadosEras.add(resultadoEra);
 		this.resultadosGeneraciones = new ArrayList<ResultadoGeneracion>(algoritmo.getConfiguracion().getMaxGens());
 		publish(resultadoEra);
@@ -148,7 +159,7 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	@Override
 	public void updateError(Exception e) {
 		if (e.getMessage().equals("Division by zero!")) {
-			this.error = "Error en la ejecuci�n: Divisi�n por cero";
+			this.error = "Error en la ejecucion: Division por cero";
 		}
 		this.cancel(true);
 	}
@@ -167,6 +178,13 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado> 
 	public String getError() {
 		return this.error;
 	}
+
+
+@Override
+public void updateEndEraExecution(List<Population> resultEra) {
+	// TODO Auto-generated method stub
+	
+}
 	
 	
 	
