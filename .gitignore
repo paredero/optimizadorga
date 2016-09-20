@@ -16,3 +16,4 @@ target/surefire-reports/optimizadorga.GenTest.txt
 *.tmp
 docs/~$emoria.docx
 /docs/
+.classpath
