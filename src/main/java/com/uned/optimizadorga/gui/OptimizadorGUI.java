@@ -63,6 +63,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uned.optimizadorga.algorithm.Algorithm;
+import com.uned.optimizadorga.algorithm.SynchronousAlgorithm;
 import com.uned.optimizadorga.algorithm.selectors.SelectorType;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
@@ -650,7 +651,7 @@ public class OptimizadorGUI extends JFrame {
 						(Double) spProbMutacion.getValue(),
 						chkElitismo.isSelected(), selectorType);
 
-				Algorithm algoritmo = new Algorithm(configuracion);
+				Algorithm algoritmo = new SynchronousAlgorithm(configuracion);
 				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
 						progressDialog);
 
