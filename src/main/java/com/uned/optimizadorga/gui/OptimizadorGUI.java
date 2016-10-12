@@ -76,6 +76,7 @@ import com.uned.optimizadorga.model.GeneType;
 
 /**
  * Interfaz gr�fico principal
+ * 
  * @author Francisco Javier Garc�a Paredero
  *
  */
@@ -166,13 +167,12 @@ public class OptimizadorGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public OptimizadorGUI() {
-		ImageIcon icono = new ImageIcon(this.getClass().getResource(
-				"/icons/diagram-icon.png"));
+		ImageIcon icono = new ImageIcon(this.getClass().getResource("/icons/diagram-icon.png"));
 		setIconImage(icono.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 5, 1000, 720);
 		// setBounds(0,0,screenSize.width, screenSize.height);
-//		setExtendedState(Frame.MAXIMIZED_BOTH);
+		// setExtendedState(Frame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
@@ -189,27 +189,27 @@ public class OptimizadorGUI extends JFrame {
 		JMenu ayuda = new JMenu("Ayuda");
 		JMenuItem menuAyuda = new JMenuItem("Ayuda");
 		menuAyuda.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (Desktop.isDesktopSupported()) {
 					InputStream is = null;
-				    try {
-				    	is = this.getClass().getResourceAsStream("/docs/ayuda.pdf");
-				    	File temp = File.createTempFile("ayuda", ".pdf");
-				        temp.deleteOnExit();
-				        Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				        Desktop.getDesktop().open(temp);
-				    } catch (IOException ex) {
-				        // no application registered for PDFs
-				    	ex.printStackTrace();
-				    } finally {
-				    	try {
+					try {
+						is = this.getClass().getResourceAsStream("/docs/ayuda.pdf");
+						File temp = File.createTempFile("ayuda", ".pdf");
+						temp.deleteOnExit();
+						Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+						Desktop.getDesktop().open(temp);
+					} catch (IOException ex) {
+						// no application registered for PDFs
+						ex.printStackTrace();
+					} finally {
+						try {
 							is.close();
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-				    }
+					}
 				}
 			}
 		});
@@ -220,14 +220,12 @@ public class OptimizadorGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mostrarAcercaDe();
-			}			
+			}
 		});
 		ayuda.add(acercaDe);
-		barra.add(ayuda);		
-        this.setJMenuBar(barra);
+		barra.add(ayuda);
+		this.setJMenuBar(barra);
 	}
-
-	
 
 	private void crearPanelContenido() {
 		panelContenido = new JPanel();
@@ -251,8 +249,7 @@ public class OptimizadorGUI extends JFrame {
 
 	private void crearPanelParametros() {
 		panelParametros = new JPanel();
-		panelParametros.setLayout(new BoxLayout(panelParametros,
-				BoxLayout.Y_AXIS));
+		panelParametros.setLayout(new BoxLayout(panelParametros, BoxLayout.Y_AXIS));
 		scrollPane = new JScrollPane(panelParametros);
 	}
 
@@ -263,10 +260,8 @@ public class OptimizadorGUI extends JFrame {
 
 		crearPanelNuevoParametro();
 		crearPanelChartResultados();
-		panelNuevoParametroResultado.add(panelNuevoParametro,
-				BorderLayout.PAGE_START);
-		panelNuevoParametroResultado.add(panelChartResultados,
-				BorderLayout.CENTER);
+		panelNuevoParametroResultado.add(panelNuevoParametro, BorderLayout.PAGE_START);
+		panelNuevoParametroResultado.add(panelChartResultados, BorderLayout.CENTER);
 	}
 
 	private void crearPanelNuevoParametro() {
@@ -274,15 +269,13 @@ public class OptimizadorGUI extends JFrame {
 		panelNuevoParametro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panelNuevoParametro.setBorder(new LineBorder(new Color(0, 0, 0)));
 
-		Icon addIcon = new ImageIcon(this.getClass().getResource(
-				"/icons/plus-icon.png"));
+		Icon addIcon = new ImageIcon(this.getClass().getResource("/icons/plus-icon.png"));
 		btnAniadirParametro = new JButton(addIcon);
 		btnAniadirParametro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				aniadirParametro(nombreParametro.getText().trim(),
-						(Double) minimoParametro.getValue(),
-						(Double) maximoParametro.getValue(),
+						(Double) minimoParametro.getValue(), (Double) maximoParametro.getValue(),
 						(Integer) precisionParametro.getValue());
 			}
 		});
@@ -358,8 +351,7 @@ public class OptimizadorGUI extends JFrame {
 		});
 		panelResultados.setContentType("text/html");
 		scrlResultados = new JScrollPane(panelResultados);
-		scrlResultados
-				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrlResultados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	}
 
 	private void crearPanelCalculadora() {
@@ -408,8 +400,7 @@ public class OptimizadorGUI extends JFrame {
 		panelBotonesConfiguracion = new JPanel(new FlowLayout());
 		crearBotonGuardar();
 		crearBotonAbrir();
-		panelConfiguracion.add(panelBotonesConfiguracion,
-				BorderLayout.LINE_START);
+		panelConfiguracion.add(panelBotonesConfiguracion, BorderLayout.LINE_START);
 		panelDatosConfiguracion = new JPanel(new FlowLayout());
 		crearNumeroEras();
 		crearNumeroGeneraciones();
@@ -429,8 +420,7 @@ public class OptimizadorGUI extends JFrame {
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbSelRuleta);
 		grupo.add(rbSelTorneo);
-		pTipoSeleccion.setLayout(new BoxLayout(pTipoSeleccion,
-				BoxLayout.PAGE_AXIS));
+		pTipoSeleccion.setLayout(new BoxLayout(pTipoSeleccion, BoxLayout.PAGE_AXIS));
 		pTipoSeleccion.add(rbSelRuleta);
 		pTipoSeleccion.add(rbSelTorneo);
 		panelConfiguracion.add(pTipoSeleccion, BorderLayout.LINE_END);
@@ -468,10 +458,8 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void crearProbabilidadMutacion() {
 		JPanel pProbMuta = new JPanel();
-		JLabel lbProbabilidadMutacion = new JLabel(
-				"Probabilidad de mutaci\u00F3n:");
-		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0,
-				0.001));
+		JLabel lbProbabilidadMutacion = new JLabel("Probabilidad de mutaci\u00F3n:");
+		spProbMutacion = new JSpinner(new SpinnerNumberModel(0.015, 0.0, 1.0, 0.001));
 		spProbMutacion.setPreferredSize(new Dimension(53, 20));
 		lbProbabilidadMutacion.setLabelFor(spProbMutacion);
 		pProbMuta.add(lbProbabilidadMutacion);
@@ -500,8 +488,7 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void crearNumeroGeneraciones() {
 		JPanel pNumGen = new JPanel();
-		JLabel lblNumeroGeneraciones = new JLabel(
-				"N\u00FAmero de generaciones:");
+		JLabel lblNumeroGeneraciones = new JLabel("N\u00FAmero de generaciones:");
 		spNumGen = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		spNumGen.setPreferredSize(new Dimension(53, 20));
 		lblNumeroGeneraciones.setLabelFor(spNumGen);
@@ -529,8 +516,7 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private void crearBotonAbrir() {
-		ImageIcon loadIcon = new ImageIcon(this.getClass().getResource(
-				"/icons/folder-icon.png"));
+		ImageIcon loadIcon = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
 		// Icon loadIcon = new
 		// ImageIcon(loadIconBig.getImage().getScaledInstance(30, 30,
 		// Image.SCALE_SMOOTH));
@@ -553,8 +539,7 @@ public class OptimizadorGUI extends JFrame {
 	 * 
 	 */
 	private void crearBotonGuardar() {
-		ImageIcon saveIcon = new ImageIcon(this.getClass().getResource(
-				"/icons/save-icon.png"));
+		ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
 		// Icon saveIcon = new
 		// ImageIcon(saveIconBig.getImage().getScaledInstance(30, 30,
 		// Image.SCALE_SMOOTH));
@@ -578,65 +563,13 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void ejecutar() {
 		if (txtFuncionCoste.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this,
-					"Debe introducirse la funci�n de coste");
+			JOptionPane.showMessageDialog(this, "Debe introducirse la funci�n de coste");
 		} else {
-			FitnessFunction funcionCoste = null;
-			try {
-				funcionCoste = new FitnessFunction(txtFuncionCoste.getText().trim()
-						.toLowerCase().replace(",", "."), parametros);
-			} catch (EmptyStackException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto");
-			} catch (Exception e) {
-				if (e.getMessage() == null) {
-					JOptionPane.showMessageDialog(this,
-							"Formato de funci�n de coste incorrecto");
-				} else if (e.getMessage().contains("multiple points")) {
-					JOptionPane
-					.showMessageDialog(this,
-							"Formato de funci�n de coste incorrecto, demasiados puntos decimales en un n�mero");
-				}  else if (e.getMessage().contains("parentesis no abierto")) {
-					JOptionPane
-							.showMessageDialog(this,
-									"Formato de funci�n de coste incorrecto, faltan par�ntesis de apertura");
-				} else if (e.getMessage().contains("parentesis no cerrado")) {
-					JOptionPane
-							.showMessageDialog(this,
-									"Formato de funci�n de coste incorrecto, faltan par�ntesis de cierre");
-				} else if (e.getMessage().contains("Mismatched parentheses")) {
-					JOptionPane
-							.showMessageDialog(this,
-									"Formato de funci�n de coste incorrecto, por favor, revise los par�ntesis");
-				} else if (e.getMessage().contains("Too many operators")) {
-					JOptionPane
-							.showMessageDialog(this,
-									"Formato de funci�n de coste incorrecto, demasiados operadores");
-				} else if (e
-						.getMessage()
-						.contains(
-								"Unable to parse setVariable or function starting at pos")) {
-					String mensaje = e.getMessage();
-					Pattern p = Pattern.compile("\\d+");
-					Matcher m = p.matcher(mensaje);
-					m.find();
-					String parametro = m.group();
-					JOptionPane.showMessageDialog(
-							this,
-							"Formato de funci�n de coste incorrecto, par�metro desconocido: "
-									+ txtFuncionCoste.getText().charAt(
-											new Integer(parametro)));
-				} else {
-					JOptionPane.showMessageDialog(this,
-							"Formato de funci�n de coste incorrecto");
-				}
-
-			}
+			FitnessFunction funcionCoste = createFitnessFunction();
 			if (funcionCoste != null) {
 				resultados = null;
-				ProgressDialog progressDialog = new ProgressDialog(
-						OptimizadorGUI.this, "Calculando", true);
+				ProgressDialog progressDialog = new ProgressDialog(OptimizadorGUI.this,
+						"Calculando", true);
 				SelectorType selectorType = SelectorType.ROULETTE;
 				if (rbSelTorneo.isSelected()) {
 					selectorType = SelectorType.TOURNAMENT;
@@ -644,19 +577,15 @@ public class OptimizadorGUI extends JFrame {
 					selectorType = SelectorType.ROULETTE;
 				}
 				// TODO Add a selector for synchronous/asynchronous behaviour
-				configuracion = Configuration.createConfiguration(
-						(Integer) spNumEras.getValue(),
-						(Integer) spNumGen.getValue(), funcionCoste,
-						parametros, (Integer) spTamPoblacion.getValue(),
-						(Double) spProbCruce.getValue(),
-						(Double) spProbMutacion.getValue(),
-						chkElitismo.isSelected(), selectorType, Boolean.TRUE);
-
+				configuracion = Configuration.createConfiguration((Integer) spNumEras.getValue(),
+						(Integer) spNumGen.getValue(), funcionCoste, parametros,
+						(Integer) spTamPoblacion.getValue(), (Double) spProbCruce.getValue(),
+						(Double) spProbMutacion.getValue(), chkElitismo.isSelected(), selectorType,
+						Boolean.TRUE);
 
 				Algorithm algoritmo = Algorithm.create(configuracion);
 
-				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
-						progressDialog);
+				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo, progressDialog);
 
 				progressDialog.setAlgoritmoWorker(worker);
 				worker.execute();
@@ -671,8 +600,7 @@ public class OptimizadorGUI extends JFrame {
 					e1.printStackTrace();
 				} catch (CancellationException e) {
 					if (worker.getError() != null && !"".equals(worker.getError())) {
-						JOptionPane.showMessageDialog(this,
-								worker.getError());
+						JOptionPane.showMessageDialog(this, worker.getError());
 					}
 					resultados = worker.getResultados();
 					if (resultados != null) {
@@ -686,16 +614,57 @@ public class OptimizadorGUI extends JFrame {
 		}
 	}
 
+	private FitnessFunction createFitnessFunction() {
+		FitnessFunction funcionCoste = null;
+		try {
+			funcionCoste = new FitnessFunction(
+					txtFuncionCoste.getText().trim().toLowerCase().replace(",", "."), parametros);
+		} catch (EmptyStackException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+		} catch (Exception e) {
+			if (e.getMessage() == null) {
+				JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+			} else if (e.getMessage().contains("multiple points")) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, demasiados puntos decimales en un n�mero");
+			} else if (e.getMessage().contains("parentesis no abierto")) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, faltan par�ntesis de apertura");
+			} else if (e.getMessage().contains("parentesis no cerrado")) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, faltan par�ntesis de cierre");
+			} else if (e.getMessage().contains("Mismatched parentheses")) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, por favor, revise los par�ntesis");
+			} else if (e.getMessage().contains("Too many operators")) {
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, demasiados operadores");
+			} else if (e.getMessage()
+					.contains("Unable to parse setVariable or function starting at pos")) {
+				String mensaje = e.getMessage();
+				Pattern p = Pattern.compile("\\d+");
+				Matcher m = p.matcher(mensaje);
+				m.find();
+				String parametro = m.group();
+				JOptionPane.showMessageDialog(this,
+						"Formato de funci�n de coste incorrecto, par�metro desconocido: "
+								+ txtFuncionCoste.getText().charAt(new Integer(parametro)));
+			} else {
+				JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+			}
+		}
+		return funcionCoste;
+	}
+
 	private void mostrarResultados(List<ResultadoEra> resultados) {
-		StringBuilder sb = new StringBuilder(
-				"<h1>RESULTADOS DE LA EJECUCI�N</h1>").append("<br />");
+		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCI�N</h1>")
+				.append("<br />");
 		if (resultados != null && resultados.size() > 0) {
-			Chromosome mejor = resultados.get(resultados.size() - 1)
-					.getMejorCromosomaTotal();
+			Chromosome mejor = resultados.get(resultados.size() - 1).getMejorCromosomaTotal();
 			sb.append("<h2>Mejor cromosoma obtenido: ");
 			for (Gene g : mejor.getGenes()) {
-				sb.append(g.getGeneType().getName()).append(": ")
-						.append(g.getValue()).append(" ");
+				sb.append(g.getGeneType().getName()).append(": ").append(g.getValue()).append(" ");
 			}
 			sb.append("</h2>");
 			sb.append("<h3>Coste: ").append(mejor.getFitness()).append("</h3>");
@@ -722,14 +691,12 @@ public class OptimizadorGUI extends JFrame {
 			Chromosome mejorCromosomaEra = e.getMejorCromosomaEra();
 			sb.append("<td>");
 			for (Gene g : mejorCromosomaEra.getGenes()) {
-				sb.append("[").append(g.getGeneType().getName()).append(",")
-						.append(g.getValue()).append("]");
+				sb.append("[").append(g.getGeneType().getName()).append(",").append(g.getValue())
+						.append("]");
 			}
 			sb.append("</td>");
-			sb.append("<td>").append(mejorCromosomaEra.getFitness())
-					.append("</td>");
-			sb.append("<td><a href=\"").append(i - 1)
-					.append("\">Ver evoluci�n</a></td>");
+			sb.append("<td>").append(mejorCromosomaEra.getFitness()).append("</td>");
+			sb.append("<td><a href=\"").append(i - 1).append("\">Ver evoluci�n</a></td>");
 
 			sb.append("</tr>");
 			i++;
@@ -760,8 +727,8 @@ public class OptimizadorGUI extends JFrame {
 		for (XYSeries serie : listaSeries) {
 			dataset.addSeries(serie);
 		}
-		JFreeChart chart = ChartFactory.createXYLineChart(
-				"Evoluci�n del calculo", "Generaci�n", "Coste", dataset);
+		JFreeChart chart = ChartFactory.createXYLineChart("Evoluci�n del calculo", "Generaci�n",
+				"Coste", dataset);
 		Color defaultColor = panelChart.getBackground();
 		chart.setBackgroundPaint(defaultColor);
 		chart.getPlot().setBackgroundPaint(Color.WHITE);
@@ -776,10 +743,9 @@ public class OptimizadorGUI extends JFrame {
 				"Evoluci�n de la era " + (numEra + 1), true);
 		grafico.setVisible(true);
 	}
-	
+
 	protected void mostrarAcercaDe() {
-		AcercaDe ventana= new AcercaDe(this,
-				"Acerca de", true);
+		AcercaDe ventana = new AcercaDe(this, "Acerca de", true);
 		ventana.setVisible(true);
 	}
 
@@ -869,49 +835,36 @@ public class OptimizadorGUI extends JFrame {
 		});
 	}
 
-	protected void aniadirParametro(final String nombre, double minimo,
-			double maximo, int precision) {
+	protected void aniadirParametro(final String nombre, double minimo, double maximo,
+			int precision) {
 		GeneType tipoGen = new GeneType(nombre, minimo, maximo, precision);
 
 		if (nombre == null || "".equals(nombre)) {
 			JOptionPane.showMessageDialog(this, "El nombre no puede ser nulo");
-		} else if (nombre.startsWith("0") || nombre.startsWith("1")
-				|| nombre.startsWith("2") || nombre.startsWith("3")
-				|| nombre.startsWith("4") || nombre.startsWith("5")
-				|| nombre.startsWith("6") || nombre.startsWith("7")
-				|| nombre.startsWith("8") || nombre.startsWith("9")) {
-			JOptionPane.showMessageDialog(this,
-					"El nombre no puede comenzar por un d�gito");
+		} else if (nombre.startsWith("0") || nombre.startsWith("1") || nombre.startsWith("2")
+				|| nombre.startsWith("3") || nombre.startsWith("4") || nombre.startsWith("5")
+				|| nombre.startsWith("6") || nombre.startsWith("7") || nombre.startsWith("8")
+				|| nombre.startsWith("9")) {
+			JOptionPane.showMessageDialog(this, "El nombre no puede comenzar por un d�gito");
 		} else if (mapPanelesParametros.containsKey(nombre)) {
-			JOptionPane.showMessageDialog(this,
-					"Ya existe un par�metro con el mismo nombre");
+			JOptionPane.showMessageDialog(this, "Ya existe un par�metro con el mismo nombre");
 		} else if (nombre.toLowerCase().equals("e") || nombre.toLowerCase().equals("pi")) {
 			JOptionPane.showMessageDialog(this,
-					"El nombre "+nombre+ " es una constante, no puede usarse en un par�metro");
-		} else if (nombre.toLowerCase().contains("+")
-				|| nombre.toLowerCase().contains("-")
-				|| nombre.toLowerCase().contains("*")
-				|| nombre.toLowerCase().contains("/")
-				|| nombre.toLowerCase().contains("\\")
-				|| nombre.toLowerCase().contains("\u221A")
+					"El nombre " + nombre + " es una constante, no puede usarse en un par�metro");
+		} else if (nombre.toLowerCase().contains("+") || nombre.toLowerCase().contains("-")
+				|| nombre.toLowerCase().contains("*") || nombre.toLowerCase().contains("/")
+				|| nombre.toLowerCase().contains("\\") || nombre.toLowerCase().contains("\u221A")
 				|| nombre.toLowerCase().contains("^")) {
-			JOptionPane.showMessageDialog(this, "El nombre " + nombre
-					+ " contiene un carácter no permitido");
-		} else if (nombre.toLowerCase().contains("sin")
-				|| nombre.toLowerCase().contains("cos")
-				|| nombre.toLowerCase().contains("tan")
-				|| nombre.toLowerCase().contains("asin")
-				|| nombre.toLowerCase().contains("acos")
-				|| nombre.toLowerCase().contains("atan")
-				|| nombre.toLowerCase().contains("abs")
-				|| nombre.toLowerCase().contains("log")
+			JOptionPane.showMessageDialog(this,
+					"El nombre " + nombre + " contiene un carácter no permitido");
+		} else if (nombre.toLowerCase().contains("sin") || nombre.toLowerCase().contains("cos")
+				|| nombre.toLowerCase().contains("tan") || nombre.toLowerCase().contains("asin")
+				|| nombre.toLowerCase().contains("acos") || nombre.toLowerCase().contains("atan")
+				|| nombre.toLowerCase().contains("abs") || nombre.toLowerCase().contains("log")
 				|| nombre.toLowerCase().contains("cos")) {
-			JOptionPane.showMessageDialog(
-							this,
-							"El nombre "
-									+ nombre
-									+ " no es válido, pues contiene el nombre de una funci�n predefinida");
-		} else if (maximo < minimo) {		
+			JOptionPane.showMessageDialog(this, "El nombre " + nombre
+					+ " no es válido, pues contiene el nombre de una funci�n predefinida");
+		} else if (maximo < minimo) {
 			JOptionPane.showMessageDialog(this,
 					"El valor máximo no puede ser inferior al valor mínimo");
 		} else {
@@ -921,12 +874,11 @@ public class OptimizadorGUI extends JFrame {
 			// Creo el panel
 			JPanel panel = new JPanel();
 			panel.setLayout(new BorderLayout());
-			StringBuilder texto = new StringBuilder("Nombre: ").append(nombre)
-					.append(" Minimo: ").append(minimo).append(" Maximo: ")
-					.append(maximo).append(" Precisi�n: ").append(precision);
+			StringBuilder texto = new StringBuilder("Nombre: ").append(nombre).append(" Minimo: ")
+					.append(minimo).append(" Maximo: ").append(maximo).append(" Precisi�n: ")
+					.append(precision);
 
-			JPanel panelLabel = new JPanel(
-					new FlowLayout(FlowLayout.LEFT, 5, 5));
+			JPanel panelLabel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
 			panelLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 			JLabel label = new JLabel(texto.toString());
 			label.setVerticalAlignment(SwingConstants.TOP);
@@ -936,8 +888,7 @@ public class OptimizadorGUI extends JFrame {
 			panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelBotones.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-			Icon editIcon = new ImageIcon(this.getClass().getResource(
-					"/icons/pencil-icon.png"));
+			Icon editIcon = new ImageIcon(this.getClass().getResource("/icons/pencil-icon.png"));
 			JButton btnEditar = new JButton(editIcon);
 			btnEditar.setVerticalAlignment(SwingConstants.TOP);
 			btnEditar.addActionListener(new ActionListener() {
@@ -947,8 +898,7 @@ public class OptimizadorGUI extends JFrame {
 				}
 			});
 
-			Icon removeIcon = new ImageIcon(this.getClass().getResource(
-					"/icons/delete-icon.png"));
+			Icon removeIcon = new ImageIcon(this.getClass().getResource("/icons/delete-icon.png"));
 			JButton btnEliminarButton = new JButton(removeIcon);
 			btnEliminarButton.setVerticalAlignment(SwingConstants.TOP);
 			btnEliminarButton.addActionListener(new ActionListener() {
@@ -1002,8 +952,7 @@ public class OptimizadorGUI extends JFrame {
 
 	protected void guardarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser(".");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("json",
-				"json");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("json", "json");
 		fileChooser.setFileFilter(filter);
 		int seleccion = fileChooser.showSaveDialog(this);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -1018,12 +967,10 @@ public class OptimizadorGUI extends JFrame {
 				if (configuracion != null) {
 					f.setNumeroEras(configuracion.getMaxEras());
 					f.setNumeroGeneraciones(configuracion.getMaxGens());
-					f.setFuncionCoste(configuracion.getFitnessFunction()
-							.getStrExpresion());
+					f.setFuncionCoste(configuracion.getFitnessFunction().getStrExpresion());
 					f.setTamanioPoblacion(configuracion.getPopulationSize());
 					f.setProbabilidadCruce(configuracion.getCrossoverProbability());
-					f.setProbabilidadMutacion(configuracion
-							.getMutationProbability());
+					f.setProbabilidadMutacion(configuracion.getMutationProbability());
 					f.setSelector(configuracion.getSelector().getSelectorType());
 					f.setElitismo(configuracion.getElitism());
 					f.setParametros(new HashSet<GeneType>(parametros.values()));
@@ -1034,8 +981,7 @@ public class OptimizadorGUI extends JFrame {
 					f.setFuncionCoste(txtFuncionCoste.getText().trim());
 					f.setTamanioPoblacion((Integer) spTamPoblacion.getValue());
 					f.setProbabilidadCruce((Double) spProbCruce.getValue());
-					f.setProbabilidadMutacion((Double) spProbMutacion
-							.getValue());
+					f.setProbabilidadMutacion((Double) spProbMutacion.getValue());
 					if (rbSelRuleta.isSelected()) {
 						f.setSelector(SelectorType.ROULETTE);
 					} else {
@@ -1047,8 +993,7 @@ public class OptimizadorGUI extends JFrame {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.writeValue(fichero, f);
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this,
-						"Error al guardar el fichero");
+				JOptionPane.showMessageDialog(this, "Error al guardar el fichero");
 			} finally {
 
 			}
@@ -1057,8 +1002,7 @@ public class OptimizadorGUI extends JFrame {
 
 	protected void cargarConfiguracion() {
 		JFileChooser fileChooser = new JFileChooser(".");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("json",
-				"json");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("json", "json");
 		fileChooser.setFileFilter(filter);
 		int seleccion = fileChooser.showOpenDialog(this);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -1085,8 +1029,8 @@ public class OptimizadorGUI extends JFrame {
 					eliminarParametrosExistentes();
 					parametros = new LinkedHashMap<String, GeneType>();
 					for (GeneType param : f.getParametros()) {
-						aniadirParametro(param.getName().trim(), param.getMin(),
-								param.getMax(), param.getPrecission());
+						aniadirParametro(param.getName().trim(), param.getMin(), param.getMax(),
+								param.getPrecission());
 					}
 				}
 				if (f.getResultados() != null) {
@@ -1094,16 +1038,13 @@ public class OptimizadorGUI extends JFrame {
 					resultados = f.getResultados();
 				}
 			} catch (JsonParseException e) {
-				JOptionPane.showMessageDialog(this,
-						"Error al abrir el fichero");
+				JOptionPane.showMessageDialog(this, "Error al abrir el fichero");
 				e.printStackTrace();
 			} catch (JsonMappingException e) {
-				JOptionPane.showMessageDialog(this,
-						"Error al abrir el fichero");
+				JOptionPane.showMessageDialog(this, "Error al abrir el fichero");
 				e.printStackTrace();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this,
-						"Error al abrir el fichero");
+				JOptionPane.showMessageDialog(this, "Error al abrir el fichero");
 				e.printStackTrace();
 			}
 
@@ -1112,8 +1053,7 @@ public class OptimizadorGUI extends JFrame {
 
 	private void eliminarParametrosExistentes() {
 		try {
-			List<String> nombreParam = new ArrayList<String>(
-					parametros.keySet());
+			List<String> nombreParam = new ArrayList<String>(parametros.keySet());
 			for (String nombre : nombreParam) {
 				eliminarParametro(nombre);
 			}
