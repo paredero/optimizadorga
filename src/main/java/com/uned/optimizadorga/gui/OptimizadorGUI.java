@@ -652,11 +652,9 @@ public class OptimizadorGUI extends JFrame {
 						(Double) spProbMutacion.getValue(),
 						chkElitismo.isSelected(), selectorType, Boolean.TRUE);
 
-<<<<<<< HEAD
+
 				Algorithm algoritmo = Algorithm.create(configuracion);
-=======
-				Algorithm algoritmo = new SynchronousAlgorithm(configuracion);
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
+
 				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
 						progressDialog);
 

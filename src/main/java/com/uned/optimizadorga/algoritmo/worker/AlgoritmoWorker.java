@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-<<<<<<< HEAD
 import java.util.concurrent.Future;
-=======
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
 
 import javax.swing.SwingWorker;
 
@@ -70,15 +67,10 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado>
 		startTime = System.currentTimeMillis();
 		ExecutorService pool = Executors.newCachedThreadPool();
 		finEjecucion = false;
-<<<<<<< HEAD
 		Future result = pool.submit(algoritmo);
-
-		while (!this.finEjecucion && !result.isCancelled()) {
-=======
 		pool.submit(this.algoritmo);
-		
+
 		while (!this.finEjecucion && !this.isCancelled()) {
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
 			// Espera a que termine la ejecucion o sea cancelada
 			try {
 				Thread.sleep(1500);
@@ -86,11 +78,8 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado>
 			}
 		}
 		if (this.isCancelled()) {
-<<<<<<< HEAD
 			result.cancel(true);
-=======
 			pool.shutdownNow();
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
 		}
 		return resultadosEras;
 	}
@@ -138,20 +127,14 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado>
 	 */
 	@Override
 	public void updateEndEraExecution(Era eraProcesada) {
-<<<<<<< HEAD
-		ResultadoEra resultadoEra = ResultadoEra.crearResultadoEra(startTime, eraProcesada,
-				resultadosEras, resultadosGeneraciones, algoritmo.getConfiguracion());
-=======
 		ResultadoEra resultadoEra = null;
 		try {
-			resultadoEra = ResultadoEra
-					.crearResultadoEra(startTime, eraProcesada, resultadosEras,
-							resultadosGeneraciones, algoritmo.getConfiguracion());
+			resultadoEra = ResultadoEra.crearResultadoEra(startTime, eraProcesada, resultadosEras,
+					resultadosGeneraciones, algoritmo.getConfiguracion());
 		} catch (Exception e) {
 			Log.error("Error while processing ERA results", e);
 			this.updateError(e);
 		}
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
 		resultadosEras.add(resultadoEra);
 		this.resultadosGeneraciones = new ArrayList<ResultadoGeneracion>(
 				algoritmo.getConfiguracion().getMaxGens());
@@ -215,22 +198,10 @@ public class AlgoritmoWorker extends SwingWorker<List<ResultadoEra>, Resultado>
 		return this.error;
 	}
 
-<<<<<<< HEAD
 	@Override
 	public void updateEndEraExecution(List<Population> resultEra) {
 		// TODO Auto-generated method stub
 
 	}
 
-=======
-
-@Override
-public void updateEndEraExecution(List<Population> resultEra) {
-	// TODO Auto-generated method stub
-	
-}
-	
-	
-	
->>>>>>> 9842eda38fb2fa57fd1aa50ad3a2ec4afaad1765
 }
