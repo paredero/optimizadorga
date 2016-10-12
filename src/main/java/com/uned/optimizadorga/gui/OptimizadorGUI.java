@@ -547,7 +547,7 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void ejecutar() {
 		if (txtFuncionCoste.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(this, "Debe introducirse la funci�n de coste");
+			JOptionPane.showMessageDialog(this, "Debe introducirse la funci\u00F3n de coste");
 		} else {
 			FitnessFunction funcionCoste = createFitnessFunction();
 			if (funcionCoste != null) {
@@ -604,25 +604,25 @@ public class OptimizadorGUI extends JFrame {
 					txtFuncionCoste.getText().trim().toLowerCase().replace(",", "."), parametros);
 		} catch (EmptyStackException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+			JOptionPane.showMessageDialog(this, "Formato de funci\u00F3n de coste incorrecto");
 		} catch (Exception e) {
 			if (e.getMessage() == null) {
-				JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+				JOptionPane.showMessageDialog(this, "Formato de funci\u00F3n de coste incorrecto");
 			} else if (e.getMessage().contains("multiple points")) {
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, demasiados puntos decimales en un n�mero");
+						"Formato de funci\u00F3n de coste incorrecto, demasiados puntos decimales en un n\u00FAmero");
 			} else if (e.getMessage().contains("parentesis no abierto")) {
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, faltan par�ntesis de apertura");
+						"Formato de funci\u00F3n de coste incorrecto, faltan par\u00E9ntesis de apertura");
 			} else if (e.getMessage().contains("parentesis no cerrado")) {
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, faltan par�ntesis de cierre");
+						"Formato de funci\u00F3n de coste incorrecto, faltan par\u00E9ntesis de cierre");
 			} else if (e.getMessage().contains("Mismatched parentheses")) {
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, por favor, revise los par�ntesis");
+						"Formato de funci\u00F3n de coste incorrecto, por favor, revise los par\u00E9ntesis");
 			} else if (e.getMessage().contains("Too many operators")) {
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, demasiados operadores");
+						"Formato de funci\u00F3n de coste incorrecto, demasiados operadores");
 			} else if (e.getMessage()
 					.contains("Unable to parse setVariable or function starting at pos")) {
 				String mensaje = e.getMessage();
@@ -631,17 +631,17 @@ public class OptimizadorGUI extends JFrame {
 				m.find();
 				String parametro = m.group();
 				JOptionPane.showMessageDialog(this,
-						"Formato de funci�n de coste incorrecto, par�metro desconocido: "
+						"Formato de funci\u00F3n de coste incorrecto, par\u00E9metro desconocido: "
 								+ txtFuncionCoste.getText().charAt(new Integer(parametro)));
 			} else {
-				JOptionPane.showMessageDialog(this, "Formato de funci�n de coste incorrecto");
+				JOptionPane.showMessageDialog(this, "Formato de funci\u00F3n de coste incorrecto");
 			}
 		}
 		return funcionCoste;
 	}
 
 	private void mostrarResultados(List<ResultadoEra> resultados) {
-		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCI�N</h1>")
+		StringBuilder sb = new StringBuilder("<h1>RESULTADOS DE LA EJECUCI\u00C9N</h1>")
 				.append("<br />");
 		if (resultados != null && resultados.size() > 0) {
 			Chromosome mejor = resultados.get(resultados.size() - 1).getMejorCromosomaTotal();
@@ -679,7 +679,7 @@ public class OptimizadorGUI extends JFrame {
 			}
 			sb.append("</td>");
 			sb.append("<td>").append(mejorCromosomaEra.getFitness()).append("</td>");
-			sb.append("<td><a href=\"").append(i - 1).append("\">Ver evoluci�n</a></td>");
+			sb.append("<td><a href=\"").append(i - 1).append("\">Ver evoluci\u00F3n</a></td>");
 
 			sb.append("</tr>");
 			i++;
@@ -710,7 +710,7 @@ public class OptimizadorGUI extends JFrame {
 		for (XYSeries serie : listaSeries) {
 			dataset.addSeries(serie);
 		}
-		JFreeChart chart = ChartFactory.createXYLineChart("Evoluci�n del calculo", "Generaci�n",
+		JFreeChart chart = ChartFactory.createXYLineChart("Evoluci\u00F3n del calculo", "Generaci\u00F3n",
 				"Coste", dataset);
 		Color defaultColor = panelChart.getBackground();
 		chart.setBackgroundPaint(defaultColor);
@@ -764,25 +764,25 @@ public class OptimizadorGUI extends JFrame {
 				|| nombre.startsWith("3") || nombre.startsWith("4") || nombre.startsWith("5")
 				|| nombre.startsWith("6") || nombre.startsWith("7") || nombre.startsWith("8")
 				|| nombre.startsWith("9")) {
-			JOptionPane.showMessageDialog(this, "El nombre no puede comenzar por un d�gito");
+			JOptionPane.showMessageDialog(this, "El nombre no puede comenzar por un d\u00EDgito");
 		} else if (mapPanelesParametros.containsKey(nombre)) {
-			JOptionPane.showMessageDialog(this, "Ya existe un par�metro con el mismo nombre");
+			JOptionPane.showMessageDialog(this, "Ya existe un par\00E1metro con el mismo nombre");
 		} else if (nombre.toLowerCase().equals("e") || nombre.toLowerCase().equals("pi")) {
 			JOptionPane.showMessageDialog(this,
-					"El nombre " + nombre + " es una constante, no puede usarse en un par�metro");
+					"El nombre " + nombre + " es una constante, no puede usarse en un par\00E1metro");
 		} else if (nombre.toLowerCase().contains("+") || nombre.toLowerCase().contains("-")
-				|| nombre.toLowerCase().contains("*") || nombre.toLowerCase().contains("/")
+				|| nombre.toLowerCase().contains("*") || nombre.toLowerCase().contains("/")	
 				|| nombre.toLowerCase().contains("\\") || nombre.toLowerCase().contains("\u221A")
 				|| nombre.toLowerCase().contains("^")) {
 			JOptionPane.showMessageDialog(this,
-					"El nombre " + nombre + " contiene un carácter no permitido");
+					"El nombre " + nombre + " contiene un car\u00E1cter no permitido");
 		} else if (nombre.toLowerCase().contains("sin") || nombre.toLowerCase().contains("cos")
 				|| nombre.toLowerCase().contains("tan") || nombre.toLowerCase().contains("asin")
 				|| nombre.toLowerCase().contains("acos") || nombre.toLowerCase().contains("atan")
 				|| nombre.toLowerCase().contains("abs") || nombre.toLowerCase().contains("log")
 				|| nombre.toLowerCase().contains("cos")) {
 			JOptionPane.showMessageDialog(this, "El nombre " + nombre
-					+ " no es válido, pues contiene el nombre de una funci�n predefinida");
+					+ " no es v\u00E1lido, pues contiene el nombre de una funci�n predefinida");
 		} else if (maximo < minimo) {
 			JOptionPane.showMessageDialog(this,
 					"El valor máximo no puede ser inferior al valor mínimo");
