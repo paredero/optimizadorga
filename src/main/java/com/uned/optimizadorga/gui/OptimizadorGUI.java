@@ -400,9 +400,9 @@ public class OptimizadorGUI extends JFrame {
 
 	private void crearTipoSeleccion() {
 		JPanel pTipoSeleccion = new JPanel();
-		rbSelRuleta = new JRadioButton("Selecci�n por ruleta");
+		rbSelRuleta = new JRadioButton("Selecci\u00F3n por ruleta");
 		rbSelRuleta.setSelected(true);
-		rbSelTorneo = new JRadioButton("Selecci�n por torneo");
+		rbSelTorneo = new JRadioButton("Selecci\u00F3n por torneo");
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbSelRuleta);
 		grupo.add(rbSelTorneo);
