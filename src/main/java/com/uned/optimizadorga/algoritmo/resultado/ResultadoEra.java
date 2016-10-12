@@ -51,11 +51,12 @@ public class ResultadoEra extends Resultado {
 
 
 	/**
-	 * Metodo de factoria estï¿½tica
+	 * Metodo de factoria estática
 	 * @return El resultado de una era ya procesada
+	 * @throws Exception 
 	 */
 	public static ResultadoEra crearResultadoEra(long startTime, Era era,
-			List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones, Configuration configuracion) {
+			List<ResultadoEra> resultadosEras, List<ResultadoGeneracion> resultadosGeneraciones, Configuration configuration) throws Exception {
 		ResultadoEra resultadoEra = new ResultadoEra();
 		resultadoEra.setEraActual(resultadosEras.size()+1);
 		resultadoEra.setGeneracionActual(0);
@@ -64,20 +65,20 @@ public class ResultadoEra extends Resultado {
 		long timeParcial = System.currentTimeMillis();
 		resultadoEra.setTiempoEjecucion((timeParcial - startTime)/1000);
 		resultadoEra.setMejorCromosomaEra(era.obtainBest());
-		resultadoEra.setMejorCromosomaTotal(obtenerMejorEras(resultadosEras, era, configuracion));
+		resultadoEra.setMejorCromosomaTotal(obtenerMejorEras(resultadosEras, era, configuration));
 		resultadoEra.setMediaCosteEras(obtenerMediaMejores(resultadosEras, era));
-		resultadoEra.setProgreso(calcularProgreso(resultadosEras, configuracion));
+		resultadoEra.setProgreso(calcularProgreso(resultadosEras, configuration));
 		resultadoEra.setResultadosGeneraciones(resultadosGeneraciones);
 		return resultadoEra;
 	}
 
 	protected static int calcularProgreso(
 			List<ResultadoEra> resultadosEras,
-			Configuration configuracion) {
+			Configuration Configuration) {
 		// log.debug("****************PROGRESO********************************");
 		double progreso = 0;
 		double numEra = resultadosEras.size() + 1;
-		double totalEras = configuracion.getMaxEras();
+		double totalEras = Configuration.getMaxEras();
 		progreso = (((numEra) / totalEras) * 100);
 		return (int) progreso;
 	}
@@ -95,18 +96,19 @@ public class ResultadoEra extends Resultado {
 
 	/**
 	 * @param listaEras
-	 * @param configuracion
+	 * @param Configuration
 	 * @return el mejor cromosoma entre una lista de eras
+	 * @throws Exception 
 	 */
-	private static Chromosome obtenerMejorEras(List<ResultadoEra> listaEras, Era era, Configuration configuracion) {
+	private static Chromosome obtenerMejorEras(List<ResultadoEra> listaEras, Era era, Configuration configuration) throws Exception {
 		List<Chromosome> listaMejoresCromosomas = new ArrayList<Chromosome>();
 		listaMejoresCromosomas.add(era.obtainBest());
 		for (ResultadoEra e:listaEras) {
 			listaMejoresCromosomas.add(e.getMejorCromosomaTotal());
 		}
-		// Construyo una poblacion con los mejores elementos de cada era y de ahï¿½ obtengo su mejor
-		Population p = new Population();
-		p.setFitnessFunction(configuracion.getFitnessFunction());
+		// Construyo una Population con los mejores elementos de cada era y de ahí obtengo su mejor
+		Population p = Population.generateInitializedPopulation(configuration);
+		p.setFitnessFunction(configuration.getFitnessFunction());
 		p.setChromosomes(listaMejoresCromosomas);
 		p.setSize(listaMejoresCromosomas.size());
 		
