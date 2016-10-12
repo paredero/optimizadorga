@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -63,7 +64,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uned.optimizadorga.algorithm.Algorithm;
-import com.uned.optimizadorga.algorithm.SynchronousAlgorithm;
 import com.uned.optimizadorga.algorithm.selectors.SelectorType;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoEra;
 import com.uned.optimizadorga.algoritmo.resultado.ResultadoGeneracion;
@@ -118,24 +118,7 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelNuevoParametroResultado;
 	private JPanel panelCalculadora;
 	private JPanel panelBotones;
-	private JButton botonPi;
-	private JButton botonE;
-	private JButton botonSin;
-	private JButton botonCos;
-	private JButton botonPotencia;
-	private JButton botonSuma;
-	private JButton botonResta;
-	private JButton botonProducto;
-	private JButton botonCociente;
-	private JButton botonRaiz;
-	private JButton botonLog2;
-	private JButton botonLog10;
-	private JButton botonLog;
-	private JButton botonAbs;
-	private JButton botonAtan;
-	private JButton botonAcos;
-	private JButton botonAsin;
-	private JButton botonTan;
+
 	private JCheckBox chkElitismo;
 	private JRadioButton rbSelRuleta;
 	private JRadioButton rbSelTorneo;
@@ -439,7 +422,7 @@ public class OptimizadorGUI extends JFrame {
 		pElitismo.add(chkElitismo);
 		panelDatosConfiguracion.add(pElitismo);
 	}
-	
+
 	private void crearTipoEjecucion() {
 		JPanel pTipoEjecucion = new JPanel();
 		rbSincrono = new JRadioButton("Ejecución Síncrona");
@@ -750,83 +733,19 @@ public class OptimizadorGUI extends JFrame {
 	}
 
 	private void crearPanelBotones() {
+		String[] symbols = { " PI ", " E ", " + ", " - ", " * ", " / ", " sqrt ", " ^ ", " sin() ",
+				" cos() ", " tan() ", " asin() ", " acos() ", " atan() ", " abs() ", " log() ",
+				" log10() ", " log2() " };
 		panelBotones = new JPanel();
-		botonPi = new JButton("PI");
-		panelBotones.add(botonPi);
-		inicializarBoton(botonPi, " PI ");
-
-		botonE = new JButton("e");
-		panelBotones.add(botonE);
-		inicializarBoton(botonE, " E ");
-
-		botonSuma = new JButton("+");
-		panelBotones.add(botonSuma);
-		inicializarBoton(botonSuma, " + ");
-
-		botonResta = new JButton("-");
-		panelBotones.add(botonResta);
-		inicializarBoton(botonResta, " - ");
-
-		botonProducto = new JButton("*");
-		panelBotones.add(botonProducto);
-		inicializarBoton(botonProducto, " * ");
-
-		botonCociente = new JButton("/");
-		panelBotones.add(botonCociente);
-		inicializarBoton(botonCociente, " / ");
-
-		botonRaiz = new JButton("\u221A");
-		panelBotones.add(botonRaiz);
-		inicializarBoton(botonRaiz, " sqrt ");
-
-		botonPotencia = new JButton("x^y");
-		panelBotones.add(botonPotencia);
-		inicializarBoton(botonPotencia, " ^ ");
-
-		botonSin = new JButton("sin()");
-		panelBotones.add(botonSin);
-		inicializarBoton(botonSin, " sin() ");
-
-		botonCos = new JButton("cos()");
-		panelBotones.add(botonCos);
-		inicializarBoton(botonCos, " cos() ");
-
-		botonTan = new JButton("tan()");
-		panelBotones.add(botonTan);
-		inicializarBoton(botonTan, " tan() ");
-
-		botonAsin = new JButton("asin()");
-		panelBotones.add(botonAsin);
-		inicializarBoton(botonAsin, " asin() ");
-
-		botonAcos = new JButton("acos");
-		panelBotones.add(botonAcos);
-		inicializarBoton(botonAcos, " acos() ");
-
-		botonAtan = new JButton("atan()");
-		panelBotones.add(botonAtan);
-		inicializarBoton(botonAtan, " atan() ");
-
-		botonAbs = new JButton("abs()");
-		panelBotones.add(botonAbs);
-		inicializarBoton(botonAbs, " abs() ");
-
-		botonLog = new JButton("log()");
-		panelBotones.add(botonLog);
-		inicializarBoton(botonLog, " log() ");
-
-		botonLog10 = new JButton("log10()");
-		panelBotones.add(botonLog10);
-		inicializarBoton(botonLog10, " log10() ");
-
-		botonLog2 = new JButton("log2()");
-		panelBotones.add(botonLog2);
-		inicializarBoton(botonLog2, " log2() ");
+		for (String symbol : Arrays.asList(symbols)) {
+			JButton boton = new JButton(symbol.trim());
+			panelBotones.add(boton);
+			inicializarBoton(boton, symbol);
+		}
 	}
 
 	private void inicializarBoton(JButton boton, final String valor) {
 		boton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				txtFuncionCoste.setText(txtFuncionCoste.getText() + valor);
