@@ -642,15 +642,16 @@ public class OptimizadorGUI extends JFrame {
 				} else if (rbSelRuleta.isSelected()) {
 					selectorType = SelectorType.ROULETTE;
 				}
+				// TODO Add a selector for synchronous/asynchronous behaviour
 				configuracion = Configuration.createConfiguration(
 						(Integer) spNumEras.getValue(),
 						(Integer) spNumGen.getValue(), funcionCoste,
 						parametros, (Integer) spTamPoblacion.getValue(),
 						(Double) spProbCruce.getValue(),
 						(Double) spProbMutacion.getValue(),
-						chkElitismo.isSelected(), selectorType);
+						chkElitismo.isSelected(), selectorType, Boolean.TRUE);
 
-				Algorithm algoritmo = new Algorithm(configuracion);
+				Algorithm algoritmo = Algorithm.create(configuracion);
 				final AlgoritmoWorker worker = new AlgoritmoWorker(algoritmo,
 						progressDialog);
 
@@ -892,7 +893,7 @@ public class OptimizadorGUI extends JFrame {
 				|| nombre.toLowerCase().contains("\u221A")
 				|| nombre.toLowerCase().contains("^")) {
 			JOptionPane.showMessageDialog(this, "El nombre " + nombre
-					+ " contiene un car�cter no permitido");
+					+ " contiene un carácter no permitido");
 		} else if (nombre.toLowerCase().contains("sin")
 				|| nombre.toLowerCase().contains("cos")
 				|| nombre.toLowerCase().contains("tan")
@@ -906,10 +907,10 @@ public class OptimizadorGUI extends JFrame {
 							this,
 							"El nombre "
 									+ nombre
-									+ " no es v�lido, pues contiene el nombre de una funci�n predefinida");
+									+ " no es válido, pues contiene el nombre de una funci�n predefinida");
 		} else if (maximo < minimo) {		
 			JOptionPane.showMessageDialog(this,
-					"El valor m�ximo no puede ser inferior al valor m�nimo");
+					"El valor máximo no puede ser inferior al valor mínimo");
 		} else {
 			// A�ado el parametro a la lista de parametros
 			parametros.put(nombre, tipoGen);
