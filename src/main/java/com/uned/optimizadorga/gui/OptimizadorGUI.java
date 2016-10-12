@@ -145,6 +145,8 @@ public class OptimizadorGUI extends JFrame {
 	private JPanel panelBotonesConfiguracion;
 	private JPanel panelDatosConfiguracion;
 	private Configuration configuracion;
+	private JRadioButton rbSincrono;
+	private JRadioButton rbAsincrono;
 
 	/**
 	 * Launch the application.
@@ -408,6 +410,7 @@ public class OptimizadorGUI extends JFrame {
 		crearProbabilidadMutacion();
 		crearProbabilidadCruce();
 		crearElitismo();
+		crearTipoEjecucion();
 		panelConfiguracion.add(panelDatosConfiguracion, BorderLayout.CENTER);
 		crearTipoSeleccion();
 	}
@@ -435,7 +438,20 @@ public class OptimizadorGUI extends JFrame {
 		chkElitismo.setSelected(true);
 		pElitismo.add(chkElitismo);
 		panelDatosConfiguracion.add(pElitismo);
-		// panelConfiguracion.add(pElitismo, BorderLayout.CENTER);
+	}
+	
+	private void crearTipoEjecucion() {
+		JPanel pTipoEjecucion = new JPanel();
+		rbSincrono = new JRadioButton("Ejecución Síncrona");
+		rbSincrono.setSelected(true);
+		rbAsincrono = new JRadioButton("Ejecución Concurrente");
+		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(rbSincrono);
+		grupo.add(rbAsincrono);
+		pTipoEjecucion.setLayout(new BoxLayout(pTipoEjecucion, BoxLayout.PAGE_AXIS));
+		pTipoEjecucion.add(rbSincrono);
+		pTipoEjecucion.add(rbAsincrono);
+		panelDatosConfiguracion.add(pTipoEjecucion);
 	}
 
 	/**
@@ -450,7 +466,6 @@ public class OptimizadorGUI extends JFrame {
 		pProbCruce.add(lblProbabilidadDeCruce);
 		pProbCruce.add(spProbCruce);
 		panelDatosConfiguracion.add(pProbCruce);
-		// panelConfiguracion.add(pProbCruce, BorderLayout.CENTER);
 	}
 
 	/**
@@ -465,7 +480,6 @@ public class OptimizadorGUI extends JFrame {
 		pProbMuta.add(lbProbabilidadMutacion);
 		pProbMuta.add(spProbMutacion);
 		panelDatosConfiguracion.add(pProbMuta);
-		// panelConfiguracion.add(pProbMuta, BorderLayout.CENTER);
 	}
 
 	/**
@@ -495,12 +509,8 @@ public class OptimizadorGUI extends JFrame {
 		pNumGen.add(lblNumeroGeneraciones);
 		pNumGen.add(spNumGen);
 		panelDatosConfiguracion.add(pNumGen);
-		// panelConfiguracion.add(pNumGen, BorderLayout.CENTER);
 	}
 
-	/**
-	 * 
-	 */
 	private void crearNumeroEras() {
 		JPanel pNumEras = new JPanel();
 		spNumEras = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
@@ -509,7 +519,6 @@ public class OptimizadorGUI extends JFrame {
 		pNumEras.add(lblNumEras);
 		pNumEras.add(spNumEras);
 		panelDatosConfiguracion.add(pNumEras);
-		// panelConfiguracion.add(pNumEras, BorderLayout.CENTER);
 	}
 
 	/**
@@ -517,9 +526,6 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void crearBotonAbrir() {
 		ImageIcon loadIcon = new ImageIcon(this.getClass().getResource("/icons/folder-icon.png"));
-		// Icon loadIcon = new
-		// ImageIcon(loadIconBig.getImage().getScaledInstance(30, 30,
-		// Image.SCALE_SMOOTH));
 		JPanel panelAbrir = new JPanel();
 		panelAbrir.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		JButton btnAbrir = new JButton(loadIcon);
@@ -532,7 +538,6 @@ public class OptimizadorGUI extends JFrame {
 			}
 		});
 		panelBotonesConfiguracion.add(panelAbrir);
-		// panelConfiguracion.add(panelAbrir, BorderLayout.LINE_START);
 	}
 
 	/**
@@ -540,9 +545,6 @@ public class OptimizadorGUI extends JFrame {
 	 */
 	private void crearBotonGuardar() {
 		ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("/icons/save-icon.png"));
-		// Icon saveIcon = new
-		// ImageIcon(saveIconBig.getImage().getScaledInstance(30, 30,
-		// Image.SCALE_SMOOTH));
 		JPanel panelGuardar = new JPanel();
 		panelGuardar.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		JButton btnGuardar = new JButton(saveIcon);
@@ -555,7 +557,6 @@ public class OptimizadorGUI extends JFrame {
 			}
 		});
 		panelBotonesConfiguracion.add(panelGuardar);
-		// panelConfiguracion.add(panelGuardar, BorderLayout.LINE_START);
 	}
 
 	/**
@@ -576,12 +577,11 @@ public class OptimizadorGUI extends JFrame {
 				} else if (rbSelRuleta.isSelected()) {
 					selectorType = SelectorType.ROULETTE;
 				}
-				// TODO Add a selector for synchronous/asynchronous behaviour
 				configuracion = Configuration.createConfiguration((Integer) spNumEras.getValue(),
 						(Integer) spNumGen.getValue(), funcionCoste, parametros,
 						(Integer) spTamPoblacion.getValue(), (Double) spProbCruce.getValue(),
 						(Double) spProbMutacion.getValue(), chkElitismo.isSelected(), selectorType,
-						Boolean.TRUE);
+						rbAsincrono.isSelected());
 
 				Algorithm algoritmo = Algorithm.create(configuracion);
 
